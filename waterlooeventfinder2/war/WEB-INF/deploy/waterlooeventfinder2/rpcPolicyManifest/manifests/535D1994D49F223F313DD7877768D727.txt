@@ -1,0 +1,2 @@
+serviceClass: com.waterlooeventfinder2.client.GreetingService
+path: 127ED3A2391DD70CDE28F0F742794A74.gwt.rpc
