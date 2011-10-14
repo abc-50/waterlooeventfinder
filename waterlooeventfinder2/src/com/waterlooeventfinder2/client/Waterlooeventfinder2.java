@@ -1,6 +1,7 @@
 package com.waterlooeventfinder2.client;
 
 import com.waterlooeventfinder2.shared.FieldVerifier;
+import com.waterlooeventfinder2.shared.User;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -39,10 +40,17 @@ public class Waterlooeventfinder2 implements EntryPoint {
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
+		ArrayList events_list = new ArrayList();
+		
+		eve
+		User tmp = new User("martin", "martin");
+		
 		final Button sendButton = new Button("Send");
 		final TextBox nameField = new TextBox();
 		nameField.setText("GWT User");
 		final Label errorLabel = new Label();
+		
+		final Button newButton = new Button("Hello");
 
 		// We can add style names to widgets
 		sendButton.addStyleName("sendButton");
@@ -51,6 +59,7 @@ public class Waterlooeventfinder2 implements EntryPoint {
 		// Use RootPanel.get() to get the entire body element
 		RootPanel.get("nameFieldContainer").add(nameField);
 		RootPanel.get("sendButtonContainer").add(sendButton);
+		RootPanel.get("sendButtonContainer").add(newButton);
 		RootPanel.get("errorLabelContainer").add(errorLabel);
 
 		// Focus the cursor on the name field when the app loads
