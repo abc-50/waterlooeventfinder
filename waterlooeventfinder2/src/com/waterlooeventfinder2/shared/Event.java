@@ -76,4 +76,3 @@ public class Event {
 		eventEmail = email;
 	}
 	
-}
