@@ -40,10 +40,7 @@ public class Waterlooeventfinder2 implements EntryPoint {
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
-		ArrayList events_list = new ArrayList();
-		
-		eve
-		User tmp = new User("martin", "martin");
+
 		
 		final Button sendButton = new Button("Send");
 		final TextBox nameField = new TextBox();
