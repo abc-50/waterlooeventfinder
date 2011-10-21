@@ -33,6 +33,7 @@ public class Waterlooeventfinder2 implements EntryPoint {
 		final Button CategoryFootball = new Button("Football");
 		final Button CategoryDance = new Button("Dance");
 		final Button CategoryConcert = new Button("Concert");
+		final Button CategoryBars = new Button("Bars");
 		
 		final Button TimeUpcoming = new Button("Upcoming");
 		final Button TimeOneDay = new Button("One day");
@@ -45,6 +46,7 @@ public class Waterlooeventfinder2 implements EntryPoint {
 		CategoryFootball.addStyleName("categoryButton");
 		CategoryDance.addStyleName("categoryButton");
 		CategoryConcert.addStyleName("categoryButton");
+		CategoryBars.addStyleName("categoryButton");
 
 		TimeUpcoming.addStyleName("timeButton");
 		TimeOneDay.addStyleName("timeButton");
@@ -58,6 +60,7 @@ public class Waterlooeventfinder2 implements EntryPoint {
 		RootPanel.get("categoryButton").add(CategoryFootball);
 		RootPanel.get("categoryButton").add(CategoryDance);
 		RootPanel.get("categoryButton").add(CategoryConcert);
+		RootPanel.get("categoryButton").add(CategoryBars);
 
 		RootPanel.get("timeButton").add(TimeUpcoming);
 		RootPanel.get("timeButton").add(TimeOneDay);
