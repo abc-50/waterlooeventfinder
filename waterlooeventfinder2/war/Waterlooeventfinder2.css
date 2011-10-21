@@ -1,29 +1,42 @@
 /** Add css rules here for your application. */
-
-
 /** Example rules used by the template application (remove for your app) */
 h1 {
-  font-size: 2em;
-  font-weight: bold;
-  color: #777777;
-  margin: 40px 0px 70px;
-  text-align: center;
+	font-size: 2em;
+	font-weight: bold;
+	color: #777777;
+	margin: 40px 0px 30px;
+	text-align: center;
 }
 
 .categoryButton {
-  display: inline;
-  font-size: 16pt;
-  color: green;
-  background-color: #777777;
+	display: inline;
+	font-size: 16pt;
+	color: green;
+	background-color: #777777;
 }
 
 .timeButton {
-  display: inline;
-  font-size: 16pt;
-  color: blue;
+	display: inline;
+	font-size: 16pt;
+	color: blue;
+}
+
+.NamesEventList {
+	font-weight: bold;
+	background-color: beige;
+	color: purple;
+	width: 300px;
+}
+
+.ColumStart {
+	color: purple;
+}
+
+.GridListEvents{
+	margin: 30px 0px 0px;	
 }
 
 /** Most GWT widgets already have a style name defined */
 .gwt-DialogBox {
-  width: 400px;
+	width: 400px;
 }

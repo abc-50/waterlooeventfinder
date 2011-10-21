@@ -9,7 +9,6 @@ public interface EventRetrievalServiceAsync {
 	void GetAllEvents(AsyncCallback<ArrayList<Event>> callback)
 			throws IllegalArgumentException;
 	
-	void GetEventsByCategory(String category, AsyncCallback<ArrayList<Event>> callback)
-			throws IllegalArgumentException;
-	
+	void GetEventsByFilter(String categoryFilter, String timeFilter, int startEventNumber, int endEventNumber, AsyncCallback<ArrayList<Event>> callback)
+			throws IllegalArgumentException;	
 }
