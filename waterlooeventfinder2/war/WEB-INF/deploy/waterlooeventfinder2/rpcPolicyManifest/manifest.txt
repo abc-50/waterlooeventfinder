@@ -1,3 +1,2 @@
 # Module waterlooeventfinder2
 # RPC service class, partial path of RPC policy file
-com.waterlooeventfinder2.client.GreetingService, 127ED3A2391DD70CDE28F0F742794A74.gwt.rpc

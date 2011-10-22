@@ -17,9 +17,8 @@ public class Event {
 	private String eventPhoneNumber;
 	private String eventEmail;
 	
-//	public Event(){
-//		
-//	}
+	public Event(){
+}
 	
 	public Event(ResultSet rs) {
 		try {

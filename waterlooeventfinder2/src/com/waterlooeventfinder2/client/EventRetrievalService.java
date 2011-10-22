@@ -8,5 +8,5 @@ import com.waterlooeventfinder2.shared.Event;
 public interface EventRetrievalService extends RemoteService {
 	ArrayList<Event> GetAllEvents() throws Exception;
 	ArrayList<Event> GetEventsByFilter(String categoryFilter, String timeFilter, int startEventNumber, int endEventNumber);
-	Event GetEventById(int eventId);
+	static Event GetEventById(int eventId);
 }
