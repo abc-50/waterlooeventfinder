@@ -7,5 +7,5 @@ import com.waterlooeventfinder2.shared.Event;
 
 public interface EventRetrievalService extends RemoteService {
 	ArrayList<Event> GetAllEvents();
-	ArrayList<Event> GetEventsByCategory(String category);
+	ArrayList<Event> GetEventsByFilter(String categoryFilter, String timeFilter, int startEventNumber, int endEventNumber);
 }

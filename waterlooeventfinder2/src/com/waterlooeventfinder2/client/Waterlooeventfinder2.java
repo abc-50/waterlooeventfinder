@@ -1,158 +1,125 @@
 package com.waterlooeventfinder2.client;
 
-import com.waterlooeventfinder2.shared.FieldVerifier;
-import com.waterlooeventfinder2.shared.User;
+import java.util.Arrays;
+import java.util.List;
+
+import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.event.dom.client.KeyUpEvent;
-import com.google.gwt.event.dom.client.KeyUpHandler;
-import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.cellview.client.CellList;
+import com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy.KeyboardSelectionPolicy;
+import com.google.gwt.user.cellview.client.SimplePager;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
-import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.view.client.ListDataProvider;
+import com.google.gwt.view.client.SelectionChangeEvent;
+import com.google.gwt.view.client.SingleSelectionModel;
+import com.waterlooeventfinder2.client.AsyncDataProviderExample.MyDataProvider;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
 public class Waterlooeventfinder2 implements EntryPoint {
-	/**
-	 * The message displayed to the user when the server cannot be reached or
-	 * returns an error.
-	 */
-	private static final String SERVER_ERROR = "An error occurred while "
-			+ "attempting to contact the server. Please check your network "
-			+ "connection and try again.";
 
-	/**
-	 * Create a remote service proxy to talk to the server-side Greeting service.
-	 */
-	private final GreetingServiceAsync greetingService = GWT
-			.create(GreetingService.class);
-
-	/**
-	 * This is the entry point method.
-	 */
 	public void onModuleLoad() {
 
-		
-		final Button sendButton = new Button("Send");
-		final TextBox nameField = new TextBox();
-		nameField.setText("GWT User");
-		final Label errorLabel = new Label();
-		
-		final Button newButton = new Button("Hello");
+		final Button CategoryAll = new Button("All");
+		final Button CategoryFootball = new Button("Football");
+		final Button CategoryDance = new Button("Dance");
+		final Button CategoryConcert = new Button("Concert");
+		final Button CategoryBars = new Button("Bars");
+
+		final Button TimeUpcoming = new Button("Upcoming");
+		final Button TimeOneDay = new Button("One day");
+		final Button TimeOneWeek = new Button("One week");
+		final Button TimeOneMonth = new Button("One month");
 
 		// We can add style names to widgets
-		sendButton.addStyleName("sendButton");
+
+		CategoryAll.addStyleName("categoryButton");
+		CategoryFootball.addStyleName("categoryButton");
+		CategoryDance.addStyleName("categoryButton");
+		CategoryConcert.addStyleName("categoryButton");
+		CategoryBars.addStyleName("categoryButton");
+
+		TimeUpcoming.addStyleName("timeButton");
+		TimeOneDay.addStyleName("timeButton");
+		TimeOneWeek.addStyleName("timeButton");
+		TimeOneMonth.addStyleName("timeButton");
 
 		// Add the nameField and sendButton to the RootPanel
 		// Use RootPanel.get() to get the entire body element
-		RootPanel.get("nameFieldContainer").add(nameField);
-		RootPanel.get("sendButtonContainer").add(sendButton);
-		RootPanel.get("sendButtonContainer").add(newButton);
-		RootPanel.get("errorLabelContainer").add(errorLabel);
+
+		RootPanel.get("categoryButton").add(CategoryAll);
+		RootPanel.get("categoryButton").add(CategoryFootball);
+		RootPanel.get("categoryButton").add(CategoryDance);
+		RootPanel.get("categoryButton").add(CategoryConcert);
+		RootPanel.get("categoryButton").add(CategoryBars);
+
+		RootPanel.get("timeButton").add(TimeUpcoming);
+		RootPanel.get("timeButton").add(TimeOneDay);
+		RootPanel.get("timeButton").add(TimeOneWeek);
+		RootPanel.get("timeButton").add(TimeOneMonth);
 
 		// Focus the cursor on the name field when the app loads
-		nameField.setFocus(true);
-		nameField.selectAll();
 
-		// Create the popup dialog box
-		final DialogBox dialogBox = new DialogBox();
-		dialogBox.setText("Remote Procedure Call");
-		dialogBox.setAnimationEnabled(true);
-		final Button closeButton = new Button("Close");
-		// We can set the id of a widget by accessing its Element
-		closeButton.getElement().setId("closeButton");
-		final Label textToServerLabel = new Label();
-		final HTML serverResponseLabel = new HTML();
-		VerticalPanel dialogVPanel = new VerticalPanel();
-		dialogVPanel.addStyleName("dialogVPanel");
-		dialogVPanel.add(new HTML("<b>Sending name to the server:</b>"));
-		dialogVPanel.add(textToServerLabel);
-		dialogVPanel.add(new HTML("<br><b>Server replies:</b>"));
-		dialogVPanel.add(serverResponseLabel);
-		dialogVPanel.setHorizontalAlignment(VerticalPanel.ALIGN_RIGHT);
-		dialogVPanel.add(closeButton);
-		dialogBox.setWidget(dialogVPanel);
+		CategoryAll.setEnabled(true);
+		CategoryAll.setFocus(true);
+		CategoryFootball.setEnabled(true);
+		CategoryDance.setEnabled(true);
+		CategoryConcert.setEnabled(true);
 
-		// Add a handler to close the DialogBox
-		closeButton.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				dialogBox.hide();
-				sendButton.setEnabled(true);
-				sendButton.setFocus(true);
-			}
-		});
+		// List of Events
 
-		// Create a handler for the sendButton and nameField
-		class MyHandler implements ClickHandler, KeyUpHandler {
-			/**
-			 * Fired when the user clicks on the sendButton.
-			 */
-			public void onClick(ClickEvent event) {
-				sendNameToServer();
-			}
+		Grid gridListEvents = new Grid(10, 3);
 
-			/**
-			 * Fired when the user types in the nameField.
-			 */
-			public void onKeyUp(KeyUpEvent event) {
-				if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-					sendNameToServer();
-				}
-			}
+		// Put some values in the grid cells.
 
-			/**
-			 * Send the name from the nameField to the server and wait for a response.
-			 */
-			private void sendNameToServer() {
-				// First, we validate the input.
-				errorLabel.setText("");
-				String textToServer = nameField.getText();
-				if (!FieldVerifier.isValidName(textToServer)) {
-					errorLabel.setText("Please enter at least four characters");
-					return;
-				}
+		gridListEvents.setText(0, 0, "Event");
+		gridListEvents.setText(0, 1, "Start");
+		gridListEvents.setText(0, 2, "End");
 
-				// Then, we send the input to the server.
-				sendButton.setEnabled(false);
-				textToServerLabel.setText(textToServer);
-				serverResponseLabel.setText("");
-				greetingService.greetServer(textToServer,
-						new AsyncCallback<String>() {
-							public void onFailure(Throwable caught) {
-								// Show the RPC error message to the user
-								dialogBox
-										.setText("Remote Procedure Call - Failure");
-								serverResponseLabel
-										.addStyleName("serverResponseLabelError");
-								serverResponseLabel.setHTML(SERVER_ERROR);
-								dialogBox.center();
-								closeButton.setFocus(true);
-							}
-
-							public void onSuccess(String result) {
-								dialogBox.setText("Remote Procedure Call");
-								serverResponseLabel
-										.removeStyleName("serverResponseLabelError");
-								serverResponseLabel.setHTML(result);
-								dialogBox.center();
-								closeButton.setFocus(true);
-							}
-						});
+		for (int row = 1; row < 10; ++row) {
+			for (int col = 0; col < 3; ++col) {
+				gridListEvents.setText(row, col, "" + row + ", " + col);
 			}
 		}
 
-		// Add a handler to send the name to the server
-		MyHandler handler = new MyHandler();
-		sendButton.addClickHandler(handler);
-		nameField.addKeyUpHandler(handler);
+		gridListEvents.getCellFormatter().setWidth(0, 0, "150px");
+		gridListEvents.getCellFormatter().setWidth(0, 1, "50px");
+		gridListEvents.getCellFormatter().setWidth(0, 2, "50px");
+
+		gridListEvents.getRowFormatter().setStyleName(0, "NamesGroupList");
+		gridListEvents.addStyleName("GridListEvents");
+
+		RootPanel.get("listOfEvents").add(gridListEvents);
+		
+		// Create a CellList.
+		CellList<String> cellList = new CellList<String>(new TextCell());
+		
+		// Create a data provider.
+		MyDataProvider dataProvider = new MyDataProvider();
+		
+		// Add the cellList to the dataProvider.
+		dataProvider.addDataDisplay(cellList);
+		
+		
+		//Style for the list
+		cellList.setStyleName("NamesEventList");
+		// Create paging controls.
+		SimplePager pager = new SimplePager();
+		pager.setDisplay(cellList);
+
+		// Add the widgets to the root panel.
+		VerticalPanel vPanel = new VerticalPanel();
+		vPanel.add(cellList);
+		vPanel.add(pager);
+		RootPanel.get("listOfEvents").add(vPanel);
 	}
+	// ///////////////////////////////////////////////////////////////////////////////////
+
 }
