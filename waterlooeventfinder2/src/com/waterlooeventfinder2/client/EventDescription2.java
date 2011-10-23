@@ -49,7 +49,7 @@ public class EventDescription2 implements EntryPoint {
 	
 	public void showDescription(int eventID){
 		Event temp = new Event();
-		temp = EventRetrievalService.GetEventById(eventID);
+		//temp = EventRetrievalService.GetEventById(eventID);
 		// TODO print all attributes of temp.
 	}
 	

@@ -1,33 +1,60 @@
 package com.waterlooeventfinder2.client;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.ArrayList;
 
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.cellview.client.CellList;
-import com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy.KeyboardSelectionPolicy;
 import com.google.gwt.user.cellview.client.SimplePager;
-import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.rpc.IncompatibleRemoteServiceException;
+import com.google.gwt.user.client.rpc.InvocationException;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.view.client.ListDataProvider;
-import com.google.gwt.view.client.SelectionChangeEvent;
-import com.google.gwt.view.client.SingleSelectionModel;
 import com.waterlooeventfinder2.client.AsyncDataProviderExample.MyDataProvider;
+import com.waterlooeventfinder2.shared.Event;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.ClickEvent;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
 public class Waterlooeventfinder2 implements EntryPoint {
 
+	private EventRetrievalServiceAsync retrievalService = GWT
+			.create(EventRetrievalService.class);
+	
+	// sample events retrieval call
+	private void retrieveAllEvents() {
+		if (retrievalService == null) {
+			retrievalService = GWT.create(EventRetrievalService.class);
+		}
+		
+	    // Set up the callback object.
+	    AsyncCallback<ArrayList<Event>> callback = new AsyncCallback<ArrayList<Event>>() {
+	      public void onFailure(Throwable caught) {
+	        // TODO: Do something with errors.
+	      }
+
+	      public void onSuccess(ArrayList<Event> result) {
+	    	  // FOR MARTIN:  result object for list of events
+	        //result.add(new Event());
+	      }
+	    };
+	    
+		retrievalService.GetAllEvents(callback);
+	}
 	public void onModuleLoad() {
 
 		final Button CategoryAll = new Button("All");
+		CategoryAll.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				retrieveAllEvents();
+			}
+		});
 		final Button CategoryFootball = new Button("Football");
 		final Button CategoryDance = new Button("Dance");
 		final Button CategoryConcert = new Button("Concert");
