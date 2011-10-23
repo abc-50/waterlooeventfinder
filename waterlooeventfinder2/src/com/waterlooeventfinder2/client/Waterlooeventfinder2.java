@@ -166,9 +166,7 @@ public class Waterlooeventfinder2 implements EntryPoint {
 					}
 				};
 				
-				retrievalService.GetAllEvents(callback);
-				
-				
+				retrievalService.GetAllEvents(callback);	
 			}
 		};
 
