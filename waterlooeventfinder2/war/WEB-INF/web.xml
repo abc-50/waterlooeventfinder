@@ -6,6 +6,15 @@
          xmlns="http://java.sun.com/xml/ns/javaee">
 
   <!-- Servlets -->
+  <servlet>
+    <servlet-name>eventRetrievalServiceImpl</servlet-name>
+    <servlet-class>com.waterlooeventfinder2.server.EventRetrievalServiceImpl</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>eventRetrievalServiceImpl</servlet-name>
+    <url-pattern>/waterlooeventfinder2/eventsretrieval</url-pattern>
+  </servlet-mapping>
   
   <!-- Default page to serve -->
   <welcome-file-list>

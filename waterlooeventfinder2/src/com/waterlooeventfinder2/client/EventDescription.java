@@ -30,7 +30,7 @@ public class EventDescription {
 		// Make commands that we will execute from menu.
 		Command cmdMain = new Command(){
 			public void execute(){
-				Waterlooeventfinder2.onModuleLoad();
+				//Waterlooeventfinder2.onModuleLoad();
 			}
 		};
 		Command cmdAddEvent = new Command(){
