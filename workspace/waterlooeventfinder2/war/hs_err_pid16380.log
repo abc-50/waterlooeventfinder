@@ -1,0 +1,174 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  Internal Error (exceptions.cpp:397), pid=16380, tid=20164
+#  fatal error: ExceptionMark destructor expects no pending exceptions
+#
+# JRE version: 6.0_25-b06
+# Java VM: Java HotSpot(TM) Client VM (20.0-b11 mixed mode windows-x86 )
+# If you would like to submit a bug report, please visit:
+#   http://java.sun.com/webapps/bugreport/crash.jsp
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00558c00):  JavaThread "main" [_thread_in_vm, id=20164, stack(0x001c0000,0x00210000)]
+
+Stack: [0x001c0000,0x00210000],  sp=0x0020f390,  free space=316k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [jvm.dll+0x13363a]
+V  [jvm.dll+0x12e52d]
+V  [jvm.dll+0x12e838]
+V  [jvm.dll+0x183ff]
+V  [jvm.dll+0x18582]
+V  [jvm.dll+0x185fa]
+V  [jvm.dll+0x17c9b]
+V  [jvm.dll+0x26de5]
+V  [jvm.dll+0x27626]
+V  [jvm.dll+0x279d5]
+V  [jvm.dll+0x279f6]
+V  [jvm.dll+0xba86f]
+C  [java.dll+0x17f8]  Java_java_lang_ClassLoader_findBootstrapClass+0x5e
+j  java.lang.ClassLoader.findBootstrapClass(Ljava/lang/String;)Ljava/lang/Class;+0
+j  java.lang.ClassLoader.findBootstrapClassOrNull(Ljava/lang/String;)Ljava/lang/Class;+12
+j  java.lang.ClassLoader.loadClass(Ljava/lang/String;Z)Ljava/lang/Class;+32
+j  java.lang.ClassLoader.loadClass(Ljava/lang/String;Z)Ljava/lang/Class;+23
+j  sun.misc.Launcher$AppClassLoader.loadClass(Ljava/lang/String;Z)Ljava/lang/Class;+41
+j  java.lang.ClassLoader.loadClass(Ljava/lang/String;)Ljava/lang/Class;+3
+j  sun.instrument.InstrumentationImpl.loadClassAndStartAgent(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V+8
+j  sun.instrument.InstrumentationImpl.loadClassAndCallPremain(Ljava/lang/String;Ljava/lang/String;)V+5
+v  ~StubRoutines::call_stub
+V  [jvm.dll+0xfad0b]
+V  [jvm.dll+0x18c241]
+V  [jvm.dll+0xfad8d]
+V  [jvm.dll+0x959c1]
+V  [jvm.dll+0x98789]
+C  [instrument.dll+0x2859]  Agent_OnAttach+0x823
+C  [instrument.dll+0x3c02]  Agent_OnAttach+0x1bcc
+C  [instrument.dll+0x3d2b]  Agent_OnAttach+0x1cf5
+C  [instrument.dll+0x190d]  Agent_OnUnload+0x2c
+V  [jvm.dll+0xcbc61]
+V  [jvm.dll+0x118b9f]
+V  [jvm.dll+0x9eba0]
+C  [javaw.exe+0x1657]
+C  [javaw.exe+0x1e2c]
+C  [javaw.exe+0x8614]
+C  [kernel32.dll+0x13677]  BaseThreadInitThunk+0x12
+C  [ntdll.dll+0x39f02]  RtlInitializeExceptionChain+0x63
+C  [ntdll.dll+0x39ed5]  RtlInitializeExceptionChain+0x36
+
+Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+j  java.lang.ClassLoader.findBootstrapClass(Ljava/lang/String;)Ljava/lang/Class;+0
+j  java.lang.ClassLoader.findBootstrapClassOrNull(Ljava/lang/String;)Ljava/lang/Class;+12
+j  java.lang.ClassLoader.loadClass(Ljava/lang/String;Z)Ljava/lang/Class;+32
+j  java.lang.ClassLoader.loadClass(Ljava/lang/String;Z)Ljava/lang/Class;+23
+j  sun.misc.Launcher$AppClassLoader.loadClass(Ljava/lang/String;Z)Ljava/lang/Class;+41
+j  java.lang.ClassLoader.loadClass(Ljava/lang/String;)Ljava/lang/Class;+3
+j  sun.instrument.InstrumentationImpl.loadClassAndStartAgent(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V+8
+j  sun.instrument.InstrumentationImpl.loadClassAndCallPremain(Ljava/lang/String;Ljava/lang/String;)V+5
+v  ~StubRoutines::call_stub
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x0050d800 JavaThread "JDWP Command Reader" daemon [_thread_in_native, id=6616, stack(0x28a50000,0x28aa0000)]
+  0x0050b400 JavaThread "JDWP Event Helper Thread" daemon [_thread_blocked, id=9648, stack(0x289a0000,0x289f0000)]
+  0x00508c00 JavaThread "JDWP Transport Listener: dt_socket" daemon [_thread_blocked, id=17712, stack(0x28820000,0x28870000)]
+  0x004fb800 JavaThread "Attach Listener" daemon [_thread_blocked, id=7704, stack(0x28690000,0x286e0000)]
+  0x004fac00 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=15560, stack(0x28600000,0x28650000)]
+  0x004d0800 JavaThread "Finalizer" daemon [_thread_blocked, id=20608, stack(0x28570000,0x285c0000)]
+  0x004cbc00 JavaThread "Reference Handler" daemon [_thread_blocked, id=15624, stack(0x284e0000,0x28530000)]
+=>0x00558c00 JavaThread "main" [_thread_in_vm, id=20164, stack(0x001c0000,0x00210000)]
+
+Other Threads:
+  0x004c7400 VMThread [stack: 0x28450000,0x284a0000] [id=7760]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap
+ def new generation   total 4928K, used 466K [0x04270000, 0x047c0000, 0x0ed10000)
+  eden space 4416K,  10% used [0x04270000, 0x042e4920, 0x046c0000)
+  from space 512K,   0% used [0x046c0000, 0x046c0000, 0x04740000)
+  to   space 512K,   0% used [0x04740000, 0x04740000, 0x047c0000)
+ tenured generation   total 10944K, used 0K [0x0ed10000, 0x0f7c0000, 0x24270000)
+   the space 10944K,   0% used [0x0ed10000, 0x0ed10000, 0x0ed10200, 0x0f7c0000)
+ compacting perm gen  total 12288K, used 1544K [0x24270000, 0x24e70000, 0x28270000)
+   the space 12288K,  12% used [0x24270000, 0x243f21e0, 0x243f2200, 0x24e70000)
+No shared spaces configured.
+
+Code Cache  [0x021f0000, 0x02238000, 0x041f0000)
+ total_blobs=82 nmethods=0 adapters=59 free_code_cache=33266944 largest_free_block=192
+
+Dynamic libraries:
+0x00400000 - 0x00424000 	C:\Program Files (x86)\Java\jre6\bin\javaw.exe
+0x77640000 - 0x777c0000 	C:\Windows\SysWOW64\ntdll.dll
+0x77140000 - 0x77240000 	C:\Windows\syswow64\kernel32.dll
+0x75800000 - 0x75846000 	C:\Windows\syswow64\KERNELBASE.dll
+0x76e30000 - 0x76ed0000 	C:\Windows\syswow64\ADVAPI32.dll
+0x753b0000 - 0x7545c000 	C:\Windows\syswow64\msvcrt.dll
+0x75600000 - 0x75619000 	C:\Windows\SysWOW64\sechost.dll
+0x75d30000 - 0x75e20000 	C:\Windows\syswow64\RPCRT4.dll
+0x751b0000 - 0x75210000 	C:\Windows\syswow64\SspiCli.dll
+0x751a0000 - 0x751ac000 	C:\Windows\syswow64\CRYPTBASE.dll
+0x76ff0000 - 0x770f0000 	C:\Windows\syswow64\USER32.dll
+0x75af0000 - 0x75b80000 	C:\Windows\syswow64\GDI32.dll
+0x75720000 - 0x7572a000 	C:\Windows\syswow64\LPK.dll
+0x75300000 - 0x7539d000 	C:\Windows\syswow64\USP10.dll
+0x76ed0000 - 0x76f30000 	C:\Windows\system32\IMM32.DLL
+0x75eb0000 - 0x75f7c000 	C:\Windows\syswow64\MSCTF.dll
+0x7c340000 - 0x7c396000 	C:\Program Files (x86)\Java\jre6\bin\msvcr71.dll
+0x6d7f0000 - 0x6da9f000 	C:\Program Files (x86)\Java\jre6\bin\client\jvm.dll
+0x73cb0000 - 0x73ce2000 	C:\Windows\system32\WINMM.dll
+0x74f90000 - 0x74fdb000 	C:\Windows\system32\apphelp.dll
+0x6d7a0000 - 0x6d7ac000 	C:\Program Files (x86)\Java\jre6\bin\verify.dll
+0x6d320000 - 0x6d33f000 	C:\Program Files (x86)\Java\jre6\bin\java.dll
+0x75a50000 - 0x75a55000 	C:\Windows\syswow64\PSAPI.DLL
+0x6d370000 - 0x6d399000 	C:\Program Files (x86)\Java\jre6\bin\jdwp.dll
+0x6d690000 - 0x6d696000 	C:\Program Files (x86)\Java\jre6\bin\npt.dll
+0x6d2c0000 - 0x6d2da000 	C:\Program Files (x86)\Java\jre6\bin\instrument.dll
+0x6d7e0000 - 0x6d7ef000 	C:\Program Files (x86)\Java\jre6\bin\zip.dll
+0x6d200000 - 0x6d207000 	C:\Program Files (x86)\Java\jre6\bin\dt_socket.dll
+0x75290000 - 0x752c5000 	C:\Windows\syswow64\WS2_32.dll
+0x77610000 - 0x77616000 	C:\Windows\syswow64\NSI.dll
+0x74f30000 - 0x74f40000 	C:\Windows\system32\NLAapi.dll
+0x750a0000 - 0x750dc000 	C:\Windows\System32\mswsock.dll
+0x74ee0000 - 0x74f24000 	C:\Windows\system32\DNSAPI.dll
+0x74ed0000 - 0x74ed8000 	C:\Windows\System32\winrnr.dll
+0x74ec0000 - 0x74ed0000 	C:\Windows\system32\napinsp.dll
+0x74ea0000 - 0x74eb2000 	C:\Windows\system32\pnrpnsp.dll
+0x74e80000 - 0x74e9c000 	C:\Windows\system32\IPHLPAPI.DLL
+0x74e70000 - 0x74e77000 	C:\Windows\system32\WINNSI.DLL
+0x74e30000 - 0x74e68000 	C:\Windows\System32\fwpuclnt.dll
+0x74e20000 - 0x74e26000 	C:\Windows\system32\rasadhlp.dll
+0x74f40000 - 0x74f45000 	C:\Windows\System32\wshtcpip.dll
+
+VM Arguments:
+jvm_args: -agentlib:jdwp=transport=dt_socket,suspend=y,address=localhost:59895 -Ddatastore.default_high_rep_job_policy_unapplied_job_pct=50 -Xmx512m -javaagent:C:\Users\Puni\Downloads\eclipse-jee-indigo-SR1-win32\eclipse\plugins\com.google.appengine.eclipse.sdkbundle_1.5.5.r37v201110112027\appengine-java-sdk-1.5.5\lib\agent\appengine-agent.jar -Dfile.encoding=Cp1252 -Xbootclasspath/a:C:\Users\Puni\workspace\waterlooeventfinder2\src\com\waterlooeventfinder2\EventDescription2.gwt.xml 
+java_command: com.google.gwt.dev.DevMode -remoteUI 56278:785826135441800 -startupUrl EventDescription2.html -logLevel INFO -codeServerPort 9997 -port 8888 -server com.google.appengine.tools.development.gwt.AppEngineLauncher -war C:\Users\Puni\workspace\waterlooeventfinder2\war com.waterlooeventfinder2.Waterlooeventfinder2 com.waterlooeventfinder2.EventDescription2
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+JAVA_HOME=C:\Program Files (x86)\Java\jdk1.6.0_20
+CLASSPATH=.
+PATH=C:/Program Files (x86)/Java/jre6/bin/client;C:/Program Files (x86)/Java/jre6/bin;C:/Program Files (x86)/Java/jre6/lib/i386;C:\watcom-1.3\binnt;C:\watcom-1.3\binw;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\EgisTec\MyWinLocker 3\x86;C:\Program Files (x86)\EgisTec\MyWinLocker 3\x64;C:\Program Files (x86)\Common Files\DivX Shared\;C:\Program Files (x86)\QuickTime\QTSystem\;C:\Program Files (x86)\Java\jdk1.6.0_20\bin;C:\Program Files\jEdit;C:\Users\Puni\Downloads\eclipse-jee-indigo-SR1-win32\eclipse;
+USERNAME=Puni
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 37 Stepping 2, GenuineIntel
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows 7 Build 7600 
+
+CPU:total 4 (2 cores per cpu, 2 threads per core) family 6 model 37 stepping 2, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, ht
+
+Memory: 4k page, physical 3854848k(701300k free), swap 8367692k(780800k free)
+
+vm_info: Java HotSpot(TM) Client VM (20.0-b11) for windows-x86 JRE (1.6.0_25-b06), built on Apr 14 2011 01:04:32 by "java_re" with MS VC++ 7.1 (VS2003)
+
+time: Sat Oct 22 05:42:01 2011
+elapsed time: 0 seconds
+
