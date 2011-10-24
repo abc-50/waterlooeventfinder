@@ -186,6 +186,24 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 				selectEvents(infoButtonPressed.getCategory(), infoButtonPressed.getTime());
 			}
 		});
+<<<<<<< HEAD
+=======
+		final Button CategoryFootball = new Button("Football");
+		CategoryFootball.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				viewEvent(7);
+			}
+		});
+		final Button CategoryDance = new Button("Dance");
+		final Button CategoryConcert = new Button("Concert");
+		final Button CategoryBars = new Button("Bars");
+
+		final Button TimeUpcoming = new Button("Upcoming");
+		final Button TimeOneDay = new Button("One day");
+		final Button TimeOneWeek = new Button("One week");
+		final Button TimeOneMonth = new Button("One month");
+
+>>>>>>> 2e42e9ac56613116d14792e93b4166051dd897c5
 		// We can add style names to widgets
 
 		CategoryAll.addStyleName("gwt-Button");
