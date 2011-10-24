@@ -21,18 +21,32 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 	public ArrayList<Event> GetAllEvents() throws Exception {
 		Connection conn = null ;
 		ArrayList<Event> rtn = new ArrayList<Event>();
-//		
+		
 //		String query = "select * from Event";
 //		
 //		try {
-//			conn = DriverManager.getConnection("jdbc:sqlite:testdb.sql");
+//			//Class.forName("org.sqlite.JDBC");  
+//			conn = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\Mike\\MySQLiteDB\\t");
 //			
 //			try {
 //				Statement stmt = conn.createStatement();
 //				ResultSet rs = stmt.executeQuery(query);
 //				
 //				while (rs.next()) {
-//					//rtn.add(new Event(rs));
+//					 int userId = rs.getInt("userID");
+//					 int categoryId = rs.getInt("category");
+//					 Date startHour = rs.getDate("startTime");
+//					 Date endHour = rs.getDate("endTime");
+//					 String location = rs.getString("location");
+//					 String eventDescription = rs.getString("eventDescription");
+//					 String eventName = rs.getString("eventName");
+//					 String eventWebsite = rs.getString("eventWebsite");
+//					 String eventVideo = rs.getString("eventVideo");
+//					 String eventPhoneNumber = rs.getString("eventPhoneNumber");
+//					 String eventEmail = rs.getString("eventEmail");
+//					 
+//					 rtn.add(new Event(userId, categoryId, startHour, endHour, location, eventDescription, 
+//							 eventName, eventWebsite, eventVideo, eventPhoneNumber, eventEmail));
 //					
 //				}
 //			} catch (SQLException e) {
@@ -44,8 +58,7 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 //		} finally {
 //			conn.close();
 //		}
-		
-//		return rtn;
+
 		
 		Calendar start = Calendar.getInstance();
 		Calendar end = Calendar.getInstance();
@@ -89,43 +102,68 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 		return rtn;
 	}
 	
-	public ArrayList<Event> GetEventsByFilter(String categoryFilter, String timeFilter, int startEventNumber, int endEventNumber){
-		Connection conn = null ;
+	
+	// use "1", "2", "3", "4" as temporary time filters
+	public ArrayList<Event> GetEventsByFilter(String categoryFilter, String timeFilter, int startEventNumber, int endEventNumber) {
+		
 		ArrayList<Event> rtn = new ArrayList<Event>();
 		
 		Calendar start = Calendar.getInstance();
 		Calendar end = Calendar.getInstance();
 		
-		start.add(Calendar.DATE, +100);
-		end.add(Calendar.DATE, +101);
-		rtn.add(new Event(1, 2, start.getTime(), end.getTime(), 
-				"location1", "desc1", "name122", "www.website5.com", "www.youtube.com", 
-				"519-777-7890", "event@mail.com"));
-		
-		start.add(Calendar.DATE, +50);
-		end.add(Calendar.DATE, +51);
-		rtn.add(new Event(1, 2, start.getTime(), end.getTime(), 
-				"location2", "desc2", "name2", "www.website6.com", "www.youtube.com", 
-				"519-777-7890", "event@mail.com"));
-		
-		start.add(Calendar.DATE, +70);
-		end.add(Calendar.DATE, +71);
-		rtn.add(new Event(1, 2, start.getTime(), end.getTime(), 
-				"location6", "desc3", "name3", "www.website.com", "www.youtube.com", 
-				"519-777-7890", "event@mail.com"));
-		
-		start.add(Calendar.DATE, +70);
-		end.add(Calendar.DATE, +71);
-		rtn.add(new Event(1, 2, start.getTime(), end.getTime(), 
-				"location6", "desc3", "name4", "www.website.com", "www.youtube.com", 
-				"519-777-7890", "event@mail.com"));
-		
-		start.add(Calendar.DATE, +70);
-		end.add(Calendar.DATE, +71);
-		rtn.add(new Event(1, 2, start.getTime(), end.getTime(), 
-				"location6", "desc3", "name5", "www.website.com", "www.youtube.com", 
-				"519-777-7890", "event@mail.com"));
+		if (timeFilter == "1") {
+			start.add(Calendar.DATE, +1);
+			end.add(Calendar.DATE, +2);
+			rtn.add(new Event(1, 2, start.getTime(), end.getTime(), 
+					"location1", "desc1", "name1", "www.website5.com", "www.youtube.com", 
+					"519-777-7890", "event@mail.com"));
 			
+			start.add(Calendar.DATE, +1);
+			end.add(Calendar.DATE, +2);
+			rtn.add(new Event(2, 2, start.getTime(), end.getTime(), 
+					"location1", "desc1", "name2", "www.website5.com", "www.youtube.com", 
+					"519-777-7890", "event@mail.com"));
+			
+			start.add(Calendar.DATE, +1);
+			end.add(Calendar.DATE, +2);
+			rtn.add(new Event(3, 2, start.getTime(), end.getTime(), 
+					"location1", "desc1", "name3", "www.website5.com", "www.youtube.com", 
+					"519-777-7890", "event@mail.com"));
+		
+		} else if (timeFilter == "2") {
+		
+			start.add(Calendar.DATE, +3);
+			end.add(Calendar.DATE, +4);
+			rtn.add(new Event(4, 2, start.getTime(), end.getTime(), 
+					"location2", "desc2", "name4", "www.website6.com", "www.youtube.com", 
+					"519-777-7890", "event@mail.com"));
+			
+			start.add(Calendar.DATE, +3);
+			end.add(Calendar.DATE, +4);
+			rtn.add(new Event(4, 2, start.getTime(), end.getTime(), 
+					"location2", "desc2", "name5", "www.website6.com", "www.youtube.com", 
+					"519-777-7890", "event@mail.com"));
+		
+		} else if (timeFilter == "2") {
+			start.add(Calendar.DATE, +7);
+			end.add(Calendar.DATE, +8);
+			rtn.add(new Event(5, 2, start.getTime(), end.getTime(), 
+					"location6", "desc3", "name6", "www.website.com", "www.youtube.com", 
+					"519-777-7890", "event@mail.com"));
+		
+		} else {
+			start.add(Calendar.DATE, +10);
+			end.add(Calendar.DATE, +20);
+			rtn.add(new Event(7, 2, start.getTime(), end.getTime(), 
+					"location6", "desc3", "name7", "www.website.com", "www.youtube.com", 
+					"519-777-7890", "event@mail.com"));
+			
+			start.add(Calendar.DATE, +10);
+			end.add(Calendar.DATE, +20);
+			rtn.add(new Event(8, 2, start.getTime(), end.getTime(), 
+					"location6", "desc3", "name8", "www.website.com", "www.youtube.com", 
+					"519-777-7890", "event@mail.com"));
+		}
 		return rtn;
 	}
 	
