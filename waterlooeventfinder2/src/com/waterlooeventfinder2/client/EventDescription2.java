@@ -1,10 +1,13 @@
 package com.waterlooeventfinder2.client;
 
 import java.lang.Integer;
+import java.util.ArrayList;
+
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextArea;
@@ -15,29 +18,33 @@ import com.google.gwt.view.client.AsyncDataProvider;
 import com.google.gwt.view.client.HasData;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.waterlooeventfinder2.client.EventRetrievalService;
-import com.waterlooeventfinder2.client.Waterlooeventfinder2;
 import com.waterlooeventfinder2.shared.Event;
 
 
 public class EventDescription2 implements EntryPoint {
 	
-	public int eventID;
+	private int eventID;
+	protected Event eventObj;
 	
-	private EventRetrievalServiceAsync retrievalService = GWT
-			.create(EventRetrievalService.class);
+	private EventRetrievalServiceAsync retrievalService = GWT.create(EventRetrievalService.class);
+
 	
 	private void retrieveEvent() {
 		if (retrievalService == null) {
 			retrievalService = GWT.create(EventRetrievalService.class);
 		}
-		retrievalService.GetEventById(eventID,null);
-	}
-	
-	public EventDescription2(){}
-	
-	public EventDescription2(int ID){
-		eventID = ID;
+
+		// Set up the callback object.
+		AsyncCallback<Event> callback = new AsyncCallback<Event>() {
+			public void onFailure(Throwable caught) {
+				Window.alert(caught.getMessage());
+			}
+
+			public void onSuccess(Event result) {
+				eventObj = result;
+			}
+		};
+		retrievalService.GetEventById(eventID,callback);		
 	}
 	
 	
@@ -46,7 +53,6 @@ public class EventDescription2 implements EntryPoint {
 		final Button ChooseMain = new Button("Main");
 		final Button ChooseAllEvents = new Button("All Events");
 		final Button ChooseMyEvents = new Button("My Events");
-		final TextArea eventText = new TextArea();
 		final Label lastUpdatedLabel = new Label();
 		
 		ChooseMain.addStyleName("menuBar");
@@ -57,7 +63,6 @@ public class EventDescription2 implements EntryPoint {
 		RootPanel.get("menubar").add(ChooseMain);
 		RootPanel.get("menuBar").add(ChooseAllEvents);
 		RootPanel.get("menuBar").add(ChooseMyEvents);
-		RootPanel.get("textArea").add(eventText);
 		RootPanel.get("label").add(lastUpdatedLabel);
 		
 		ChooseMain.setEnabled(true);
@@ -65,17 +70,30 @@ public class EventDescription2 implements EntryPoint {
 		ChooseAllEvents.setEnabled(true);
 		ChooseMyEvents.setEnabled(true);
 		getval();
+		retrieveEvent();
 		
 		ChooseMain.addClickHandler(new ClickHandler() {
 		      public void onClick(ClickEvent event) {
 		        callMain();
 		      }
 		});
-		ChooseAllEvents.addClickHandler(new ClickHandler() {
-		      public void onClick(ClickEvent event) {
-		        Window.alert(""+eventID);
-		      }
-		});
+		
+		
+		HTML html = new HTML(" "
+				+ eventObj.Name()
+				+ " "
+				+ "Location: " + eventObj.Location()
+				+ " "
+				+ eventObj.Description()
+				+ " "
+				+ "Video: " + eventObj.Video()
+				+ "Event Website: " + eventObj.Website()
+				+ " "
+				+ "Contact:"
+				+ "Phone: " + eventObj.PhoneNumber()
+				+ "E-mail: " + eventObj.Email(), true);
+		
+		
 	}
 	
 	private void callMain(){

@@ -74,6 +74,11 @@ public class Waterlooeventfinder2 implements EntryPoint {
 			}
 		});
 		final Button CategoryFootball = new Button("Football");
+		CategoryFootball.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				viewEvent(7);
+			}
+		});
 		final Button CategoryDance = new Button("Dance");
 		final Button CategoryConcert = new Button("Concert");
 		final Button CategoryBars = new Button("Bars");
