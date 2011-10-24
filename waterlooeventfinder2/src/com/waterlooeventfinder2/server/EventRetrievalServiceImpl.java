@@ -89,8 +89,8 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 		return rtn;
 	}
 	
-	public ArrayList<Event> GetEventsByFilter(String categoryFilter, String timeFilter, int startEventNumber, int endEventNumber) {
-		
+	public ArrayList<Event> GetEventsByFilter(String categoryFilter, String timeFilter, int startEventNumber, int endEventNumber){
+		Connection conn = null ;
 		ArrayList<Event> rtn = new ArrayList<Event>();
 		
 		Calendar start = Calendar.getInstance();

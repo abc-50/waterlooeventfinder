@@ -1,33 +1,23 @@
 package com.waterlooeventfinder2.client;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 import com.google.gwt.cell.client.DateCell;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.RootPanel;
 
-import com.google.gwt.cell.client.TextCell;
-import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.cellview.client.CellList;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.rpc.IncompatibleRemoteServiceException;
-import com.google.gwt.user.client.rpc.InvocationException;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Grid;
-import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.AsyncDataProvider;
 import com.google.gwt.view.client.HasData;
-import com.waterlooeventfinder2.client.AsyncDataProviderExample.MyDataProvider;
 import com.waterlooeventfinder2.shared.Event;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -37,31 +27,80 @@ import com.google.gwt.event.dom.client.ClickEvent;
  */
 public class Waterlooeventfinder2 implements EntryPoint {
 
+	ButtonPressed infoButtonPressed = new ButtonPressed();
+	SimplePager pager = new SimplePager();
+	
 	private EventRetrievalServiceAsync retrievalService = GWT
 			.create(EventRetrievalService.class);
 
-	// sample events retrieval call
-	private void retrieveAllEvents() {
+	AsyncDataProvider<Event> provider = new AsyncDataProvider<Event>() {
+		@Override
+		protected void onRangeChanged(final HasData<Event> display) {
+
+			if (retrievalService == null) {
+				retrievalService = GWT.create(EventRetrievalService.class);
+			}
+			
+			final int start = display.getVisibleRange().getStart();
+			final int end = start + display.getVisibleRange().getLength();
+
+			Window.alert(Integer.toString(start));
+			// Set up the callback object.
+			AsyncCallback<ArrayList<Event>> callback = new AsyncCallback<ArrayList<Event>>() {
+
+				
+				public void onFailure(Throwable caught) {
+					Window.alert(caught.getMessage());
+					// TODO: Do something with errors.
+				}
+
+				public void onSuccess(ArrayList<Event> result) {
+					// FOR MARTIN: result object for list of events
+					result.add(new Event());
+					//String lol = Integer.toString(start);
+					updateRowData(start, result);
+					updateRowCount(result.size(), true);
+					
+				}
+			};
+			
+			retrievalService.GetAllEvents(callback);	
+		}
+		
+	};
+	
+	// Associate an async data provider to the table
+	// XXX: Use AsyncCallback in the method onRangeChanged
+	// to actaully get the data from the server side
+	
+	protected void selectEvents(final String category, final String time){
+		
 		if (retrievalService == null) {
 			retrievalService = GWT.create(EventRetrievalService.class);
 		}
+		
 
 		// Set up the callback object.
 		AsyncCallback<ArrayList<Event>> callback = new AsyncCallback<ArrayList<Event>>() {
+
+			
 			public void onFailure(Throwable caught) {
 				Window.alert(caught.getMessage());
 				// TODO: Do something with errors.
 			}
 
 			public void onSuccess(ArrayList<Event> result) {
-				// FOR MARTIN: result object for list of events
-				// result.add(new Event());
-				Window.alert("success");
-				// updateRowData(start, result);
+				Window.alert(category + time + result.size());
+				result.add(new Event());
+				//Inform the displays of the new data.
+				provider.updateRowData(0, result);
+				// Inform the displays of the total number of items that are available.
+				provider.updateRowCount(result.size(), true);
+				pager.firstPage();
 			}
 		};
-
-		retrievalService.GetAllEvents(callback);
+		
+		retrievalService.GetAllEvents(callback);	
 	}
 
 	public void onModuleLoad() {
@@ -69,19 +108,74 @@ public class Waterlooeventfinder2 implements EntryPoint {
 		final Button CategoryAll = new Button("All");
 		CategoryAll.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				retrieveAllEvents();
+				infoButtonPressed.setCategory("All");
+				selectEvents(infoButtonPressed.getCategory(), infoButtonPressed.getTime());
 			}
 		});
+		
 		final Button CategoryFootball = new Button("Football");
+		CategoryFootball.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				infoButtonPressed.setCategory("Football");
+				selectEvents(infoButtonPressed.getCategory(), infoButtonPressed.getTime());
+			}
+		});
+		
 		final Button CategoryDance = new Button("Dance");
+		CategoryDance.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				infoButtonPressed.setCategory("Dance");
+				selectEvents(infoButtonPressed.getCategory(), infoButtonPressed.getTime());
+			}
+		});
+		
 		final Button CategoryConcert = new Button("Concert");
+		CategoryConcert.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				infoButtonPressed.setCategory("Concert");
+				selectEvents(infoButtonPressed.getCategory(), infoButtonPressed.getTime());
+			}
+		});
+		
 		final Button CategoryBars = new Button("Bars");
-
+		CategoryBars.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				infoButtonPressed.setCategory("Bars");
+				selectEvents(infoButtonPressed.getCategory(), infoButtonPressed.getTime());
+			}
+		});
+		
 		final Button TimeUpcoming = new Button("Upcoming");
+		TimeUpcoming.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				infoButtonPressed.setTime("Upcoming");
+				selectEvents(infoButtonPressed.getCategory(), infoButtonPressed.getTime());
+			}
+		});
+		
 		final Button TimeOneDay = new Button("One day");
+		TimeOneDay.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				infoButtonPressed.setTime("One day");
+				selectEvents(infoButtonPressed.getCategory(), infoButtonPressed.getTime());
+			}
+		});
+		
 		final Button TimeOneWeek = new Button("One week");
+		TimeOneWeek.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				infoButtonPressed.setTime("One week");
+				selectEvents(infoButtonPressed.getCategory(), infoButtonPressed.getTime());
+			}
+		});
+		
 		final Button TimeOneMonth = new Button("One month");
-
+		TimeOneMonth.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				infoButtonPressed.setTime("One month");
+				selectEvents(infoButtonPressed.getCategory(), infoButtonPressed.getTime());
+			}
+		});
 		// We can add style names to widgets
 
 		CategoryAll.addStyleName("categoryButton");
@@ -120,8 +214,8 @@ public class Waterlooeventfinder2 implements EntryPoint {
 		// List of Events
 		// Create a CellTable.
 		final CellTable<Event> table = new CellTable<Event>();
-		// Display 3 rows in one page
-		table.setPageSize(10);
+		// Display 2 rows in one page
+		table.setPageSize(2);
 
 		// Add a text column to show the name.
 		TextColumn<Event> nameColumn = new TextColumn<Event>() {
@@ -130,58 +224,40 @@ public class Waterlooeventfinder2 implements EntryPoint {
 				return object.Name();
 			}
 		};
+		table.addColumn(nameColumn, "Name");		
 		
-		table.addColumn(nameColumn, "Name");
+		// Add a date column to show the Start time
+	    DateCell dateCell = new DateCell();
+	    Column<Event, Date> startColumn = new Column<Event, Date>(dateCell) {
+	      @Override
+	      public Date getValue(Event object) {
+	        return object.getStarHour();
+	      }
+	    };
+	    table.addColumn(startColumn, "Start");	
 
-		// Associate an async data provider to the table
-		// XXX: Use AsyncCallback in the method onRangeChanged
-		// to actaully get the data from the server side
-		AsyncDataProvider<Event> provider = new AsyncDataProvider<Event>() {
-			@Override
-			protected void onRangeChanged(final HasData<Event> display) {
-
-				if (retrievalService == null) {
-					retrievalService = GWT.create(EventRetrievalService.class);
-				}
-				
-				final int start = display.getVisibleRange().getStart();
-				final int end = start + display.getVisibleRange().getLength();
-
-				// Set up the callback object.
-				AsyncCallback<ArrayList<Event>> callback = new AsyncCallback<ArrayList<Event>>() {
-
-					
-					public void onFailure(Throwable caught) {
-						Window.alert(caught.getMessage());
-						// TODO: Do something with errors.
-					}
-
-					public void onSuccess(ArrayList<Event> result) {
-						// FOR MARTIN: result object for list of events
-						result.add(new Event());
-						String lol = Integer.toString(start);
-						updateRowData(start, result);
-						Window.alert(Integer.toString(result.size()));
-						updateRowCount(result.size(), true);
-					}
-				};
-				
-				retrievalService.GetAllEvents(callback);	
-			}
-		};
-
+	 // Add a date column to show the Start time
+	    Column<Event, Date> endColumn = new Column<Event, Date>(dateCell) {
+	      @Override
+	      public Date getValue(Event object) {
+	        return object.getEndHour();
+	      }
+	    };
+	    table.addColumn(endColumn, "End");
+	    
 		provider.addDataDisplay(table);
 
-		SimplePager pager = new SimplePager();
 		pager.setDisplay(table);
 
-		VerticalPanel vp = new VerticalPanel();
-		vp.add(table);
-		vp.add(pager);
+		//VerticalPanel vp = new VerticalPanel();
+		//vp.add(table);
+		
 
-		// Add it to the root panel.
-		RootPanel.get().add(vp);
-	}
+		
+		RootPanel.get("listOfEvents").add(table);
+		RootPanel.get("elementPager").add(pager);
+		pager.addStyleName("elementPager");
+	}	
 
 	// ///////////////////////////////////////////////////////////////////////////////////
 

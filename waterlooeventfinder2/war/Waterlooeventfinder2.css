@@ -21,21 +21,20 @@ h1 {
 	color: blue;
 }
 
-.NamesEventList {
-	font-weight: bold;
+#listOfEvents{
+	margin: 1200px 0px 0px;
 	background-color: beige;
-	color: purple;
-	width: 300px;
+	text-align: center;
 }
 
-.ColumStart {
-	color: purple;
+#categoryButton, #timeButton{
+	text-align: center;	
 }
 
-.GridListEvents{
-	margin: 30px 0px 0px;	
+#elementPager{
+	text-align: center;
 }
-
+	
 /** Most GWT widgets already have a style name defined */
 .gwt-DialogBox {
 	width: 400px;

@@ -126,6 +126,10 @@ public class Event implements Serializable {
 	public Date getStarHour(){
 		return starHour;
 	}
+	
+	public Date getEndHour(){
+		return endHour;
+	}
 
 	public void setCategoryId(int categoryId) {
 		this.categoryId = categoryId;
