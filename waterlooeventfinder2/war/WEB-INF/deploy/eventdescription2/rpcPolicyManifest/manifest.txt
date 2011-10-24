@@ -1,2 +1,2 @@
-# Module eventdescription2
+# Module EventDescription2
 # RPC service class, partial path of RPC policy file

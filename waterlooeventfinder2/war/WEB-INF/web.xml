@@ -15,15 +15,10 @@
     <servlet-name>eventRetrievalServiceImpl</servlet-name>
     <url-pattern>/waterlooeventfinder2/eventsretrieval</url-pattern>
   </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>eventRetrievalServiceImpl</servlet-name>
-    <url-pattern>/eventdescription2/eventsretrieval</url-pattern>
-  </servlet-mapping>
   
   <!-- Default page to serve -->
   <welcome-file-list>
     <welcome-file>Waterlooeventfinder2.html</welcome-file>
-    <welcome-file>EventDescription2.html</welcome-file>
   </welcome-file-list>
 
 </web-app>
