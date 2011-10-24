@@ -2,6 +2,7 @@ package com.waterlooeventfinder2.client;
 
 import java.lang.Integer;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -69,8 +70,7 @@ public class EventDescription2 implements EntryPoint {
 		ChooseMain.setFocus(true);
 		ChooseAllEvents.setEnabled(true);
 		ChooseMyEvents.setEnabled(true);
-		getval();
-		retrieveEvent();
+		
 		
 		ChooseMain.addClickHandler(new ClickHandler() {
 		      public void onClick(ClickEvent event) {
@@ -78,23 +78,43 @@ public class EventDescription2 implements EntryPoint {
 		      }
 		});
 		
+		getval();
+		//retrieveEvent();
+		//HTML html = new HTML(" "
+			//	+ eventObj.Name()
+			//	+ " "
+			//	+ "Location: " + eventObj.Location()
+			//	+ " "
+			//	+ eventObj.Description()
+			//	+ " "
+			//	+ "Video: " + eventObj.Video()
+			//	+ "Event Website: " + eventObj.Website()
+			//	+ " "
+			//	+ "Contact:"
+			//	+ "Phone: " + eventObj.PhoneNumber()
+			//	+ "E-mail: " + eventObj.Email(), true);
+
+		Calendar start = Calendar.getInstance();
+		Calendar end = Calendar.getInstance();
 		
-		HTML html = new HTML(" "
-				+ eventObj.Name()
-				+ " "
-				+ "Location: " + eventObj.Location()
-				+ " "
-				+ eventObj.Description()
-				+ " "
-				+ "Video: " + eventObj.Video()
-				+ "Event Website: " + eventObj.Website()
-				+ " "
-				+ "Contact:"
-				+ "Phone: " + eventObj.PhoneNumber()
-				+ "E-mail: " + eventObj.Email(), true);
+		if (eventID == 1) {
+			HTML html = new HTML(" "
+						+ "EVENT NAME HERE"
+						+ " "
+						+ "Location: SLC GREAT HALL"
+						+ " "
+						+ " This is where the description of the event will go. For tomorrow, I hope we make some fake data that looks realistic. For now, lets just work with this."
+						+ " "
+						+ "Video: youtube.com/dfgsf"
+						+ "Event Website: blahblahblah"
+						+ " "
+						+ "Contact:"
+						+ "Phone: 5197297731"
+						+ "E-mail: dsghfdhgdf@yahoo.com", true);
+		}
 		
+
 		
-	}
 	
 	private void callMain(){
 		String baseurl = GWT.getHostPageBaseURL();
