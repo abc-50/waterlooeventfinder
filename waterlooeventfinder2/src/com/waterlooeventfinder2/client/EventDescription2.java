@@ -21,15 +21,14 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.waterlooeventfinder2.shared.Event;
 
-
 public class EventDescription2 implements EntryPoint {
-	
+
 	private int eventID;
 	protected Event eventObj;
-	
-	private EventRetrievalServiceAsync retrievalService = GWT.create(EventRetrievalService.class);
 
-	
+	private EventRetrievalServiceAsync retrievalService = GWT
+			.create(EventRetrievalService.class);
+
 	private void retrieveEvent() {
 		if (retrievalService == null) {
 			retrievalService = GWT.create(EventRetrievalService.class);
@@ -45,93 +44,82 @@ public class EventDescription2 implements EntryPoint {
 				eventObj = result;
 			}
 		};
-		retrievalService.GetEventById(eventID,callback);		
+		retrievalService.GetEventById(eventID, callback);
 	}
-	
-	
+
 	public void onModuleLoad() {
-		
+
 		final Button ChooseMain = new Button("Main");
 		final Button ChooseAllEvents = new Button("All Events");
 		final Button ChooseMyEvents = new Button("My Events");
 		final Label lastUpdatedLabel = new Label();
-		
+
 		ChooseMain.addStyleName("menuBar");
 		ChooseAllEvents.addStyleName("menuBar");
 		ChooseMyEvents.addStyleName("menuBar");
-		
+
 		// Associate Main Panel with host page.
 		RootPanel.get("menubar").add(ChooseMain);
 		RootPanel.get("menuBar").add(ChooseAllEvents);
 		RootPanel.get("menuBar").add(ChooseMyEvents);
 		RootPanel.get("label").add(lastUpdatedLabel);
-		
+
 		ChooseMain.setEnabled(true);
 		ChooseMain.setFocus(true);
 		ChooseAllEvents.setEnabled(true);
 		ChooseMyEvents.setEnabled(true);
-		
-		
+
 		ChooseMain.addClickHandler(new ClickHandler() {
-		      public void onClick(ClickEvent event) {
-		        callMain();
-		      }
+			public void onClick(ClickEvent event) {
+				callMain();
+			}
 		});
-		
+
 		getval();
-		//retrieveEvent();
-		//HTML html = new HTML(" "
-			//	+ eventObj.Name()
-			//	+ " "
-			//	+ "Location: " + eventObj.Location()
-			//	+ " "
-			//	+ eventObj.Description()
-			//	+ " "
-			//	+ "Video: " + eventObj.Video()
-			//	+ "Event Website: " + eventObj.Website()
-			//	+ " "
-			//	+ "Contact:"
-			//	+ "Phone: " + eventObj.PhoneNumber()
-			//	+ "E-mail: " + eventObj.Email(), true);
+		// retrieveEvent();
+		// HTML html = new HTML(" "
+		// + eventObj.Name()
+		// + " "
+		// + "Location: " + eventObj.Location()
+		// + " "
+		// + eventObj.Description()
+		// + " "
+		// + "Video: " + eventObj.Video()
+		// + "Event Website: " + eventObj.Website()
+		// + " "
+		// + "Contact:"
+		// + "Phone: " + eventObj.PhoneNumber()
+		// + "E-mail: " + eventObj.Email(), true);
 
-		Calendar start = Calendar.getInstance();
-		Calendar end = Calendar.getInstance();
-		
 		if (eventID == 1) {
-			HTML html = new HTML(" "
-						+ "EVENT NAME HERE"
-						+ " "
-						+ "Location: SLC GREAT HALL"
-						+ " "
-						+ " This is where the description of the event will go. For tomorrow, I hope we make some fake data that looks realistic. For now, lets just work with this."
-						+ " "
-						+ "Video: youtube.com/dfgsf"
-						+ "Event Website: blahblahblah"
-						+ " "
-						+ "Contact:"
-						+ "Phone: 5197297731"
-						+ "E-mail: dsghfdhgdf@yahoo.com", true);
+			HTML html = new HTML(
+					" "
+							+ "EVENT NAME HERE"
+							+ " "
+							+ "Location: SLC GREAT HALL"
+							+ " "
+							+ " This is where the description of the event will go. For tomorrow, I hope we make some fake data that looks realistic. For now, lets just work with this."
+							+ " " + "Video: youtube.com/dfgsf"
+							+ "Event Website: blahblahblah" + " " + "Contact:"
+							+ "Phone: 5197297731"
+							+ "E-mail: dsghfdhgdf@yahoo.com", true);
 		}
-		
-
-		
-	
-	private void callMain(){
-		String baseurl = GWT.getHostPageBaseURL();
-		Window.Location.assign(baseurl+"Waterlooeventfinder2.html");
 	}
-	
-	public void getval(){
+
+	private void callMain() {
+		String baseurl = GWT.getHostPageBaseURL();
+		Window.Location.assign(baseurl + "Waterlooeventfinder2.html");
+	}
+
+	public void getval() {
 		String url = Window.Location.getHref();
 		String search = "?";
 		String result = "";
 		int i;
 		i = url.indexOf(search);
-		result = url.substring(i+1);
+		result = url.substring(i + 1);
 		eventID = Integer.parseInt(result);
-				
+
 	}
-	
+
 }
-
-

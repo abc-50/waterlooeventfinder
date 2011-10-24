@@ -11,10 +11,12 @@ import com.waterlooeventfinder2.shared.Event;
 public interface EventRetrievalServiceAsync {
 	void GetAllEvents(AsyncCallback<ArrayList<Event>> callback)
 			throws IllegalArgumentException;
-	
-	void GetEventsByFilter(String categoryFilter, String timeFilter, int startEventNumber, int endEventNumber, AsyncCallback<ArrayList<Event>> callback)
-			throws IllegalArgumentException;	
-	
+
+	void GetEventsByFilter(String categoryFilter, String timeFilter,
+			int startEventNumber, int endEventNumber,
+			AsyncCallback<ArrayList<Event>> callback)
+			throws IllegalArgumentException;
+
 	void GetEventById(int eventId, AsyncCallback<Event> callback)
 			throws IllegalArgumentException;
 }

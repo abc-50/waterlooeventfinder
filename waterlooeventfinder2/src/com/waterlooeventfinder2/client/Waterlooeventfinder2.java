@@ -17,9 +17,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.AsyncDataProvider;
-import com.google.gwt.view.client.CellPreviewEvent;
 import com.google.gwt.view.client.HasData;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
@@ -27,16 +25,15 @@ import com.waterlooeventfinder2.shared.Event;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.waterlooeventfinder2.client.EventDescription2;
-import com.google.gwt.user.client.ui.Button;
+
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
 public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 
-
 	ButtonPressed infoButtonPressed = new ButtonPressed();
 	SimplePager pager = new SimplePager();
-	
+
 	private EventRetrievalServiceAsync retrievalService = GWT
 			.create(EventRetrievalService.class);
 
@@ -47,14 +44,13 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 			if (retrievalService == null) {
 				retrievalService = GWT.create(EventRetrievalService.class);
 			}
-			
+
 			final int start = display.getVisibleRange().getStart();
 			final int end = start + display.getVisibleRange().getLength();
 
 			// Set up the callback object.
 			AsyncCallback<ArrayList<Event>> callback = new AsyncCallback<ArrayList<Event>>() {
 
-				
 				public void onFailure(Throwable caught) {
 					Window.alert(caught.getMessage());
 					// TODO: Do something with errors.
@@ -63,33 +59,31 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 				public void onSuccess(ArrayList<Event> result) {
 					// FOR MARTIN: result object for list of events
 					result.add(new Event());
-					//String lol = Integer.toString(start);
+					// String lol = Integer.toString(start);
 					updateRowData(start, result);
 					updateRowCount(result.size(), true);
-					
+
 				}
 			};
-			
-			retrievalService.GetAllEvents(callback);	
+
+			retrievalService.GetAllEvents(callback);
 		}
-		
+
 	};
-	
+
 	// Associate an async data provider to the table
 	// XXX: Use AsyncCallback in the method onRangeChanged
 	// to actaully get the data from the server side
-	
-	protected void selectEvents(final String category, final String time){
-		
+
+	protected void selectEvents(final String category, final String time) {
+
 		if (retrievalService == null) {
 			retrievalService = GWT.create(EventRetrievalService.class);
 		}
-		
 
 		// Set up the callback object.
 		AsyncCallback<ArrayList<Event>> callback = new AsyncCallback<ArrayList<Event>>() {
 
-			
 			public void onFailure(Throwable caught) {
 				Window.alert(caught.getMessage());
 				// TODO: Do something with errors.
@@ -97,20 +91,22 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 
 			public void onSuccess(ArrayList<Event> result) {
 				result.add(new Event());
-				//Inform the displays of the new data.
+				// Inform the displays of the new data.
 				provider.updateRowData(0, result);
-				// Inform the displays of the total number of items that are available.
+				// Inform the displays of the total number of items that are
+				// available.
 				provider.updateRowCount(result.size(), true);
 				pager.firstPage();
 			}
 		};
-		
-		retrievalService.GetAllEvents(callback);	
+
+		retrievalService.GetAllEvents(callback);
 	}
-	
-	//Call this function to load description page
-	public void viewEvent(int ID){
-		Window.Location.assign(GWT.getHostPageBaseURL()+"EventDescription2.html?"+ID );
+
+	// Call this function to load description page
+	public void viewEvent(int ID) {
+		Window.Location.assign(GWT.getHostPageBaseURL()
+				+ "EventDescription2.html?" + ID);
 	}
 
 	public void onModuleLoad() {
@@ -119,127 +115,132 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 		CategoryAll.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				infoButtonPressed.setCategory("All");
-				selectEvents(infoButtonPressed.getCategory(), infoButtonPressed.getTime());
+				selectEvents(infoButtonPressed.getCategory(),
+						infoButtonPressed.getTime());
 			}
 		});
-		
+
 		Button CategoryFootball = new Button("Football");
 		CategoryFootball.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				infoButtonPressed.setCategory("Football");
-				selectEvents(infoButtonPressed.getCategory(), infoButtonPressed.getTime());
+				selectEvents(infoButtonPressed.getCategory(),
+						infoButtonPressed.getTime());
 			}
 		});
-		
+
 		Button CategoryDance = new Button("Dance");
 		CategoryDance.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				infoButtonPressed.setCategory("Dance");
-				selectEvents(infoButtonPressed.getCategory(), infoButtonPressed.getTime());
+				selectEvents(infoButtonPressed.getCategory(),
+						infoButtonPressed.getTime());
 			}
 		});
-		
+
 		Button CategoryConcert = new Button("Concert");
 		CategoryConcert.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				infoButtonPressed.setCategory("Concert");
-				selectEvents(infoButtonPressed.getCategory(), infoButtonPressed.getTime());
+				selectEvents(infoButtonPressed.getCategory(),
+						infoButtonPressed.getTime());
 			}
 		});
-		
+
 		Button CategoryBars = new Button("Bars");
 		CategoryBars.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				infoButtonPressed.setCategory("Bars");
-				selectEvents(infoButtonPressed.getCategory(), infoButtonPressed.getTime());
+				selectEvents(infoButtonPressed.getCategory(),
+						infoButtonPressed.getTime());
 			}
 		});
-		
-		Button TimeUpcoming = new Button("Upcoming");
+
+		Button TimeUpcoming = new Button("Today");
 		TimeUpcoming.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				infoButtonPressed.setTime("Upcoming");
-				selectEvents(infoButtonPressed.getCategory(), infoButtonPressed.getTime());
+				selectEvents(infoButtonPressed.getCategory(),
+						infoButtonPressed.getTime());
 			}
 		});
-		
-		Button TimeOneDay = new Button("One day");
+
+		Button TimeOneDay = new Button("1 day");
 		TimeOneDay.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				infoButtonPressed.setTime("One day");
-				selectEvents(infoButtonPressed.getCategory(), infoButtonPressed.getTime());
+				selectEvents(infoButtonPressed.getCategory(),
+						infoButtonPressed.getTime());
 			}
 		});
 		
-		Button TimeOneWeek = new Button("One week");
+		Button TimeTwoDays = new Button("2 days");
+		TimeOneDay.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				infoButtonPressed.setTime("Two days");
+				selectEvents(infoButtonPressed.getCategory(),
+						infoButtonPressed.getTime());
+			}
+		});
+		
+		Button TimeThreeDays = new Button("3 days");
+		TimeOneDay.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				infoButtonPressed.setTime("Three days");
+				selectEvents(infoButtonPressed.getCategory(),
+						infoButtonPressed.getTime());
+			}
+		});
+
+		Button TimeOneWeek = new Button("1 week");
 		TimeOneWeek.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				infoButtonPressed.setTime("One week");
-				selectEvents(infoButtonPressed.getCategory(), infoButtonPressed.getTime());
+				selectEvents(infoButtonPressed.getCategory(),
+						infoButtonPressed.getTime());
 			}
 		});
-		
-		Button TimeOneMonth = new Button("One month");
-		TimeOneMonth.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				infoButtonPressed.setTime("One month");
-				selectEvents(infoButtonPressed.getCategory(), infoButtonPressed.getTime());
-			}
-		});
-<<<<<<< HEAD
-=======
-		final Button CategoryFootball = new Button("Football");
-		CategoryFootball.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				viewEvent(7);
-			}
-		});
-		final Button CategoryDance = new Button("Dance");
-		final Button CategoryConcert = new Button("Concert");
-		final Button CategoryBars = new Button("Bars");
 
-		final Button TimeUpcoming = new Button("Upcoming");
-		final Button TimeOneDay = new Button("One day");
-		final Button TimeOneWeek = new Button("One week");
-		final Button TimeOneMonth = new Button("One month");
-
->>>>>>> 2e42e9ac56613116d14792e93b4166051dd897c5
 		// We can add style names to widgets
 
-		CategoryAll.addStyleName("gwt-Button");
+		CategoryAll.addStyleName("categoryButton");
 		CategoryFootball.addStyleName("categoryButton");
 		CategoryDance.addStyleName("categoryButton");
 		CategoryConcert.addStyleName("categoryButton");
 		CategoryBars.addStyleName("categoryButton");
-		
-		
+
 		TimeUpcoming.addStyleName("timeButton");
 		TimeOneDay.addStyleName("timeButton");
+		TimeTwoDays.addStyleName("timeButton");
+		TimeThreeDays.addStyleName("timeButton");
 		TimeOneWeek.addStyleName("timeButton");
-		TimeOneMonth.addStyleName("timeButton");
+		
 
 		// Add the nameField and sendButton to the RootPanel
 		// Use RootPanel.get() to get the entire body element
 
-		RootPanel.get("categoryButton").add(CategoryAll);
-		RootPanel.get("categoryButton").add(CategoryFootball);
-		RootPanel.get("categoryButton").add(CategoryDance);
-		RootPanel.get("categoryButton").add(CategoryConcert);
-		RootPanel.get("categoryButton").add(CategoryBars);
+		RootPanel.get("divCategoryButton").add(CategoryAll);
+		RootPanel.get("divCategoryButton").add(CategoryFootball);
+		RootPanel.get("divCategoryButton").add(CategoryDance);
+		RootPanel.get("divCategoryButton").add(CategoryConcert);
+		RootPanel.get("divCategoryButton").add(CategoryBars);
 
-		RootPanel.get("timeButton").add(TimeUpcoming);
-		RootPanel.get("timeButton").add(TimeOneDay);
-		RootPanel.get("timeButton").add(TimeOneWeek);
-		RootPanel.get("timeButton").add(TimeOneMonth);
+		RootPanel.get("divTimeButton").add(TimeUpcoming);
+		RootPanel.get("divTimeButton").add(TimeOneDay);
+		RootPanel.get("divTimeButton").add(TimeTwoDays);
+		RootPanel.get("divTimeButton").add(TimeThreeDays);
+		RootPanel.get("divTimeButton").add(TimeOneWeek);
+		
 
 		// Focus the cursor on the name field when the app loads
-
+		/*
 		CategoryAll.setEnabled(true);
 		CategoryAll.setFocus(true);
 		CategoryFootball.setEnabled(true);
 		CategoryDance.setEnabled(true);
 		CategoryConcert.setEnabled(true);
-
+		 */
+		
 		// List of Events
 		// Create a CellTable.
 		final CellTable<Event> table = new CellTable<Event>();
@@ -252,56 +253,63 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 			public String getValue(Event object) {
 				return object.Name();
 			}
-		};		
-		
-		// Add a date column to show the Start time
-	    DateCell dateCell = new DateCell();
-	    Column<Event, Date> startColumn = new Column<Event, Date>(dateCell) {
-	      @Override
-	      public Date getValue(Event object) {
-	        return object.getStarHour();
-	      }
-	    };	
+		};
 
-	 // Add a date column to show the Start time
-	    Column<Event, Date> endColumn = new Column<Event, Date>(dateCell) {
-	      @Override
-	      public Date getValue(Event object) {
-	        return object.getEndHour();
-	      }
-	    };
-	    
-	    // Add columns to the table
+		// Add a date column to show the Start time
+		DateCell dateCell = new DateCell();
+		Column<Event, Date> startColumn = new Column<Event, Date>(dateCell) {
+			@Override
+			public Date getValue(Event object) {
+				return object.getStarHour();
+			}
+		};
+
+		// Add a date column to show the Start time
+		Column<Event, Date> endColumn = new Column<Event, Date>(dateCell) {
+			@Override
+			public Date getValue(Event object) {
+				return object.getEndHour();
+			}
+		};
+
+		// Add columns to the table
 		table.addColumn(nameColumn, "Name");
-	    table.addColumn(startColumn, "Start");
-	    table.addColumn(endColumn, "End");
-	    
-	    table.setWidth("100%", true);
-	    table.setColumnWidth(nameColumn, 50.0, Unit.PCT);
-	    table.setColumnWidth(startColumn, 15.0, Unit.PCT);
-	    table.setColumnWidth(endColumn, 15.0, Unit.PCT);
-	   
-	    final SingleSelectionModel<Event> selectionModel = new SingleSelectionModel<Event>();
-	    table.setSelectionModel(selectionModel);
-	    selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
-	      public void onSelectionChange(SelectionChangeEvent event) {
-	        Event selected = selectionModel.getSelectedObject();
-	        if (selected != null) {
-	          Window.alert("You selected: " + selected.Name());
-	        }
-	      }
-	    });
+		table.addColumn(startColumn, "Start");
+		table.addColumn(endColumn, "End");
+		
+		table.addColumnStyleName(1, "nameColumStyle");
+		table.addColumnStyleName(1, "StartColumStyle");
+		table.addColumnStyleName(1, "EndColumnStyle");
+
+		table.setWidth("100%", true);
+		table.setColumnWidth(nameColumn, 50.0, Unit.PCT);
+		table.setColumnWidth(startColumn, 15.0, Unit.PCT);
+		table.setColumnWidth(endColumn, 15.0, Unit.PCT);
+
+		final SingleSelectionModel<Event> selectionModel = new SingleSelectionModel<Event>();
+		table.setSelectionModel(selectionModel);
+		selectionModel
+				.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+					public void onSelectionChange(SelectionChangeEvent event) {
+						Event selected = selectionModel.getSelectedObject();
+						if (selected != null) {
+							Window.alert("You selected: " + selected.Name());
+							viewEvent(1);
+
+						}
+					}
+				});
 
 		provider.addDataDisplay(table);
 
 		pager.setDisplay(table);
 
-		//VerticalPanel vp = new VerticalPanel();
-		//vp.add(table);
-		
+		// VerticalPanel vp = new VerticalPanel();
+		// vp.add(table);
+
 		RootPanel.get("listOfEvents").add(table);
 		RootPanel.get("elementPager").add(pager);
 		pager.addStyleName("elementPager");
-	}	
+	}
 
 }

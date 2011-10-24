@@ -63,9 +63,6 @@ public class Event implements Serializable {
 	public Event(String name) {
 		eventName = name;
 	}
-	
-
-	
 
 	public String Location() {
 		return location;
@@ -122,12 +119,12 @@ public class Event implements Serializable {
 	public void SetEmail(String email) {
 		eventEmail = email;
 	}
-	
-	public Date getStarHour(){
+
+	public Date getStarHour() {
 		return starHour;
 	}
-	
-	public Date getEndHour(){
+
+	public Date getEndHour() {
 		return endHour;
 	}
 
