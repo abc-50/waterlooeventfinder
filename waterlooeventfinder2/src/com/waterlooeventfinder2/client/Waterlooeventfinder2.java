@@ -31,12 +31,13 @@ import com.waterlooeventfinder2.client.AsyncDataProviderExample.MyDataProvider;
 import com.waterlooeventfinder2.shared.Event;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.waterlooeventfinder2.client.EventDescription2;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
 public class Waterlooeventfinder2 implements EntryPoint {
-
+	
 	private EventRetrievalServiceAsync retrievalService = GWT
 			.create(EventRetrievalService.class);
 
@@ -182,7 +183,14 @@ public class Waterlooeventfinder2 implements EntryPoint {
 		// Add it to the root panel.
 		RootPanel.get().add(vp);
 	}
-
+	
+	
+	// To Martin: call this function when you want to load my page.
+	public void viewEvent(int ID){
+		
+		Window.Location.assign(GWT.getHostPageBaseURL()+"EventDescription2.html?"+ID );
+	}
+	
 	// ///////////////////////////////////////////////////////////////////////////////////
 
 }
