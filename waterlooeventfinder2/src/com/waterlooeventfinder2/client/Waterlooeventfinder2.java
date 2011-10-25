@@ -345,10 +345,11 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 		table.addColumnStyleName(2, "EndColumnStyle");
 
 		table.setWidth("100%", true);
-		table.setColumnWidth(nameColumn, 50.0, Unit.PCT);
-		table.setColumnWidth(startColumn, 15.0, Unit.PCT);
-		table.setColumnWidth(endColumn, 15.0, Unit.PCT);
-
+		table.setColumnWidth(nameColumn, 40.0, Unit.PCT);
+		table.setColumnWidth(startColumn, 20.0, Unit.PCT);
+		table.setColumnWidth(endColumn, 20.0, Unit.PCT);
+		table.setColumnWidth(endColumn, 20.0, Unit.PCT);
+		
 		final SingleSelectionModel<Event> selectionModel = new SingleSelectionModel<Event>();
 		table.setSelectionModel(selectionModel);
 		selectionModel
