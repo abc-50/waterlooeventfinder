@@ -1,5 +1,7 @@
 package com.waterlooeventfinder2.client;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -18,6 +20,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.PushButton;
 import com.google.gwt.view.client.AsyncDataProvider;
 import com.google.gwt.view.client.HasData;
 import com.google.gwt.view.client.SelectionChangeEvent;
@@ -59,14 +62,14 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 
 				public void onSuccess(ArrayList<Event> result) {
 					// FOR MARTIN: result object for list of events
-					result.add(new Event());
+					//result.add(new Event());
 					// String lol = Integer.toString(start);
 					updateRowData(start, result);
 					updateRowCount(result.size(), true);
 
 				}
 			};
-			retrievalService.GetAllEvents(callback);
+			//retrievalService.GetAllEvents(callback);
 		}
 
 	};
@@ -100,7 +103,7 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 			}
 		};
 
-		retrievalService.GetAllEvents(callback);
+		retrievalService.GetEventsByFilter("something", time, 2, 2, callback);
 	}
 
 	// Call this function to load description page
@@ -175,7 +178,7 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 		});
 		
 		Button TimeTwoDays = new Button("2 days");
-		TimeOneDay.addClickHandler(new ClickHandler() {
+		TimeTwoDays.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				infoButtonPressed.setTime("Two days");
 				selectEvents(infoButtonPressed.getCategory(),
@@ -185,7 +188,7 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 		
 		
 		Button TimeThreeDays = new Button("3 days");
-		TimeOneDay.addClickHandler(new ClickHandler() {
+		TimeThreeDays.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				infoButtonPressed.setTime("Three days");
 				selectEvents(infoButtonPressed.getCategory(),
@@ -255,7 +258,10 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 				return object.Name();
 			}
 		};
-
+		
+		//final Format formatter1 = new SimpleDateFormat("hh:mm");  
+		//final Format formatter2 = new SimpleDateFormat("EEE, MMM d, h:mm a"); 
+		
 		// Add a date column to show the Start time
 		DateCell dateCell = new DateCell();
 		Column<Event, Date> startColumn = new Column<Event, Date>(dateCell) {

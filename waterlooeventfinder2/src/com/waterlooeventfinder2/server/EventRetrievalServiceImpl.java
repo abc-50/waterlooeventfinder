@@ -77,7 +77,65 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 		// ONCE ALL EVENTS HAVE BEEN ADDED TO getEventsByFilter
 		// EVENTS HAS TO BE ADDED CLASSED FROM THEIR STARTING DAY + HOUR
 		
+		start.add(Calendar.DATE, +0);
+		end.add(Calendar.DATE, +1);
+		rtn.add(new Event(1, 2, start.getTime(), end.getTime(),
+				"location1", "desc1", "Football: Waterloo vs Wilfried", "www.website5.com",
+				"www.youtube.com", "519-777-7890", "event@mail.com"));
 
+		start.add(Calendar.DATE, +0);
+		end.add(Calendar.DATE, +1);
+		rtn.add(new Event(2, 2, start.getTime(), end.getTime(),
+				"location1", "desc1", "Bomber : Night Beer Event ", "www.website5.com",
+				"www.youtube.com", "519-777-7890", "event@mail.com"));
+
+		start.add(Calendar.DATE, +0);
+		end.add(Calendar.DATE, +1);
+		rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+				"location1", "desc1", "Concert U2 on Waterloo !", "www.website5.com",
+				"www.youtube.com", "519-777-7890", "event@mail.com"));
+		
+		start.add(Calendar.DATE, +0);
+		end.add(Calendar.DATE, +1);
+		rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+				"location1", "desc1", "Niagara Falls visit", "www.website5.com",
+				"www.youtube.com", "519-777-7890", "event@mail.com"));
+		
+		start.add(Calendar.DATE, +0);
+		end.add(Calendar.DATE, +1);
+		rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+				"location1", "desc1", "Engineering Society Night Club", "www.website5.com",
+				"www.youtube.com", "519-777-7890", "event@mail.com"));
+		
+		start.add(Calendar.DATE, +0);
+		end.add(Calendar.DATE, +1);
+		rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+				"location1", "desc1", "Engineering Society Night Club", "www.website5.com",
+				"www.youtube.com", "519-777-7890", "event@mail.com"));
+		
+		start.add(Calendar.DATE, +0);
+		end.add(Calendar.DATE, +1);
+		rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+				"location1", "desc1", "GradeHouse Night : > 19 years", "www.website5.com",
+				"www.youtube.com", "519-777-7890", "event@mail.com"));
+		
+		start.add(Calendar.DATE, +0);
+		end.add(Calendar.DATE, +1);
+		rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+				"location1", "desc1", "Free Horse Riding Session", "www.website5.com",
+				"www.youtube.com", "519-777-7890", "event@mail.com"));
+		
+		start.add(Calendar.DATE, +0);
+		end.add(Calendar.DATE, +1);
+		rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+				"location1", "desc1", "Wine Degustation at SLC", "www.website5.com",
+				"www.youtube.com", "519-777-7890", "event@mail.com"));
+		
+		start.add(Calendar.DATE, +0);
+		end.add(Calendar.DATE, +1);
+		rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+				"location1", "desc1", "Wine Degustation at SLC", "www.website5.com",
+				"www.youtube.com", "519-777-7890", "event@mail.com"));
 		return rtn;
 	}
 
@@ -91,7 +149,7 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 		Calendar end = Calendar.getInstance();
 
 		// EVENTS OF TODAY
-		if (timeFilter == "1") {
+		if (timeFilter.equals("One day")) {
 			start.add(Calendar.DATE, +0);
 			end.add(Calendar.DATE, +1);
 			rtn.add(new Event(1, 2, start.getTime(), end.getTime(),
@@ -153,7 +211,7 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 					"www.youtube.com", "519-777-7890", "event@mail.com"));
 
 			// EVENTS OF TOMORROW
-		} else if (timeFilter == "2") {
+		} else if (timeFilter.equals("Two days")) {
 
 			start.add(Calendar.DATE, +3);
 			end.add(Calendar.DATE, +4);
@@ -168,14 +226,14 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 					"www.youtube.com", "519-777-7890", "event@mail.com"));
 
 			// EVENTS IN 1 WEEK
-		} else if (timeFilter == "3") {
+		} else if (timeFilter.equals("Three days")) {
 			start.add(Calendar.DATE, +7);
 			end.add(Calendar.DATE, +8);
 			rtn.add(new Event(5, 2, start.getTime(), end.getTime(),
 					"location6", "desc3", "Free hot dogs at SLC", "www.website.com",
 					"www.youtube.com", "519-777-7890", "event@mail.com"));
 			
-		}else if(timeFilter == "5"){
+		}else if(timeFilter.equals("Upcoming")){
 			start.add(Calendar.DATE, +8);
 			end.add(Calendar.DATE, +9);
 			rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
