@@ -2,6 +2,7 @@ package com.waterlooeventfinder2.client;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 
 import com.google.gwt.cell.client.DateCell;
 import com.google.gwt.core.client.EntryPoint;
@@ -112,7 +113,7 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 
 	// Call this function to load description page
 	public void viewEvent(int ID) {
-		loadDetailsPage(1);
+		loadDetailsPage(ID);
 		//Window.Location.assign(GWT.getHostPageBaseURL()
 		//		+ "EventDescription2.html?" + ID);
 	}
@@ -357,7 +358,8 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 					public void onSelectionChange(SelectionChangeEvent event) {
 						Event selected = selectionModel.getSelectedObject();
 						if (selected != null) {
-							viewEvent(1);
+							// randomly pick 0 or 1
+							viewEvent(selected.getCategoryId() % 2);
 							String search = "1";
 							String result = "";
 							int i;
@@ -369,7 +371,6 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 							//} else {
 							//	viewEvent(2);
 							//}
-
 						}
 					}
 				});
@@ -435,8 +436,7 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 				"Location: Warrior Field, University of Waterloo, Waterloo, ON, N2L3G1 <br><br>" +
 				"LIGHTS, CAMERA, ACTION: The Warrior field will this Saturday be the host to the ultimate showdown between the Wilfrid Laurier Hawks and your very own Waterloo Warriors. Come on out this weekend whether it be to have fun with your friends or to enjoy a nice game of football. After the crushing loss two weeks ago at the hands of Queen's, the Warriors need your support." +
 				"So, bring out your Warrior spirit and help Warriors win the final game of the season. Tickets are only $10 and go on sale 26th October, 2011. Pick up your ticket soon from the athletics office or the sales booth in Student Life Centre. <br><br>" +
-				"Video: http://www.youtube.com/watch?v=zkbXTQ95kLc <br>" +
-				"Event Website: http://www.varsity.uwaterloo.ca/schedule.aspx?path=football&schedule=38& <br><br>" +
+				"Event Website: <a href=\"http://www.varsity.uwaterloo.ca/schedule.aspx?path=football&schedule=38&\">Waterloo Warriors</a> <br><br>" +
 				"Contact: <br>" +
 				"Phone: 5198884567 <br>" +
 				"E-mail: campusrec@uwaterloo.ca";
@@ -444,15 +444,14 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 		final String label2 = "Brilliance in Music!!! <br><br>" +
 				"Location: Waterloo Public Square, Waterloo, ON, N2J 1P2 <br><br>" +
 				"What could be better than spending a relaxing evening listening to the music of some local musicians? This is an evening to enjoy some reggae, rock, pop and country. The event will be a great deal of fun for everyone involved, you’ll be able to spend some time with your family and friends while assisting with raising funds for the Brain Injury Association of Waterloo-Wellington. On top of an evening filled with melodious soothing music, the night will also consist of 50/50 draws, buffet, dancing, fun activities and of course music.  The cost is only $25 and tickets currently on sale on our website. <br><br>"+
-				"Video: http://www.youtube.com/watch?v=U-iorEGq8OI <br>" +
-				"Event Website: http://www.kitchener-waterloo.worldweb.com/Events/ConcertsPerformances/ <br><br>" +
+				"Event Website: <a href=\"http://www.kitchener-waterloo.worldweb.com/Events/ConcertsPerformances/\">Concert Performance</a> <br><br>" +
 				"Contact: <br>" +
 				"Phone: 5195795300 <br>" +
 				"E-mail: brillianceinmusic@kwcweb.com";
 		final String flink1 = "http://www.youtube.com/embed/zkbXTQ95kLc";
 		final String flink2 = "http://www.youtube.com/embed/U-iorEGq8OI";
 		
-		eventID = 1; //getval();
+		//eventID = 1; //getval();
 		//final Label desclabel1 = new Label();
 		//desclabel1.setText(label1);
 		//final Label desclabel2 = new Label();
@@ -478,10 +477,10 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 		vp2.add(sp); 
 		//vp2.setWidth("100%");
 		vp3.add(ftitle);
-		if (eventID == 1){
+		if (eventID == 0){
 			sp.add(desclabel1);
 			vp3.add(frame1);
-		} else if (eventID == 2){
+		} else {
 			sp.add(desclabel2);
 			vp3.add(frame2);
 		}
