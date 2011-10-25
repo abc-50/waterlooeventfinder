@@ -370,17 +370,6 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 						Event selected = selectionModel.getSelectedObject();
 						if (selected != null) {
 							viewEvent(1);
-							String search = "1";
-							String result = "";
-							int i;
-							i = selected.Name().indexOf(search);
-							result = selected.Name().substring(i);
-							if(result != null){
-								viewEvent(1);
-							} else {
-								viewEvent(2);
-							}
-
 						}
 					}
 				});
