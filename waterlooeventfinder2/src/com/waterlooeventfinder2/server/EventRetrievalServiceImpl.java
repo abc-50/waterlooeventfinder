@@ -953,7 +953,7 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 			
 		} else if (categoryFilter.equals("Concert")) {
 			if (timeFilter.equals("Upcoming")) {
-
+				if (startEventNumber == 0) {
 				start.add(Calendar.DATE, +0);
 				start.add(Calendar.HOUR, +1);
 				end.add(Calendar.HOUR, +3);
@@ -975,7 +975,8 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 						"location1", "desc1", "Concert Kean - Waterloo !",
 						"www.website5.com", "www.youtube.com", "519-777-7890",
 						"event@mail.com"));
-
+				
+				}else if (startEventNumber == 3) {
 				start.add(Calendar.HOUR, +4);
 				end.add(Calendar.HOUR, +7);
 				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
@@ -1000,6 +1001,8 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 						"location1", "desc1", "Concert Eagles - Waterloo !",
 						"www.website5.com", "www.youtube.com", "519-777-7890",
 						"event@mail.com"));
+				
+				}else if (startEventNumber == 6) {
 
 				start.add(Calendar.DATE, +7);
 				start.add(Calendar.HOUR, +1);
@@ -1027,6 +1030,37 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 						"location1", "desc1", "Concert Eagles - Waterloo !",
 						"www.website5.com", "www.youtube.com", "519-777-7890",
 						"event@mail.com"));
+				
+				}else if (startEventNumber == 9) {
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+				
+				}else if (startEventNumber == 12) {
 
 				start.add(Calendar.DATE, +7);
 				start.add(Calendar.HOUR, +1);
@@ -1055,33 +1089,8 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 						"www.website5.com", "www.youtube.com", "519-777-7890",
 						"event@mail.com"));
 
-				start.add(Calendar.DATE, +7);
-				start.add(Calendar.HOUR, +1);
-				end.add(Calendar.DATE, +7);
-				end.add(Calendar.HOUR, +4);
-				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-						"location1", "desc1", "Concert Eagles - Waterloo !",
-						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
-
-				start.add(Calendar.DATE, +7);
-				start.add(Calendar.HOUR, +1);
-				end.add(Calendar.DATE, +7);
-				end.add(Calendar.HOUR, +4);
-				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-						"location1", "desc1", "Concert Eagles - Waterloo !",
-						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
-
-				start.add(Calendar.DATE, +7);
-				start.add(Calendar.HOUR, +1);
-				end.add(Calendar.DATE, +7);
-				end.add(Calendar.HOUR, +4);
-				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-						"location1", "desc1", "Concert Eagles - Waterloo !",
-						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
-
+				}
+				
 				start.add(Calendar.DATE, +7);
 				start.add(Calendar.HOUR, +1);
 				end.add(Calendar.DATE, +7);
@@ -1385,7 +1394,7 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 				end.add(Calendar.DATE, +8);
 				end.add(Calendar.DATE, +8);
 				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-						"location1", "desc1", "Concert AC/DC - Waterloo !",
+						"location1", "desc1", "Concert ACDC - Waterloo !",
 						"www.website5.com", "www.youtube.com", "519-777-7890",
 						"event@mail.com"));
 
