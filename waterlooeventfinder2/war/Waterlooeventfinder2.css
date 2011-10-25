@@ -6,11 +6,36 @@ h1 {
 	background-color: beige;
 }
 
-.nameColumnStyle{
+.nameColumStyle{
 	text-align: center;
+	font-size: 0.6em;
+	position: center;	
 }
 
-button.gwt-Button, #wrapper button.gwt-Button {
+.cellTableFooter {
+  border-top: 2px solid #6f7277;
+  padding: 3px 15px;
+  text-align: left;
+  color: #4b4a4a;
+  text-shadow: #ddf 1px 1px 0;
+  overflow: hidden;
+}
+
+
+
+button.gwt-Button {
+  border-radius: 13px;
+  -moz-border-radius: 13px;
+  -webkit-border-radius: 13px;
+  margin-left: 2%;
+  border: solid 2px #d3d4d6;
+  height: 28px;
+  width: 18%;
+  background-color: #e4e4e4;
+  font: normal 0.8em arial, helvetica, verdana, sans-serif;
+}
+
+#pressed button.gwt-Button{
   border-radius: 13px;
   -moz-border-radius: 13px;
   -webkit-border-radius: 13px;
@@ -51,7 +76,7 @@ table {
 }
 
 #listOfEvents{
-	margin: 40px 0px 0px;
+	margin: 1% 0px 0px;
 	background-color: beige;
 }
 
@@ -61,7 +86,14 @@ table {
 
 #elementPager{
 	margin-left: auto;
-	width: 170px;
+	width: 180px;
     margin-right: auto;
 	text-align: center;
+}
+
+.cellTableSelectedRow {
+  background: #628cd5;
+  color: white;
+  height: auto;
+  overflow: auto;
 }

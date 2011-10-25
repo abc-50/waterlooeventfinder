@@ -77,65 +77,7 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 		// ONCE ALL EVENTS HAVE BEEN ADDED TO getEventsByFilter
 		// EVENTS HAS TO BE ADDED CLASSED FROM THEIR STARTING DAY + HOUR
 		
-		start.add(Calendar.DATE, +0);
-		end.add(Calendar.DATE, +1);
-		rtn.add(new Event(1, 2, start.getTime(), end.getTime(),
-				"location1", "desc1", "Football: Waterloo vs Wilfried", "www.website5.com",
-				"www.youtube.com", "519-777-7890", "event@mail.com"));
-
-		start.add(Calendar.DATE, +0);
-		end.add(Calendar.DATE, +1);
-		rtn.add(new Event(2, 2, start.getTime(), end.getTime(),
-				"location1", "desc1", "Bomber : Night Beer Event ", "www.website5.com",
-				"www.youtube.com", "519-777-7890", "event@mail.com"));
-
-		start.add(Calendar.DATE, +0);
-		end.add(Calendar.DATE, +1);
-		rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-				"location1", "desc1", "Concert U2 on Waterloo !", "www.website5.com",
-				"www.youtube.com", "519-777-7890", "event@mail.com"));
 		
-		start.add(Calendar.DATE, +0);
-		end.add(Calendar.DATE, +1);
-		rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-				"location1", "desc1", "Niagara Falls visit", "www.website5.com",
-				"www.youtube.com", "519-777-7890", "event@mail.com"));
-		
-		start.add(Calendar.DATE, +0);
-		end.add(Calendar.DATE, +1);
-		rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-				"location1", "desc1", "Engineering Society Night Club", "www.website5.com",
-				"www.youtube.com", "519-777-7890", "event@mail.com"));
-		
-		start.add(Calendar.DATE, +0);
-		end.add(Calendar.DATE, +1);
-		rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-				"location1", "desc1", "Engineering Society Night Club", "www.website5.com",
-				"www.youtube.com", "519-777-7890", "event@mail.com"));
-		
-		start.add(Calendar.DATE, +0);
-		end.add(Calendar.DATE, +1);
-		rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-				"location1", "desc1", "GradeHouse Night : > 19 years", "www.website5.com",
-				"www.youtube.com", "519-777-7890", "event@mail.com"));
-		
-		start.add(Calendar.DATE, +0);
-		end.add(Calendar.DATE, +1);
-		rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-				"location1", "desc1", "Free Horse Riding Session", "www.website5.com",
-				"www.youtube.com", "519-777-7890", "event@mail.com"));
-		
-		start.add(Calendar.DATE, +0);
-		end.add(Calendar.DATE, +1);
-		rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-				"location1", "desc1", "Wine Degustation at SLC", "www.website5.com",
-				"www.youtube.com", "519-777-7890", "event@mail.com"));
-		
-		start.add(Calendar.DATE, +0);
-		end.add(Calendar.DATE, +1);
-		rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-				"location1", "desc1", "Wine Degustation at SLC", "www.website5.com",
-				"www.youtube.com", "519-777-7890", "event@mail.com"));
 		return rtn;
 	}
 
@@ -143,6 +85,7 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 	public ArrayList<Event> GetEventsByFilter(String categoryFilter,
 			String timeFilter, int startEventNumber, int endEventNumber) {
 
+		// We want to show ALL + UPCOMING
 		ArrayList<Event> rtn = new ArrayList<Event>();
 
 		Calendar start = Calendar.getInstance();
@@ -169,7 +112,7 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 					"www.youtube.com", "519-777-7890", "event@mail.com"));
 			
 			start.add(Calendar.DATE, +0);
-			end.add(Calendar.DATE, +1);
+			end.add(Calendar.HOUR, +1);
 			rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
 					"location1", "desc1", "Niagara Falls visit", "www.website5.com",
 					"www.youtube.com", "519-777-7890", "event@mail.com"));

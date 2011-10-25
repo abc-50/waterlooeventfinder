@@ -1,9 +1,6 @@
 package com.waterlooeventfinder2.client;
 
-import java.text.Format;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 import com.google.gwt.cell.client.DateCell;
@@ -20,7 +17,6 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.PushButton;
 import com.google.gwt.view.client.AsyncDataProvider;
 import com.google.gwt.view.client.HasData;
 import com.google.gwt.view.client.SelectionChangeEvent;
@@ -28,13 +24,13 @@ import com.google.gwt.view.client.SingleSelectionModel;
 import com.waterlooeventfinder2.shared.Event;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.waterlooeventfinder2.client.EventDescription2;
-
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
+
 public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 
+	
 	ButtonPressed infoButtonPressed = new ButtonPressed();
 	SimplePager pager = new SimplePager();
 
@@ -65,11 +61,13 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 					//result.add(new Event());
 					// String lol = Integer.toString(start);
 					updateRowData(start, result);
+					Window.alert(Integer.toString(start) + end);
 					updateRowCount(result.size(), true);
 
 				}
 			};
-			//retrievalService.GetAllEvents(callback);
+			
+			retrievalService.GetEventsByFilter(infoButtonPressed.getCategory(), infoButtonPressed.getTime(), 2, 2, callback);
 		}
 
 	};
@@ -93,7 +91,6 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 			}
 
 			public void onSuccess(ArrayList<Event> result) {
-				result.add(new Event());
 				// Inform the displays of the new data.
 				provider.updateRowData(0, result);
 				// Inform the displays of the total number of items that are
@@ -113,6 +110,7 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 	}
 
 	public void onModuleLoad() {
+
 
 		Button CategoryAll = new Button("All");
 		CategoryAll.addClickHandler(new ClickHandler() {
@@ -249,7 +247,7 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 		// Create a CellTable.
 		final CellTable<Event> table = new CellTable<Event>();
 		// Display 2 rows in one page
-		table.setPageSize(2);
+		table.setPageSize(3);
 
 		// Add a text column to show the name.
 		TextColumn<Event> nameColumn = new TextColumn<Event>() {
@@ -279,14 +277,15 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 			}
 		};
 
+		  
 		// Add columns to the table
 		table.addColumn(nameColumn, "Name");
 		table.addColumn(startColumn, "Start");
 		table.addColumn(endColumn, "End");
 		
-		table.addColumnStyleName(1, "nameColumStyle");
+		table.addColumnStyleName(0, "nameColumStyle");
 		table.addColumnStyleName(1, "StartColumStyle");
-		table.addColumnStyleName(1, "EndColumnStyle");
+		table.addColumnStyleName(2, "EndColumnStyle");
 
 		table.setWidth("100%", true);
 		table.setColumnWidth(nameColumn, 50.0, Unit.PCT);
