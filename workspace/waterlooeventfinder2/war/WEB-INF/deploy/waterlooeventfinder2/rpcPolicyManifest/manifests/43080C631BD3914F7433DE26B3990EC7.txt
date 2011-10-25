@@ -1,2 +1,0 @@
-serviceClass: com.waterlooeventfinder2.client.EventRetrievalService
-path: B854C65523EA40305E0B1E7CEF15A0E3.gwt.rpc
