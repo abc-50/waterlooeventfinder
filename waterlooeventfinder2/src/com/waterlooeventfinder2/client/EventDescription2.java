@@ -1,33 +1,21 @@
 package com.waterlooeventfinder2.client;
 
 import java.lang.Integer;
-import java.util.ArrayList;
-import java.util.Calendar;
-
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Frame;
-import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
-import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.rpc.IncompatibleRemoteServiceException;
-import com.google.gwt.user.client.rpc.InvocationException;
-import com.google.gwt.view.client.AsyncDataProvider;
-import com.google.gwt.view.client.HasData;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.waterlooeventfinder2.shared.Event;
 
 
 public class EventDescription2 implements EntryPoint {
 	
-	public int eventID;
 	//protected Event eventObj;
 	
 	//private EventRetrievalServiceAsync retrievalService = GWT.create(EventRetrievalService.class);
@@ -53,6 +41,7 @@ public class EventDescription2 implements EntryPoint {
 	
 	
 	public void onModuleLoad() {
+		int eventID;
 		
 		final Button ChooseMain = new Button("Main");
 		final String label1 = "Football season finale!!! \n\n" +
@@ -76,8 +65,7 @@ public class EventDescription2 implements EntryPoint {
 		final String flink1 = "http://www.youtube.com/embed/zkbXTQ95kLc";
 		final String flink2 = "http://www.youtube.com/embed/U-iorEGq8OI";
 		
-		eventID = 0;
-		getval();
+		eventID = 1; //getval();
 		final Label desclabel1 = new Label(label1);
 		final Label desclabel2 = new Label(label2);
 		final Label ftitle = new Label("\nCheck out the Video here:\n\n");
@@ -123,19 +111,22 @@ public class EventDescription2 implements EntryPoint {
 		  		  Window.Location.assign(baseurl+"Waterlooeventfinder2.html");
 		      }
 		});	
-		}
+	}
 	
-	public void getval(){
+	public int getval(){
 		String url = Window.Location.getHref();
 		String search = "?";
 		String result = "";
+		int eventID = 0;
 		int i;
 		i = url.indexOf(search);
 		result = url.substring(i+1);
+		
 		if(result != null){
-		eventID = Integer.parseInt(result);
+			eventID = Integer.parseInt(result);
 		}
-				
+		
+		return eventID;
 	}
 	
 }

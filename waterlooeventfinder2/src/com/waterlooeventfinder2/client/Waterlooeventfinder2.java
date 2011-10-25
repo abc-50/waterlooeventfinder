@@ -19,6 +19,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Frame;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -430,37 +431,41 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 	public void loadDetailsPage(int eventID) {
 		
 		final Button ChooseMain = new Button("Main");
-		final String label1 = "Football season finale!!! \n\n" +
-				"Location: Warrior Field, University of Waterloo, Waterloo, ON, N2L3G1 \n\n" +
+		final String label1 = "Football season finale!!! <br><br>" +
+				"Location: Warrior Field, University of Waterloo, Waterloo, ON, N2L3G1 <br><br>" +
 				"LIGHTS, CAMERA, ACTION: The Warrior field will this Saturday be the host to the ultimate showdown between the Wilfrid Laurier Hawks and your very own Waterloo Warriors. Come on out this weekend whether it be to have fun with your friends or to enjoy a nice game of football. After the crushing loss two weeks ago at the hands of Queen's, the Warriors need your support." +
-				"So, bring out your Warrior spirit and help Warriors win the final game of the season. Tickets are only $10 and go on sale 26th October, 2011. Pick up your ticket soon from the athletics office or the sales booth in Student Life Centre. \n\n" +
-				"Video: http://www.youtube.com/watch?v=zkbXTQ95kLc \n" +
-				"Event Website: http://www.varsity.uwaterloo.ca/schedule.aspx?path=football&schedule=38& \n\n" +
-				"Contact: \n" +
-				"Phone: 5198884567 \n" +
+				"So, bring out your Warrior spirit and help Warriors win the final game of the season. Tickets are only $10 and go on sale 26th October, 2011. Pick up your ticket soon from the athletics office or the sales booth in Student Life Centre. <br><br>" +
+				"Video: http://www.youtube.com/watch?v=zkbXTQ95kLc <br>" +
+				"Event Website: http://www.varsity.uwaterloo.ca/schedule.aspx?path=football&schedule=38& <br><br>" +
+				"Contact: <br>" +
+				"Phone: 5198884567 <br>" +
 				"E-mail: campusrec@uwaterloo.ca";
 		
-		final String label2 = "Brilliance in Music!!! \n\n" +
-				"Location: Waterloo Public Square, Waterloo, ON, N2J 1P2 \n\n" +
-				"What could be better than spending a relaxing evening listening to the music of some local musicians? This is an evening to enjoy some reggae, rock, pop and country. The event will be a great deal of fun for everyone involved, you’ll be able to spend some time with your family and friends while assisting with raising funds for the Brain Injury Association of Waterloo-Wellington. On top of an evening filled with melodious soothing music, the night will also consist of 50/50 draws, buffet, dancing, fun activities and of course music.  The cost is only $25 and tickets currently on sale on our website. \n\n"+
-				"Video: http://www.youtube.com/watch?v=U-iorEGq8OI \n" +
-				"Event Website: http://www.kitchener-waterloo.worldweb.com/Events/ConcertsPerformances/ \n\n" +
-				"Contact: \n" +
-				"Phone: 5195795300 \n" +
+		final String label2 = "Brilliance in Music!!! <br><br>" +
+				"Location: Waterloo Public Square, Waterloo, ON, N2J 1P2 <br><br>" +
+				"What could be better than spending a relaxing evening listening to the music of some local musicians? This is an evening to enjoy some reggae, rock, pop and country. The event will be a great deal of fun for everyone involved, you’ll be able to spend some time with your family and friends while assisting with raising funds for the Brain Injury Association of Waterloo-Wellington. On top of an evening filled with melodious soothing music, the night will also consist of 50/50 draws, buffet, dancing, fun activities and of course music.  The cost is only $25 and tickets currently on sale on our website. <br><br>"+
+				"Video: http://www.youtube.com/watch?v=U-iorEGq8OI <br>" +
+				"Event Website: http://www.kitchener-waterloo.worldweb.com/Events/ConcertsPerformances/ <br><br>" +
+				"Contact: <br>" +
+				"Phone: 5195795300 <br>" +
 				"E-mail: brillianceinmusic@kwcweb.com";
 		final String flink1 = "http://www.youtube.com/embed/zkbXTQ95kLc";
 		final String flink2 = "http://www.youtube.com/embed/U-iorEGq8OI";
 		
 		eventID = 1; //getval();
-		final Label desclabel1 = new Label(label1);
-		final Label desclabel2 = new Label(label2);
-		final Label ftitle = new Label("\nCheck out the Video here:\n\n");
+		//final Label desclabel1 = new Label();
+		//desclabel1.setText(label1);
+		//final Label desclabel2 = new Label();
+		//desclabel2.setText(label2);
+		HTML desclabel1 = new HTML(label1);
+		HTML desclabel2 = new HTML(label2);
+		final HTML ftitle = new HTML("Check out the Video here:<br><br>");
 		final Frame frame1 = new Frame(flink1);
 		final Frame frame2 = new Frame(flink2);
-		frame1.setWidth("100%");
-		frame1.setHeight("100%");
-		frame2.setWidth("100%");
-		frame2.setHeight("100%");
+//		frame1.setWidth("100%");
+//		frame1.setHeight("100%");
+//		frame2.setWidth("100%");
+//		frame2.setHeight("100%");
 		
 		final VerticalPanel vp1 = new VerticalPanel();
 		final VerticalPanel vp2 = new VerticalPanel();
@@ -471,7 +476,7 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 		vp1.add(ChooseMain); 
 		//vp1.setWidth("100%");
 		vp2.add(sp); 
-		vp2.setWidth("100%");
+		//vp2.setWidth("100%");
 		vp3.add(ftitle);
 		if (eventID == 1){
 			sp.add(desclabel1);
@@ -485,10 +490,6 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 		
 		
 		// Associate Main Panel with host page.
-
-//		RootPanel.get("menubar").add(vp1);
-//		RootPanel.get("label").add(vp2);
-//		RootPanel.get("frames").add(vp3);
 	
 		clearTable();
 		RootPanel.get("row1").add(vp1);
