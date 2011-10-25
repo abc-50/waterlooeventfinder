@@ -1,9 +1,8 @@
 package com.waterlooeventfinder2.server;
 
 import java.sql.*;
+import java.util.*;
 
-import java.util.ArrayList;
-import java.util.Calendar;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.waterlooeventfinder2.client.EventRetrievalService;
@@ -23,7 +22,7 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 		Connection conn = null;
 		
 		ArrayList<Event> rtn = new ArrayList<Event>();
-		
+		rtn.clear();
 		// String query = "select * from Event";
 		//
 		// try {
@@ -66,46 +65,23 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 		Calendar start = Calendar.getInstance();
 		Calendar end = Calendar.getInstance();
 
-		start.add(Calendar.DATE, +100);
-		end.add(Calendar.DATE, +101);
-		rtn.add(new Event(1, 2, start.getTime(), end.getTime(), "location1",
-				"desc1", "name1BEGIN", "www.website1.com", "www.youtube.com",
-				"519-777-7890", "event1@mail.com"));
-
-		start.add(Calendar.DATE, +50);
-		end.add(Calendar.DATE, +51);
-		rtn.add(new Event(1, 3, start.getTime(), end.getTime(), "location2",
-				"desc2", "name2", "www.website2.com", "www.youtube.com",
-				"519-777-7890", "event2@mail.com"));
-
-		start.add(Calendar.DATE, +70);
-		end.add(Calendar.DATE, +71);
-		rtn.add(new Event(1, 1, start.getTime(), end.getTime(), "location6",
-				"desc3", "name3", "www.website3.com", "www.youtube.com",
-				"519-777-7890", "event3@mail.com"));
-
-		start.add(Calendar.DATE, +70);
-		end.add(Calendar.DATE, +101);
-		rtn.add(new Event(1, 2, start.getTime(), end.getTime(), "location4",
-				"des4c", "name4", "www.website4.com", "www.youtube.com",
-				"519-777-7890", "event4@mail.com"));
-
-		start.add(Calendar.DATE, +70);
-		end.add(Calendar.DATE, +101);
-		rtn.add(new Event(1, 2, start.getTime(), end.getTime(), "location4",
-				"des4c", "name5", "www.website4.com", "www.youtube.com",
-				"519-777-7890", "event5@mail.com"));
-
-		start.add(Calendar.DATE, +70);
-		end.add(Calendar.DATE, +101);
-		rtn.add(new Event(1, 2, start.getTime(), end.getTime(), "location4",
-				"des4c", "name6", "www.website4.com", "www.youtube.com",
-				"519-777-7890", "event6@mail.com"));
+		start.add(Calendar.DATE, +1);
+		end.add(Calendar.DATE, +1); 
+		
+		Calendar calendar = new GregorianCalendar();
+		String am_pm;
+		
+		int hour = calendar.get(Calendar.HOUR);
+		
+		// EVENTS USED FOR THE DEMO
+		// ONCE ALL EVENTS HAVE BEEN ADDED TO getEventsByFilter
+		// EVENTS HAS TO BE ADDED CLASSED FROM THEIR STARTING DAY + HOUR
+		
 
 		return rtn;
 	}
 
-	// use "1", "2", "3", "4" as temporary time filters
+	// use "1", "2", "3", "4" "5" as temporary time filters
 	public ArrayList<Event> GetEventsByFilter(String categoryFilter,
 			String timeFilter, int startEventNumber, int endEventNumber) {
 
@@ -114,58 +90,111 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 		Calendar start = Calendar.getInstance();
 		Calendar end = Calendar.getInstance();
 
+		// EVENTS OF TODAY
 		if (timeFilter == "1") {
-			start.add(Calendar.DATE, +1);
-			end.add(Calendar.DATE, +2);
+			start.add(Calendar.DATE, +0);
+			end.add(Calendar.DATE, +1);
 			rtn.add(new Event(1, 2, start.getTime(), end.getTime(),
-					"location1", "desc1", "name1", "www.website5.com",
+					"location1", "desc1", "Football: Waterloo vs Wilfried", "www.website5.com",
 					"www.youtube.com", "519-777-7890", "event@mail.com"));
 
-			start.add(Calendar.DATE, +1);
-			end.add(Calendar.DATE, +2);
+			start.add(Calendar.DATE, +0);
+			end.add(Calendar.DATE, +1);
 			rtn.add(new Event(2, 2, start.getTime(), end.getTime(),
-					"location1", "desc1", "name2", "www.website5.com",
+					"location1", "desc1", "Bomber : Night Beer Event ", "www.website5.com",
 					"www.youtube.com", "519-777-7890", "event@mail.com"));
 
-			start.add(Calendar.DATE, +1);
-			end.add(Calendar.DATE, +2);
+			start.add(Calendar.DATE, +0);
+			end.add(Calendar.DATE, +1);
 			rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-					"location1", "desc1", "name3", "www.website5.com",
+					"location1", "desc1", "Concert U2 on Waterloo !", "www.website5.com",
+					"www.youtube.com", "519-777-7890", "event@mail.com"));
+			
+			start.add(Calendar.DATE, +0);
+			end.add(Calendar.DATE, +1);
+			rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+					"location1", "desc1", "Niagara Falls visit", "www.website5.com",
+					"www.youtube.com", "519-777-7890", "event@mail.com"));
+			
+			start.add(Calendar.DATE, +0);
+			end.add(Calendar.DATE, +1);
+			rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+					"location1", "desc1", "Engineering Society Night Club", "www.website5.com",
+					"www.youtube.com", "519-777-7890", "event@mail.com"));
+			
+			start.add(Calendar.DATE, +0);
+			end.add(Calendar.DATE, +1);
+			rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+					"location1", "desc1", "Engineering Society Night Club", "www.website5.com",
+					"www.youtube.com", "519-777-7890", "event@mail.com"));
+			
+			start.add(Calendar.DATE, +0);
+			end.add(Calendar.DATE, +1);
+			rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+					"location1", "desc1", "GradeHouse Night : > 19 years", "www.website5.com",
+					"www.youtube.com", "519-777-7890", "event@mail.com"));
+			
+			start.add(Calendar.DATE, +0);
+			end.add(Calendar.DATE, +1);
+			rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+					"location1", "desc1", "Free Horse Riding Session", "www.website5.com",
+					"www.youtube.com", "519-777-7890", "event@mail.com"));
+			
+			start.add(Calendar.DATE, +0);
+			end.add(Calendar.DATE, +1);
+			rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+					"location1", "desc1", "Wine Degustation at SLC", "www.website5.com",
+					"www.youtube.com", "519-777-7890", "event@mail.com"));
+			
+			start.add(Calendar.DATE, +0);
+			end.add(Calendar.DATE, +1);
+			rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+					"location1", "desc1", "Wine Degustation at SLC", "www.website5.com",
 					"www.youtube.com", "519-777-7890", "event@mail.com"));
 
+			// EVENTS OF TOMORROW
 		} else if (timeFilter == "2") {
 
 			start.add(Calendar.DATE, +3);
 			end.add(Calendar.DATE, +4);
 			rtn.add(new Event(4, 2, start.getTime(), end.getTime(),
-					"location2", "desc2", "name4", "www.website6.com",
+					"location2", "desc2", "Hockey game Waterloo vs Wilfried", "www.website6.com",
 					"www.youtube.com", "519-777-7890", "event@mail.com"));
 
 			start.add(Calendar.DATE, +3);
 			end.add(Calendar.DATE, +4);
 			rtn.add(new Event(4, 2, start.getTime(), end.getTime(),
-					"location2", "desc2", "name5", "www.website6.com",
+					"location2", "desc2", "Chess tournament Waterloo vs Wilfried", "www.website6.com",
 					"www.youtube.com", "519-777-7890", "event@mail.com"));
 
-		} else if (timeFilter == "2") {
+			// EVENTS IN 1 WEEK
+		} else if (timeFilter == "3") {
 			start.add(Calendar.DATE, +7);
 			end.add(Calendar.DATE, +8);
 			rtn.add(new Event(5, 2, start.getTime(), end.getTime(),
-					"location6", "desc3", "name6", "www.website.com",
+					"location6", "desc3", "Free hot dogs at SLC", "www.website.com",
 					"www.youtube.com", "519-777-7890", "event@mail.com"));
-
-		} else {
+			
+		}else if(timeFilter == "5"){
+			start.add(Calendar.DATE, +8);
+			end.add(Calendar.DATE, +9);
+			rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+					"location1", "desc1", "Camping at Algonquin Park", "www.website5.com",
+					"www.youtube.com", "519-777-7890", "event@mail.com"));
+			
 			start.add(Calendar.DATE, +10);
-			end.add(Calendar.DATE, +20);
+			end.add(Calendar.DATE, +10);
 			rtn.add(new Event(7, 2, start.getTime(), end.getTime(),
 					"location6", "desc3", "name7", "www.website.com",
 					"www.youtube.com", "519-777-7890", "event@mail.com"));
-
+			
 			start.add(Calendar.DATE, +10);
 			end.add(Calendar.DATE, +20);
 			rtn.add(new Event(8, 2, start.getTime(), end.getTime(),
 					"location6", "desc3", "name8", "www.website.com",
 					"www.youtube.com", "519-777-7890", "event@mail.com"));
+		} else {
+			
 		}
 		return rtn;
 	}

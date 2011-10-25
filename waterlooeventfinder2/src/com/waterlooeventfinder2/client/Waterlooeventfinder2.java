@@ -1,6 +1,7 @@
 package com.waterlooeventfinder2.client;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import com.google.gwt.cell.client.DateCell;
@@ -65,7 +66,6 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 
 				}
 			};
-
 			retrievalService.GetAllEvents(callback);
 		}
 
@@ -183,6 +183,7 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 			}
 		});
 		
+		
 		Button TimeThreeDays = new Button("3 days");
 		TimeOneDay.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
@@ -293,9 +294,7 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 					public void onSelectionChange(SelectionChangeEvent event) {
 						Event selected = selectionModel.getSelectedObject();
 						if (selected != null) {
-							Window.alert("You selected: " + selected.Name());
 							viewEvent(1);
-
 						}
 					}
 				});
@@ -310,6 +309,8 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 		RootPanel.get("listOfEvents").add(table);
 		RootPanel.get("elementPager").add(pager);
 		pager.addStyleName("elementPager");
+		
+		
 	}
 
 }
