@@ -25,6 +25,8 @@ import com.google.gwt.view.client.SingleSelectionModel;
 import com.waterlooeventfinder2.shared.Event;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.i18n.client.DateTimeFormat.PredefinedFormat;
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
@@ -311,25 +313,39 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 			}
 		};
 		
-		//final Format formatter1 = new SimpleDateFormat("hh:mm");  
-		//final Format formatter2 = new SimpleDateFormat("EEE, MMM d, h:mm a"); 
 		
-		// Add a date column to show the Start time
-		DateCell dateCell = new DateCell();
-		Column<Event, Date> startColumn = new Column<Event, Date>(dateCell) {
+		// Add a column to show the Start time
+		TextColumn<Event> startColumn = new TextColumn<Event>() {
 			@Override
-			public Date getValue(Event object) {
-				return object.getStarHour();
+			public String getValue(Event object) {
+				String startDateTime = null;  
+				if (infoButtonPressed.getTime().equals("Upcoming")) {
+					startDateTime = DateTimeFormat.getFormat(
+							PredefinedFormat.TIME_SHORT).format(object.getStarHour());
+				} else {
+					startDateTime = DateTimeFormat.getFormat(
+							PredefinedFormat.DATE_TIME_SHORT).format(object.getStarHour());
+				}
+				return startDateTime;
+			}
+		};
+	
+		// Add a column to show end time
+		TextColumn<Event> endColumn = new TextColumn<Event>() {
+			@Override
+			public String getValue(Event object) {
+				String endDateTime = null;  
+				if (infoButtonPressed.getTime().equals("Upcoming")) {
+					endDateTime = DateTimeFormat.getFormat(
+							PredefinedFormat.TIME_SHORT).format(object.getEndHour());
+				} else {
+					endDateTime = DateTimeFormat.getFormat(
+							PredefinedFormat.DATE_TIME_SHORT).format(object.getEndHour());
+				}
+				return endDateTime;
 			}
 		};
 
-		// Add a date column to show the Start time
-		Column<Event, Date> endColumn = new Column<Event, Date>(dateCell) {
-			@Override
-			public Date getValue(Event object) {
-				return object.getEndHour();
-			}
-		};
 
 		  
 		// Add columns to the table
