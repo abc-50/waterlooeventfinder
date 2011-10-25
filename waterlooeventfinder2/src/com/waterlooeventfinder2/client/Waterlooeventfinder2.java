@@ -347,10 +347,11 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 		table.addColumnStyleName(2, "EndColumnStyle");
 
 		table.setWidth("100%", true);
-		table.setColumnWidth(nameColumn, 50.0, Unit.PCT);
-		table.setColumnWidth(startColumn, 15.0, Unit.PCT);
-		table.setColumnWidth(endColumn, 15.0, Unit.PCT);
-
+		table.setColumnWidth(nameColumn, 40.0, Unit.PCT);
+		table.setColumnWidth(startColumn, 20.0, Unit.PCT);
+		table.setColumnWidth(endColumn, 20.0, Unit.PCT);
+		table.setColumnWidth(endColumn, 20.0, Unit.PCT);
+		
 		final SingleSelectionModel<Event> selectionModel = new SingleSelectionModel<Event>();
 		table.setSelectionModel(selectionModel);
 		selectionModel
@@ -443,7 +444,7 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 		
 		final String label2 = "Brilliance in Music!!! <br><br>" +
 				"Location: Waterloo Public Square, Waterloo, ON, N2J 1P2 <br><br>" +
-				"What could be better than spending a relaxing evening listening to the music of some local musicians? This is an evening to enjoy some reggae, rock, pop and country. The event will be a great deal of fun for everyone involved, you’ll be able to spend some time with your family and friends while assisting with raising funds for the Brain Injury Association of Waterloo-Wellington. On top of an evening filled with melodious soothing music, the night will also consist of 50/50 draws, buffet, dancing, fun activities and of course music.  The cost is only $25 and tickets currently on sale on our website. <br><br>"+
+				"What could be better than spending a relaxing evening listening to the music of some local musicians? This is an evening to enjoy some reggae, rock, pop and country. The event will be a great deal of fun for everyone involved, you ll be able to spend some time with your family and friends while assisting with raising funds for the Brain Injury Association of Waterloo-Wellington. On top of an evening filled with melodious soothing music, the night will also consist of 50/50 draws, buffet, dancing, fun activities and of course music.  The cost is only $25 and tickets currently on sale on our website. <br><br>"+
 				"Event Website: <a href=\"http://www.kitchener-waterloo.worldweb.com/Events/ConcertsPerformances/\">Concert Performance</a> <br><br>" +
 				"Contact: <br>" +
 				"Phone: 5195795300 <br>" +
@@ -451,6 +452,7 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 		final String flink1 = "http://www.youtube.com/embed/zkbXTQ95kLc";
 		final String flink2 = "http://www.youtube.com/embed/U-iorEGq8OI";
 		
+		eventID = 1; //getval();
 		//eventID = 1; //getval();
 		//final Label desclabel1 = new Label();
 		//desclabel1.setText(label1);
