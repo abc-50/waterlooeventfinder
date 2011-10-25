@@ -100,7 +100,7 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 			}
 		};
 
-		retrievalService.GetEventsByFilter("something", time, 2, 2, callback);
+		retrievalService.GetEventsByFilter(infoButtonPressed.getCategory(), infoButtonPressed.getTime(), 2, 2, callback);
 	}
 
 	// Call this function to load description page
@@ -121,10 +121,10 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 			}
 		});
 
-		Button CategoryFootball = new Button("Football");
-		CategoryFootball.addClickHandler(new ClickHandler() {
+		Button CategorySport = new Button("Sport");
+		CategorySport.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				infoButtonPressed.setCategory("Football");
+				infoButtonPressed.setCategory("Sport");
 				selectEvents(infoButtonPressed.getCategory(),
 						infoButtonPressed.getTime());
 			}
@@ -206,7 +206,7 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 		// We can add style names to widgets
 
 		CategoryAll.addStyleName("categoryButton");
-		CategoryFootball.addStyleName("categoryButton");
+		CategorySport.addStyleName("categoryButton");
 		CategoryDance.addStyleName("categoryButton");
 		CategoryConcert.addStyleName("categoryButton");
 		CategoryBars.addStyleName("categoryButton");
@@ -222,7 +222,7 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 		// Use RootPanel.get() to get the entire body element
 
 		RootPanel.get("divCategoryButton").add(CategoryAll);
-		RootPanel.get("divCategoryButton").add(CategoryFootball);
+		RootPanel.get("divCategoryButton").add(CategorySport);
 		RootPanel.get("divCategoryButton").add(CategoryDance);
 		RootPanel.get("divCategoryButton").add(CategoryConcert);
 		RootPanel.get("divCategoryButton").add(CategoryBars);
