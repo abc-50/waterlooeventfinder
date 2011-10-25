@@ -18,6 +18,10 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Frame;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ScrollPanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.AsyncDataProvider;
 import com.google.gwt.view.client.HasData;
 import com.google.gwt.view.client.SelectionChangeEvent;
@@ -107,12 +111,12 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 
 	// Call this function to load description page
 	public void viewEvent(int ID) {
-		Window.Location.assign(GWT.getHostPageBaseURL()
-				+ "EventDescription2.html?" + ID);
+		loadDetailsPage(1);
+		//Window.Location.assign(GWT.getHostPageBaseURL()
+		//		+ "EventDescription2.html?" + ID);
 	}
-
-	public void onModuleLoad() {
-
+	
+	public void loadMainPage() {
 		final Button CategoryAll = new Button("All");
 		final Button CategorySport = new Button("Sport");
 		final Button CategoryDance = new Button("Dance");
@@ -272,23 +276,6 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 		TimeThreeDays.addStyleName("timeButton");
 		TimeOneWeek.addStyleName("timeButton");
 		
-
-		// Add the nameField and sendButton to the RootPanel
-		// Use RootPanel.get() to get the entire body element
-
-		RootPanel.get("divCategoryButton").add(CategoryAll);
-		RootPanel.get("divCategoryButton").add(CategorySport);
-		RootPanel.get("divCategoryButton").add(CategoryDance);
-		RootPanel.get("divCategoryButton").add(CategoryConcert);
-		RootPanel.get("divCategoryButton").add(CategoryBars);
-
-		RootPanel.get("divTimeButton").add(TimeUpcoming);
-		RootPanel.get("divTimeButton").add(TimeOneDay);
-		RootPanel.get("divTimeButton").add(TimeTwoDays);
-		RootPanel.get("divTimeButton").add(TimeThreeDays);
-		RootPanel.get("divTimeButton").add(TimeOneWeek);
-		
-
 		
 		// Focus the cursor on the name field when the app loads
 		/*
@@ -374,12 +361,13 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 							String result = "";
 							int i;
 							i = selected.Name().indexOf(search);
-							result = selected.Name().substring(i);
-							if(result != null){
-								viewEvent(1);
-							} else {
-								viewEvent(2);
-							}
+							
+							//result = selected.Name().substring(i);
+							//if(result != null){
+							//	viewEvent(1);
+							//} else {
+							//	viewEvent(2);
+							//}
 
 						}
 					}
@@ -392,11 +380,139 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 		// VerticalPanel vp = new VerticalPanel();
 		// vp.add(table);
 
-		RootPanel.get("listOfEvents").add(table);
-		RootPanel.get("elementPager").add(pager);
+		// Add the nameField and sendButton to the RootPanel
+		// Use RootPanel.get() to get the entire body element
+
+//		RootPanel.get("menuBar").clear();
+//		RootPanel.get("label").clear();
+//		RootPanel.get("frames").clear();
+//		RootPanel.get("divCategoryButton").add(CategoryAll);
+//		RootPanel.get("divCategoryButton").add(CategorySport);
+//		RootPanel.get("divCategoryButton").add(CategoryDance);
+//		RootPanel.get("divCategoryButton").add(CategoryConcert);
+//		RootPanel.get("divCategoryButton").add(CategoryBars);
+//
+//		RootPanel.get("divTimeButton").add(TimeUpcoming);
+//		RootPanel.get("divTimeButton").add(TimeOneDay);
+//		RootPanel.get("divTimeButton").add(TimeTwoDays);
+//		RootPanel.get("divTimeButton").add(TimeThreeDays);
+//		RootPanel.get("divTimeButton").add(TimeOneWeek);
+//		
+//		RootPanel.get("listOfEvents").add(table);
+//		RootPanel.get("elementPager").add(pager);
+
+		clearTable();
+		RootPanel.get("row1").add(CategoryAll);
+		RootPanel.get("row1").add(CategorySport);
+		RootPanel.get("row1").add(CategoryDance);
+		RootPanel.get("row1").add(CategoryConcert);
+		RootPanel.get("row1").add(CategoryBars);
+
+		RootPanel.get("row2").add(TimeUpcoming);
+		RootPanel.get("row2").add(TimeOneDay);
+		RootPanel.get("row2").add(TimeTwoDays);
+		RootPanel.get("row2").add(TimeThreeDays);
+		RootPanel.get("row2").add(TimeOneWeek);
+		
+		RootPanel.get("row3").add(table);
 		pager.addStyleName("elementPager");
+		RootPanel.get("row4").add(pager);
+
 		
 		
 	}
 
+	public void onModuleLoad() {
+
+		loadMainPage();
+	}
+
+	public void loadDetailsPage(int eventID) {
+		
+		final Button ChooseMain = new Button("Main");
+		final String label1 = "Football season finale!!! \n\n" +
+				"Location: Warrior Field, University of Waterloo, Waterloo, ON, N2L3G1 \n\n" +
+				"LIGHTS, CAMERA, ACTION: The Warrior field will this Saturday be the host to the ultimate showdown between the Wilfrid Laurier Hawks and your very own Waterloo Warriors. Come on out this weekend whether it be to have fun with your friends or to enjoy a nice game of football. After the crushing loss two weeks ago at the hands of Queen's, the Warriors need your support." +
+				"So, bring out your Warrior spirit and help Warriors win the final game of the season. Tickets are only $10 and go on sale 26th October, 2011. Pick up your ticket soon from the athletics office or the sales booth in Student Life Centre. \n\n" +
+				"Video: http://www.youtube.com/watch?v=zkbXTQ95kLc \n" +
+				"Event Website: http://www.varsity.uwaterloo.ca/schedule.aspx?path=football&schedule=38& \n\n" +
+				"Contact: \n" +
+				"Phone: 5198884567 \n" +
+				"E-mail: campusrec@uwaterloo.ca";
+		
+		final String label2 = "Brilliance in Music!!! \n\n" +
+				"Location: Waterloo Public Square, Waterloo, ON, N2J 1P2 \n\n" +
+				"What could be better than spending a relaxing evening listening to the music of some local musicians? This is an evening to enjoy some reggae, rock, pop and country. The event will be a great deal of fun for everyone involved, you’ll be able to spend some time with your family and friends while assisting with raising funds for the Brain Injury Association of Waterloo-Wellington. On top of an evening filled with melodious soothing music, the night will also consist of 50/50 draws, buffet, dancing, fun activities and of course music.  The cost is only $25 and tickets currently on sale on our website. \n\n"+
+				"Video: http://www.youtube.com/watch?v=U-iorEGq8OI \n" +
+				"Event Website: http://www.kitchener-waterloo.worldweb.com/Events/ConcertsPerformances/ \n\n" +
+				"Contact: \n" +
+				"Phone: 5195795300 \n" +
+				"E-mail: brillianceinmusic@kwcweb.com";
+		final String flink1 = "http://www.youtube.com/embed/zkbXTQ95kLc";
+		final String flink2 = "http://www.youtube.com/embed/U-iorEGq8OI";
+		
+		eventID = 1; //getval();
+		final Label desclabel1 = new Label(label1);
+		final Label desclabel2 = new Label(label2);
+		final Label ftitle = new Label("\nCheck out the Video here:\n\n");
+		final Frame frame1 = new Frame(flink1);
+		final Frame frame2 = new Frame(flink2);
+		frame1.setWidth("100%");
+		frame1.setHeight("100%");
+		frame2.setWidth("100%");
+		frame2.setHeight("100%");
+		
+		final VerticalPanel vp1 = new VerticalPanel();
+		final VerticalPanel vp2 = new VerticalPanel();
+		final VerticalPanel vp3 = new VerticalPanel();
+		final ScrollPanel sp = new ScrollPanel();
+		
+		ChooseMain.addStyleName("menuBar");
+		vp1.add(ChooseMain); 
+		//vp1.setWidth("100%");
+		vp2.add(sp); 
+		vp2.setWidth("100%");
+		vp3.add(ftitle);
+		if (eventID == 1){
+			sp.add(desclabel1);
+			vp3.add(frame1);
+		} else if (eventID == 2){
+			sp.add(desclabel2);
+			vp3.add(frame2);
+		}
+		//vp3.setWidth("100%");
+		vp3.setStyleName("frames");
+		
+		
+		// Associate Main Panel with host page.
+
+//		RootPanel.get("menubar").add(vp1);
+//		RootPanel.get("label").add(vp2);
+//		RootPanel.get("frames").add(vp3);
+	
+		clearTable();
+		RootPanel.get("row1").add(vp1);
+		RootPanel.get("row2").add(vp2);
+		RootPanel.get("row3").add(vp3);
+		
+		ChooseMain.setEnabled(true);
+		ChooseMain.setFocus(true);
+		
+		
+		ChooseMain.addClickHandler(new ClickHandler() {
+		      public void onClick(ClickEvent event) {
+		    	  loadMainPage();
+		    	  //String baseurl = GWT.getHostPageBaseURL();
+		  		  //Window.Location.assign(baseurl+"Waterlooeventfinder2.html");
+		      }
+		});	
+	}
+	
+	private void clearTable() {
+		RootPanel.get("row1").clear();
+		RootPanel.get("row2").clear();
+		RootPanel.get("row3").clear();
+		RootPanel.get("row4").clear();
+	}
+	
 }
