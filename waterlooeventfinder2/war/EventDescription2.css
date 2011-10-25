@@ -8,14 +8,16 @@ h1 {
 .menuBar {
 	font-size: 16pt;
 	color: green;
-	background-color: #777777;
+	text-align: left;
+	background-color: #FFDEAD;
 }
-.textArea {
-	font-size: 16pt;
-	color: blue;
-	margin: 40px 0px 30px;
-}
-.label {
+
+#label {
+	margin-left: auto;
 	font-size: 16pt;
 	color: #777777;
+	background-color: #8FBC8F; 
+	text-align: left;
+	margin-right: auto;
+	overflow: scroll;
 }
