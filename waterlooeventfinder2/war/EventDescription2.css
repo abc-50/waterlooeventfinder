@@ -8,7 +8,7 @@ h1 {
 .menuBar {
 	font-size: 16pt;
 	color: green;
-	text-align: left;
+	align: left;
 	background-color: #FFDEAD;
 }
 
@@ -20,4 +20,9 @@ h1 {
 	text-align: left;
 	margin-right: auto;
 	overflow: scroll;
+}
+#frames {
+	font-size: 16pt;
+	color: #777777;
+	align: middle;
 }
