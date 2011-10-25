@@ -13,6 +13,7 @@ import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.cellview.client.TextColumn;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
@@ -61,13 +62,12 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 					//result.add(new Event());
 					// String lol = Integer.toString(start);
 					updateRowData(start, result);
-					Window.alert(Integer.toString(start) + end);
 					updateRowCount(result.size(), true);
 
 				}
 			};
 			
-			retrievalService.GetEventsByFilter(infoButtonPressed.getCategory(), infoButtonPressed.getTime(), 2, 2, callback);
+			retrievalService.GetEventsByFilter(infoButtonPressed.getCategory(), infoButtonPressed.getTime(), start, end, callback);
 		}
 
 	};
@@ -100,7 +100,7 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 			}
 		};
 
-		retrievalService.GetEventsByFilter(infoButtonPressed.getCategory(), infoButtonPressed.getTime(), 2, 2, callback);
+		retrievalService.GetEventsByFilter(infoButtonPressed.getCategory(), infoButtonPressed.getTime(), 0, 0, callback);
 	}
 
 	// Call this function to load description page
@@ -111,98 +111,151 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 
 	public void onModuleLoad() {
 
-
-		Button CategoryAll = new Button("All");
+		final Button CategoryAll = new Button("All");
+		final Button CategorySport = new Button("Sport");
+		final Button CategoryDance = new Button("Dance");
+		final Button CategoryConcert = new Button("Concert");
+		final Button CategoryBars = new Button("Bars");
+		final Button TimeUpcoming = new Button("Today");
+		final Button TimeOneDay = new Button("1 day");
+		final Button TimeTwoDays = new Button("2 days");
+		final Button TimeThreeDays = new Button("3 days");
+		final Button TimeOneWeek = new Button("1 week");
+		
+		// We put in Green All + Upcoming
+		DOM.setElementAttribute(CategoryAll.getElement(), "id", "pressed-button");
+		DOM.setElementAttribute(TimeUpcoming.getElement(), "id", "pressed-button");
 		CategoryAll.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				infoButtonPressed.setCategory("All");
 				selectEvents(infoButtonPressed.getCategory(),
-						infoButtonPressed.getTime());
+						infoButtonPressed.getTime());	
+					DOM.setElementAttribute(CategoryAll.getElement(), "id", "pressed-button");
+					DOM.setElementAttribute(CategorySport.getElement(), "id", "non-pressed-button");
+					DOM.setElementAttribute(CategoryDance.getElement(), "id", "non-pressed-button");
+					DOM.setElementAttribute(CategoryConcert.getElement(), "id", "non-pressed-button");
+					DOM.setElementAttribute(CategoryBars.getElement(), "id", "non-pressed-button");
 			}
 		});
 
-		Button CategorySport = new Button("Sport");
 		CategorySport.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				infoButtonPressed.setCategory("Sport");
 				selectEvents(infoButtonPressed.getCategory(),
 						infoButtonPressed.getTime());
+				DOM.setElementAttribute(CategoryAll.getElement(), "id", "non-pressed-button");
+				DOM.setElementAttribute(CategorySport.getElement(), "id", "pressed-button");
+				DOM.setElementAttribute(CategoryDance.getElement(), "id", "non-pressed-button");
+				DOM.setElementAttribute(CategoryConcert.getElement(), "id", "non-pressed-button");
+				DOM.setElementAttribute(CategoryBars.getElement(), "id", "non-pressed-button");
 			}
 		});
 
-		Button CategoryDance = new Button("Dance");
 		CategoryDance.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				infoButtonPressed.setCategory("Dance");
 				selectEvents(infoButtonPressed.getCategory(),
 						infoButtonPressed.getTime());
+				DOM.setElementAttribute(CategoryAll.getElement(), "id", "non-pressed-button");
+				DOM.setElementAttribute(CategorySport.getElement(), "id", "non-pressed-button");
+				DOM.setElementAttribute(CategoryDance.getElement(), "id", "pressed-button");
+				DOM.setElementAttribute(CategoryConcert.getElement(), "id", "non-pressed-button");
+				DOM.setElementAttribute(CategoryBars.getElement(), "id", "non-pressed-button");
 			}
 		});
 
-		Button CategoryConcert = new Button("Concert");
 		CategoryConcert.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				infoButtonPressed.setCategory("Concert");
 				selectEvents(infoButtonPressed.getCategory(),
 						infoButtonPressed.getTime());
+				DOM.setElementAttribute(CategoryAll.getElement(), "id", "non-pressed-button");
+				DOM.setElementAttribute(CategorySport.getElement(), "id", "non-pressed-button");
+				DOM.setElementAttribute(CategoryDance.getElement(), "id", "non-pressed-button");
+				DOM.setElementAttribute(CategoryConcert.getElement(), "id", "pressed-button");
+				DOM.setElementAttribute(CategoryBars.getElement(), "id", "non-pressed-button");
 			}
 		});
 
-		Button CategoryBars = new Button("Bars");
 		CategoryBars.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				infoButtonPressed.setCategory("Bars");
 				selectEvents(infoButtonPressed.getCategory(),
 						infoButtonPressed.getTime());
+				DOM.setElementAttribute(CategoryAll.getElement(), "id", "non-pressed-button");
+				DOM.setElementAttribute(CategorySport.getElement(), "id", "non-pressed-button");
+				DOM.setElementAttribute(CategoryDance.getElement(), "id", "non-pressed-button");
+				DOM.setElementAttribute(CategoryConcert.getElement(), "id", "non-pressed-button");
+				DOM.setElementAttribute(CategoryBars.getElement(), "id", "pressed-button");
 			}
 		});
 
-		Button TimeUpcoming = new Button("Today");
 		TimeUpcoming.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				infoButtonPressed.setTime("Upcoming");
 				selectEvents(infoButtonPressed.getCategory(),
 						infoButtonPressed.getTime());
+				DOM.setElementAttribute(TimeUpcoming.getElement(), "id", "pressed-button");
+				DOM.setElementAttribute(TimeOneDay.getElement(), "id", "non-pressed-button");
+				DOM.setElementAttribute(TimeTwoDays.getElement(), "id", "non-pressed-button");
+				DOM.setElementAttribute(TimeThreeDays.getElement(), "id", "non-pressed-button");
+				DOM.setElementAttribute(TimeOneWeek.getElement(), "id", "non-pressed-button");
 			}
 		});
 
-		Button TimeOneDay = new Button("1 day");
 		TimeOneDay.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				infoButtonPressed.setTime("One day");
 				selectEvents(infoButtonPressed.getCategory(),
 						infoButtonPressed.getTime());
+				DOM.setElementAttribute(TimeUpcoming.getElement(), "id", "non-pressed-button");
+				DOM.setElementAttribute(TimeOneDay.getElement(), "id", "pressed-button");
+				DOM.setElementAttribute(TimeTwoDays.getElement(), "id", "non-pressed-button");
+				DOM.setElementAttribute(TimeThreeDays.getElement(), "id", "non-pressed-button");
+				DOM.setElementAttribute(TimeOneWeek.getElement(), "id", "non-pressed-button");
 			}
 		});
 		
-		Button TimeTwoDays = new Button("2 days");
 		TimeTwoDays.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				infoButtonPressed.setTime("Two days");
 				selectEvents(infoButtonPressed.getCategory(),
 						infoButtonPressed.getTime());
+				DOM.setElementAttribute(TimeUpcoming.getElement(), "id", "non-pressed-button");
+				DOM.setElementAttribute(TimeOneDay.getElement(), "id", "non-pressed-button");
+				DOM.setElementAttribute(TimeTwoDays.getElement(), "id", "pressed-button");
+				DOM.setElementAttribute(TimeThreeDays.getElement(), "id", "non-pressed-button");
+				DOM.setElementAttribute(TimeOneWeek.getElement(), "id", "non-pressed-button");
 			}
-		});
+		});		
 		
-		
-		Button TimeThreeDays = new Button("3 days");
 		TimeThreeDays.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				infoButtonPressed.setTime("Three days");
 				selectEvents(infoButtonPressed.getCategory(),
 						infoButtonPressed.getTime());
+				DOM.setElementAttribute(TimeUpcoming.getElement(), "id", "non-pressed-button");
+				DOM.setElementAttribute(TimeOneDay.getElement(), "id", "non-pressed-button");
+				DOM.setElementAttribute(TimeTwoDays.getElement(), "id", "non-pressed-button");
+				DOM.setElementAttribute(TimeThreeDays.getElement(), "id", "pressed-button");
+				DOM.setElementAttribute(TimeOneWeek.getElement(), "id", "non-pressed-button");
 			}
 		});
 
-		Button TimeOneWeek = new Button("1 week");
 		TimeOneWeek.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				infoButtonPressed.setTime("One week");
 				selectEvents(infoButtonPressed.getCategory(),
 						infoButtonPressed.getTime());
+				DOM.setElementAttribute(TimeUpcoming.getElement(), "id", "non-pressed-button");
+				DOM.setElementAttribute(TimeOneDay.getElement(), "id", "non-pressed-button");
+				DOM.setElementAttribute(TimeTwoDays.getElement(), "id", "non-pressed-button");
+				DOM.setElementAttribute(TimeThreeDays.getElement(), "id", "non-pressed-button");
+				DOM.setElementAttribute(TimeOneWeek.getElement(), "id", "pressed-button");
 			}
 		});
 
+		
 		// We can add style names to widgets
 
 		CategoryAll.addStyleName("categoryButton");
@@ -234,6 +287,7 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 		RootPanel.get("divTimeButton").add(TimeOneWeek);
 		
 
+		
 		// Focus the cursor on the name field when the app loads
 		/*
 		CategoryAll.setEnabled(true);
@@ -300,7 +354,6 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 						Event selected = selectionModel.getSelectedObject();
 						if (selected != null) {
 							viewEvent(1);
-							Window.alert("You selected: " + selected.Name());
 							String search = "1";
 							String result = "";
 							int i;

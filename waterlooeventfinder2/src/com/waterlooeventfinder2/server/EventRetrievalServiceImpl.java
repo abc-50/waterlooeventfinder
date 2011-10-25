@@ -92,55 +92,80 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 
 		if (categoryFilter.equals("All")) {
 			if (timeFilter.equals("Upcoming")) {
-				start.add(Calendar.DATE, +0);
-				end.add(Calendar.DATE, +1);
-				rtn.add(new Event(1, 2, start.getTime(), end.getTime(),
-						"location1", "desc1", "Football: Waterloo vs Wilfried",
-						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
+				if (startEventNumber == 0) {
+					start.add(Calendar.HOUR, +1);
+					end.add(Calendar.HOUR, +3);
+					rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+							"location1", "desc1", "Concert U2 - Waterloo !",
+							"www.website5.com", "www.youtube.com",
+							"519-777-7890", "event@mail.com"));
 
-				start.add(Calendar.DATE, +0);
-				end.add(Calendar.DATE, +1);
-				rtn.add(new Event(2, 2, start.getTime(), end.getTime(),
-						"location1", "desc1", "Bomber : Night Beer Event ",
-						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
+					start.add(Calendar.HOUR, +2);
+					end.add(Calendar.HOUR, +3);
+					rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+							"location1", "desc1", "Niagara Falls visit",
+							"www.website5.com", "www.youtube.com",
+							"519-777-7890", "event@mail.com"));
 
-				start.add(Calendar.DATE, +0);
-				end.add(Calendar.HOUR, +1);
+					start.add(Calendar.HOUR, +3);
+					end.add(Calendar.HOUR, +6);
+					rtn.add(new Event(2, 2, start.getTime(), end.getTime(),
+							"location1", "desc1", "Bomber : Night Beer Event ",
+							"www.website5.com", "www.youtube.com",
+							"519-777-7890", "event@mail.com"));
+				}
+				
+				if (startEventNumber == 3) {
+				start.add(Calendar.HOUR, +3);
+				end.add(Calendar.HOUR, +6);
 				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-						"location1", "desc1", "Niagara Falls visit",
+						"location1", "desc1", "Concert Coldplay - Waterloo !",
 						"www.website5.com", "www.youtube.com", "519-777-7890",
 						"event@mail.com"));
 
-				start.add(Calendar.DATE, +0);
-				end.add(Calendar.DATE, +1);
+				start.add(Calendar.HOUR, +4);
+				end.add(Calendar.HOUR, +7);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Kean - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.HOUR, +5);
+				end.add(Calendar.HOUR, +9);
 				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
 						"location1", "desc1", "Engineering Society Night Club",
 						"www.website5.com", "www.youtube.com", "519-777-7890",
 						"event@mail.com"));
-
-				start.add(Calendar.DATE, +0);
-				end.add(Calendar.DATE, +1);
+				}
+				
+				if (startEventNumber == 6) {
+				start.add(Calendar.HOUR, +4);
+				end.add(Calendar.HOUR, +10);
 				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
 						"location1", "desc1", "GradeHouse Night : > 19 years",
 						"www.website5.com", "www.youtube.com", "519-777-7890",
 						"event@mail.com"));
 
-				start.add(Calendar.DATE, +0);
+				start.add(Calendar.DATE, +1);
+				start.add(Calendar.HOUR, +1);
 				end.add(Calendar.DATE, +1);
+				start.add(Calendar.HOUR, +4);
 				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
 						"location1", "desc1", "Free Horse Riding Session",
 						"www.website5.com", "www.youtube.com", "519-777-7890",
 						"event@mail.com"));
 
-				start.add(Calendar.DATE, +0);
+				start.add(Calendar.DATE, +1);
+				start.add(Calendar.HOUR, +3);
 				end.add(Calendar.DATE, +1);
+				start.add(Calendar.HOUR, +7);
 				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
 						"location1", "desc1", "Wine Degustation at SLC",
 						"www.website5.com", "www.youtube.com", "519-777-7890",
 						"event@mail.com"));
+				}
 				
+				if (startEventNumber == 9) {
 				start.add(Calendar.DATE, +3);
 				end.add(Calendar.DATE, +4);
 				rtn.add(new Event(4, 2, start.getTime(), end.getTime(),
@@ -161,14 +186,746 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
 						"location1", "desc1", "Camping at Algonquin Park",
 						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));	
+						"event@mail.com"));
+				}
+				
+				if (startEventNumber == 12) {
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.HOUR, +5);
+				rtn.add(new Event(1, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Football: Waterloo vs Wilfried",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +8);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(1, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Football: Waterloo vs McMaster",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +9);
+				start.add(Calendar.HOUR, +2);
+				end.add(Calendar.HOUR, +6);
+				rtn.add(new Event(1, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Football: Waterloo vs Toronto",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+				}
+				
+				start.add(Calendar.DATE, +0);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.HOUR, +3);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert U2 - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.HOUR, +3);
+				end.add(Calendar.HOUR, +6);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Coldplay - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.HOUR, +4);
+				end.add(Calendar.HOUR, +7);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Kean - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.HOUR, +4);
+				end.add(Calendar.HOUR, +7);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1",
+						"Concert AmyMacdonald - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.HOUR, +4);
+				end.add(Calendar.HOUR, +7);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1",
+						"Concert The Cranberries - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +7);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +7);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +0);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.HOUR, +3);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert U2 - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.HOUR, +3);
+				end.add(Calendar.HOUR, +6);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Coldplay - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.HOUR, +4);
+				end.add(Calendar.HOUR, +7);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Kean - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.HOUR, +4);
+				end.add(Calendar.HOUR, +7);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1",
+						"Concert AmyMacdonald - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.HOUR, +4);
+				end.add(Calendar.HOUR, +7);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1",
+						"Concert The Cranberries - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +7);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +7);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +0);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.HOUR, +3);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert U2 - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.HOUR, +3);
+				end.add(Calendar.HOUR, +6);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Coldplay - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.HOUR, +4);
+				end.add(Calendar.HOUR, +7);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Kean - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.HOUR, +4);
+				end.add(Calendar.HOUR, +7);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1",
+						"Concert AmyMacdonald - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.HOUR, +4);
+				end.add(Calendar.HOUR, +7);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1",
+						"Concert The Cranberries - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +7);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +7);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +0);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.HOUR, +3);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert U2 - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.HOUR, +3);
+				end.add(Calendar.HOUR, +6);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Coldplay - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.HOUR, +4);
+				end.add(Calendar.HOUR, +7);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Kean - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.HOUR, +4);
+				end.add(Calendar.HOUR, +7);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1",
+						"Concert AmyMacdonald - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.HOUR, +4);
+				end.add(Calendar.HOUR, +7);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1",
+						"Concert The Cranberries - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +7);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +7);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +0);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.HOUR, +3);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert U2 - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.HOUR, +3);
+				end.add(Calendar.HOUR, +6);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Coldplay - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.HOUR, +4);
+				end.add(Calendar.HOUR, +7);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Kean - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.HOUR, +4);
+				end.add(Calendar.HOUR, +7);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1",
+						"Concert AmyMacdonald - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.HOUR, +4);
+				end.add(Calendar.HOUR, +7);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1",
+						"Concert The Cranberries - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +7);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +7);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +0);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.HOUR, +3);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert U2 - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.HOUR, +3);
+				end.add(Calendar.HOUR, +6);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Coldplay - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.HOUR, +4);
+				end.add(Calendar.HOUR, +7);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Kean - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.HOUR, +4);
+				end.add(Calendar.HOUR, +7);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1",
+						"Concert AmyMacdonald - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.HOUR, +4);
+				end.add(Calendar.HOUR, +7);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1",
+						"Concert The Cranberries - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +7);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +7);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +0);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.HOUR, +3);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert U2 - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.HOUR, +3);
+				end.add(Calendar.HOUR, +6);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Coldplay - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.HOUR, +4);
+				end.add(Calendar.HOUR, +7);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Kean - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.HOUR, +4);
+				end.add(Calendar.HOUR, +7);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1",
+						"Concert AmyMacdonald - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.HOUR, +4);
+				end.add(Calendar.HOUR, +7);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1",
+						"Concert The Cranberries - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +7);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +7);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
 			} else if (timeFilter.equals("One week")) {
-				
-				
+
 			}
 
 		} else if (categoryFilter.equals("Sport")) {
-			if (timeFilter.equals("One week")) {
 				// EVENTS OF TOMORROW
 
 				start.add(Calendar.DATE, +7);
@@ -193,226 +950,451 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 						"location1", "desc1", "Football: Waterloo vs Toronto",
 						"www.website5.com", "www.youtube.com", "519-777-7890",
 						"event@mail.com"));
-			} else {
-				
-							
-			}
+			
 		} else if (categoryFilter.equals("Concert")) {
 			if (timeFilter.equals("Upcoming")) {
-				
-			start.add(Calendar.DATE, +0);
-			start.add(Calendar.HOUR, +1);
-			end.add(Calendar.HOUR, +3);
-			rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-					"location1", "desc1", "Concert U2 - Waterloo !",
-					"www.website5.com", "www.youtube.com", "519-777-7890",
-					"event@mail.com"));
-			
-			start.add(Calendar.DATE, +0);
-			start.add(Calendar.HOUR, +3);
-			end.add(Calendar.DATE, +6);
-			rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-					"location1", "desc1", "Concert Coldplay - Waterloo !",
-					"www.website5.com", "www.youtube.com", "519-777-7890",
-					"event@mail.com"));
-			
-			start.add(Calendar.DATE, +0);
-			start.add(Calendar.HOUR, +4);
-			end.add(Calendar.DATE, +7);
-			rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-					"location1", "desc1", "Concert Kean - Waterloo !",
-					"www.website5.com", "www.youtube.com", "519-777-7890",
-					"event@mail.com"));
-			
-			start.add(Calendar.DATE, +0);
-			start.add(Calendar.HOUR, +4);
-			end.add(Calendar.DATE, +7);
-			rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-					"location1", "desc1", "Concert AmyMacdonald - Waterloo !",
-					"www.website5.com", "www.youtube.com", "519-777-7890",
-					"event@mail.com"));
-			
-			start.add(Calendar.DATE, +0);
-			start.add(Calendar.HOUR, +4);
-			end.add(Calendar.DATE, +7);
-			rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-					"location1", "desc1", "Concert The Cranberries - Waterloo !",
-					"www.website5.com", "www.youtube.com", "519-777-7890",
-					"event@mail.com"));
-			
-			start.add(Calendar.DATE, +7);
-			start.add(Calendar.HOUR, +1);
-			end.add(Calendar.DATE, +7);
-			rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-					"location1", "desc1", "Concert Eagles - Waterloo !",
-					"www.website5.com", "www.youtube.com", "519-777-7890",
-					"event@mail.com"));
-			
-			start.add(Calendar.DATE, +7);
-			start.add(Calendar.HOUR, +1);
-			end.add(Calendar.DATE, +7);
-			rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-					"location1", "desc1", "Concert Eagles - Waterloo !",
-					"www.website5.com", "www.youtube.com", "519-777-7890",
-					"event@mail.com"));
-			
-			start.add(Calendar.DATE, +7);
-			start.add(Calendar.HOUR, +1);
-			end.add(Calendar.DATE, +7);
-			rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-					"location1", "desc1", "Concert Eagles - Waterloo !",
-					"www.website5.com", "www.youtube.com", "519-777-7890",
-					"event@mail.com"));
-			start.add(Calendar.DATE, +7);
-			start.add(Calendar.HOUR, +1);
-			end.add(Calendar.DATE, +7);
-			rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-					"location1", "desc1", "Concert Eagles - Waterloo !",
-					"www.website5.com", "www.youtube.com", "519-777-7890",
-					"event@mail.com"));
-			start.add(Calendar.DATE, +7);
-			start.add(Calendar.HOUR, +1);
-			end.add(Calendar.DATE, +7);
-			rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-					"location1", "desc1", "Concert Eagles - Waterloo !",
-					"www.website5.com", "www.youtube.com", "519-777-7890",
-					"event@mail.com"));
-			start.add(Calendar.DATE, +7);
-			start.add(Calendar.HOUR, +1);
-			end.add(Calendar.DATE, +7);
-			rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-					"location1", "desc1", "Concert Eagles - Waterloo !",
-					"www.website5.com", "www.youtube.com", "519-777-7890",
-					"event@mail.com"));
-			start.add(Calendar.DATE, +7);
-			start.add(Calendar.HOUR, +1);
-			end.add(Calendar.DATE, +7);
-			rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-					"location1", "desc1", "Concert Eagles - Waterloo !",
-					"www.website5.com", "www.youtube.com", "519-777-7890",
-					"event@mail.com"));
-			start.add(Calendar.DATE, +7);
-			start.add(Calendar.HOUR, +1);
-			end.add(Calendar.DATE, +7);
-			rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-					"location1", "desc1", "Concert Eagles - Waterloo !",
-					"www.website5.com", "www.youtube.com", "519-777-7890",
-					"event@mail.com"));
-			start.add(Calendar.DATE, +7);
-			start.add(Calendar.HOUR, +1);
-			end.add(Calendar.DATE, +7);
-			rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-					"location1", "desc1", "Concert Eagles - Waterloo !",
-					"www.website5.com", "www.youtube.com", "519-777-7890",
-					"event@mail.com"));
-			start.add(Calendar.DATE, +7);
-			start.add(Calendar.HOUR, +1);
-			end.add(Calendar.DATE, +7);
-			rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-					"location1", "desc1", "Concert Eagles - Waterloo !",
-					"www.website5.com", "www.youtube.com", "519-777-7890",
-					"event@mail.com"));
-			start.add(Calendar.DATE, +7);
-			start.add(Calendar.HOUR, +1);
-			end.add(Calendar.DATE, +7);
-			rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-					"location1", "desc1", "Concert Eagles - Waterloo !",
-					"www.website5.com", "www.youtube.com", "519-777-7890",
-					"event@mail.com"));
-			start.add(Calendar.DATE, +7);
-			start.add(Calendar.HOUR, +1);
-			end.add(Calendar.DATE, +7);
-			rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-					"location1", "desc1", "Concert Eagles - Waterloo !",
-					"www.website5.com", "www.youtube.com", "519-777-7890",
-					"event@mail.com"));
-			start.add(Calendar.DATE, +7);
-			start.add(Calendar.HOUR, +1);
-			end.add(Calendar.DATE, +7);
-			rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-					"location1", "desc1", "Concert Eagles - Waterloo !",
-					"www.website5.com", "www.youtube.com", "519-777-7890",
-					"event@mail.com"));
-			start.add(Calendar.DATE, +7);
-			start.add(Calendar.HOUR, +1);
-			end.add(Calendar.DATE, +7);
-			rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-					"location1", "desc1", "Concert Eagles - Waterloo !",
-					"www.website5.com", "www.youtube.com", "519-777-7890",
-					"event@mail.com"));
-			start.add(Calendar.DATE, +7);
-			start.add(Calendar.HOUR, +1);
-			end.add(Calendar.DATE, +7);
-			rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-					"location1", "desc1", "Concert Eagles - Waterloo !",
-					"www.website5.com", "www.youtube.com", "519-777-7890",
-					"event@mail.com"));
-			start.add(Calendar.DATE, +7);
-			start.add(Calendar.HOUR, +1);
-			end.add(Calendar.DATE, +7);
-			rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-					"location1", "desc1", "Concert Eagles - Waterloo !",
-					"www.website5.com", "www.youtube.com", "519-777-7890",
-					"event@mail.com"));
-			start.add(Calendar.DATE, +7);
-			start.add(Calendar.HOUR, +1);
-			end.add(Calendar.DATE, +7);
-			rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-					"location1", "desc1", "Concert Eagles - Waterloo !",
-					"www.website5.com", "www.youtube.com", "519-777-7890",
-					"event@mail.com"));
-			start.add(Calendar.DATE, +7);
-			start.add(Calendar.HOUR, +1);
-			end.add(Calendar.DATE, +7);
-			rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-					"location1", "desc1", "Concert Eagles - Waterloo !",
-					"www.website5.com", "www.youtube.com", "519-777-7890",
-					"event@mail.com"));
-			start.add(Calendar.DATE, +7);
-			start.add(Calendar.HOUR, +1);
-			end.add(Calendar.DATE, +7);
-			rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-					"location1", "desc1", "Concert Eagles - Waterloo !",
-					"www.website5.com", "www.youtube.com", "519-777-7890",
-					"event@mail.com"));
-			start.add(Calendar.DATE, +7);
-			start.add(Calendar.HOUR, +1);
-			end.add(Calendar.DATE, +7);
-			rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-					"location1", "desc1", "Concert Eagles - Waterloo !",
-					"www.website5.com", "www.youtube.com", "519-777-7890",
-					"event@mail.com"));
-			start.add(Calendar.DATE, +7);
-			start.add(Calendar.HOUR, +1);
-			end.add(Calendar.DATE, +7);
-			rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-					"location1", "desc1", "Concert Eagles - Waterloo !",
-					"www.website5.com", "www.youtube.com", "519-777-7890",
-					"event@mail.com"));
-			start.add(Calendar.DATE, +7);
-			start.add(Calendar.HOUR, +1);
-			end.add(Calendar.DATE, +7);
-			rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-					"location1", "desc1", "Concert Eagles - Waterloo !",
-					"www.website5.com", "www.youtube.com", "519-777-7890",
-					"event@mail.com"));
-			
-			}else if (timeFilter.equals("One week")) {
+
+				start.add(Calendar.DATE, +0);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.HOUR, +3);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert U2 - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.HOUR, +3);
+				end.add(Calendar.HOUR, +6);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Coldplay - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.HOUR, +4);
+				end.add(Calendar.HOUR, +7);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Kean - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.HOUR, +4);
+				end.add(Calendar.HOUR, +7);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1",
+						"Concert AmyMacdonald - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.HOUR, +4);
+				end.add(Calendar.HOUR, +7);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1",
+						"Concert The Cranberries - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
 				start.add(Calendar.DATE, +7);
 				start.add(Calendar.HOUR, +1);
 				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +7);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +7);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.HOUR, +4);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert Eagles - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
+			} else if (timeFilter.equals("One week")) {
+				start.add(Calendar.DATE, +7);
+				start.add(Calendar.HOUR, +1);
+				end.add(Calendar.DATE, +7);
+				end.add(Calendar.DATE, +4);
 				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
 						"location1", "desc1", "Concert Muse - Waterloo !",
 						"www.website5.com", "www.youtube.com", "519-777-7890",
 						"event@mail.com"));
-			
+
+				start.add(Calendar.DATE, +8);
+				start.add(Calendar.HOUR, +3);
+				end.add(Calendar.DATE, +8);
+				end.add(Calendar.DATE, +8);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert AC/DC - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
+
 			}
-			
-		}		
+
+		}
 
 		return rtn;
 	}
-		
 
 	public Event GetEventById(int eventId) {
 		Calendar start = Calendar.getInstance();

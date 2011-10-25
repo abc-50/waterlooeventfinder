@@ -52,7 +52,7 @@ button.gwt-Button:active, button.ecwid-MessageBox-button:active {
 }
 
 .categoryButton{
-	color: purple;
+	color: blue;
 	width: 18%;
 	height: 2.5em;
 }
@@ -97,3 +97,12 @@ table {
   height: auto;
   overflow: auto;
 }
+
+#pressed-button{
+  color: green;
+}
+
+#non-pressed-button{
+  color: blue;
+}
+	
