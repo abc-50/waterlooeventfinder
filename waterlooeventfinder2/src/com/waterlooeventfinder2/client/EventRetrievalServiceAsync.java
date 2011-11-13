@@ -3,6 +3,7 @@ package com.waterlooeventfinder2.client;
 import java.util.ArrayList;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.waterlooeventfinder2.shared.Category;
 import com.waterlooeventfinder2.shared.Event;
 
 /**
@@ -18,5 +19,8 @@ public interface EventRetrievalServiceAsync {
 			throws IllegalArgumentException;
 
 	void GetEventById(int eventId, AsyncCallback<Event> callback)
+			throws IllegalArgumentException;
+	
+	void GetAllCategory(AsyncCallback<ArrayList<Category>> callback)
 			throws IllegalArgumentException;
 }

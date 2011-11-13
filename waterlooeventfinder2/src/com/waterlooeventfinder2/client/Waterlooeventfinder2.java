@@ -1,17 +1,12 @@
 package com.waterlooeventfinder2.client;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Random;
 
-import com.google.gwt.cell.client.DateCell;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.RootPanel;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.Style.Unit;
-import com.google.gwt.user.cellview.client.CellTable;
-import com.google.gwt.user.cellview.client.Column;
+
 import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.DOM;
@@ -21,16 +16,13 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Frame;
 import com.google.gwt.user.client.ui.Grid;
-import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.AsyncDataProvider;
 import com.google.gwt.view.client.HasData;
-import com.google.gwt.view.client.HasRows;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
+import com.waterlooeventfinder2.shared.Category;
 import com.waterlooeventfinder2.shared.Event;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -44,7 +36,7 @@ import com.google.gwt.i18n.client.DateTimeFormat.PredefinedFormat;
 public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 
 	ButtonPressed infoButtonPressed = new ButtonPressed();
-	MyTable table = new MyTable();
+	//MyTable table = new MyTable();
 	SimplePager pager = new SimplePager();
 
 	private EventRetrievalServiceAsync retrievalService = GWT
@@ -72,7 +64,6 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 				public void onSuccess(ArrayList<Event> result) {
 					// FOR MARTIN: result object for list of events
 					// result.add(new Event());
-					// String lol = Integer.toString(start);
 					updateRowData(start, result);
 					updateRowCount(result.size(), true);
 
@@ -84,6 +75,27 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 		}
 
 	};
+
+	protected void selectEventByID(final int id) {
+		if (retrievalService == null) {
+			retrievalService = GWT.create(EventRetrievalService.class);
+		}
+
+		// Set up the callback object.
+		AsyncCallback<Event> callback = new AsyncCallback<Event>() {
+
+			public void onFailure(Throwable caught) {
+				Window.alert(caught.getMessage());
+				// TODO: Do something with errors.
+			}
+
+			public void onSuccess(Event result) {
+				Window.alert("got event: " + id);
+			}
+		};
+
+		retrievalService.GetEventById(id, callback);
+	}
 
 	// Associate an async data provider to the table
 	// XXX: Use AsyncCallback in the method onRangeChanged
@@ -117,6 +129,27 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 				infoButtonPressed.getTime(), 0, 0, callback);
 	}
 
+	// get list of categories
+	protected void getAllCategories() {
+		if (retrievalService == null) {
+			retrievalService = GWT.create(EventRetrievalService.class);
+		}
+
+		// Set up the callback object.
+		AsyncCallback<ArrayList<Category>> callback = new AsyncCallback<ArrayList<Category>>() {
+
+			public void onFailure(Throwable caught) {
+				Window.alert(caught.getMessage());
+			}
+
+			public void onSuccess(ArrayList<Category> result) {
+				// TODO: Create control for category
+			}
+		};
+
+		retrievalService.GetAllCategory(callback);
+	}
+
 	// Call this function to load description page
 	public void viewEvent(int ID) {
 		loadDetailsPage(ID);
@@ -125,10 +158,10 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 	}
 
 	public void loadMainPage() {
-		
+
 		showMainPage();
 		clearDescriptionPage();
-		
+
 		final Button CategoryAll = new Button("All");
 		final Button CategorySport = new Button("Sport");
 		final Button CategoryDance = new Button("Dance");
@@ -139,6 +172,16 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 		final Button TimeTwoDays = new Button("2 days");
 		final Button TimeThreeDays = new Button("3 days");
 		final Button TimeOneWeek = new Button("1 week");
+
+
+		Button test = new Button("eventdetail");
+		test.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				selectEventByID(1);
+
+			}
+		});
+
 
 		// We put in Green All + Upcoming
 		DOM.setElementAttribute(CategoryAll.getElement(), "id",
@@ -341,11 +384,11 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 
 		// final Button ChooseMain = new Button("Main");
 		/*
-		 * table.createTable();
+		 * // table.createTable();
 		 * 
 		 * final SingleSelectionModel<Event> selectionModel = new
 		 * SingleSelectionModel<Event>();
-		 * table.setSelectionModel(selectionModel);
+		 * // table.setSelectionModel(selectionModel);
 		 * 
 		 * selectionModel .addSelectionChangeHandler(new
 		 * SelectionChangeEvent.Handler() { public void
@@ -359,9 +402,9 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 		 * viewEvent(1); //} else { // viewEvent(2); //} } } });
 		 */
 
-		table.createTable();
+		// table.createTable();
 		// Display 2 rows in one page
-		table.setPageSize(3);
+		// table.setPageSize(3);
 
 		// Add a text column to show the name.
 		TextColumn<Event> nameColumn = new TextColumn<Event>() {
@@ -379,11 +422,11 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 				if (infoButtonPressed.getTime().equals("Upcoming")) {
 					startDateTime = DateTimeFormat.getFormat(
 							PredefinedFormat.TIME_SHORT).format(
-							object.getStarHour());
+									object.getStarHour());
 				} else {
 					startDateTime = DateTimeFormat.getFormat(
 							PredefinedFormat.DATE_TIME_SHORT).format(
-							object.getStarHour());
+									object.getStarHour());
 				}
 				return startDateTime;
 			}
@@ -397,63 +440,64 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 				if (infoButtonPressed.getTime().equals("Upcoming")) {
 					endDateTime = DateTimeFormat.getFormat(
 							PredefinedFormat.TIME_SHORT).format(
-							object.getEndHour());
+									object.getEndHour());
 				} else {
 					endDateTime = DateTimeFormat.getFormat(
 							PredefinedFormat.DATE_TIME_SHORT).format(
-							object.getEndHour());
+									object.getEndHour());
 				}
 				return endDateTime;
 			}
 		};
 
 		// Add columns to the table
-		table.addColumn(nameColumn, "Name");
-		table.addColumn(startColumn, "Start");
-		table.addColumn(endColumn, "End");
+		// table.addColumn(nameColumn, "Name");
+		// table.addColumn(startColumn, "Start");
+		// table.addColumn(endColumn, "End");
 
-		table.addColumnStyleName(0, "nameColumStyle");
-		table.addColumnStyleName(1, "StartColumStyle");
-		table.addColumnStyleName(2, "EndColumnStyle");
+		// table.addColumnStyleName(0, "nameColumStyle");
+		// table.addColumnStyleName(1, "StartColumStyle");
+		// table.addColumnStyleName(2, "EndColumnStyle");
 
-		table.setWidth("100%", true);
-		/* table.setColumnWidth(nameColumn, 40.0, Unit.PCT); */
-		table.setColumnWidth(startColumn, 20.0, Unit.PCT);
-		table.setColumnWidth(endColumn, 20.0, Unit.PCT);
-		table.setColumnWidth(endColumn, 20.0, Unit.PCT);
+		// table.setWidth("100%", true);
+		/* // table.setColumnWidth(nameColumn, 40.0, Unit.PCT); */
+		// table.setColumnWidth(startColumn, 20.0, Unit.PCT);
+		// table.setColumnWidth(endColumn, 20.0, Unit.PCT);
+		// table.setColumnWidth(endColumn, 20.0, Unit.PCT);
 
 		final SingleSelectionModel<Event> selectionModel = new SingleSelectionModel<Event>();
-		table.setSelectionModel(selectionModel);
+		// table.setSelectionModel(selectionModel);
 		selectionModel
-				.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
-					public void onSelectionChange(SelectionChangeEvent event) {
-						Event selected = selectionModel.getSelectedObject();
-						if (selected != null) {
-							// randomly pick 0 or 1
-							viewEvent(selected.getCategoryId() % 2);
-							String search = "1";
-							String result = "";
-							int i;
-							i = selected.Name().indexOf(search);
+		.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+			public void onSelectionChange(SelectionChangeEvent event) {
+				Event selected = selectionModel.getSelectedObject();
+				if (selected != null) {
+					// randomly pick 0 or 1
+					viewEvent(selected.getCategoryId() % 2);
+					String search = "1";
+					String result = "";
+					int i;
+					i = selected.Name().indexOf(search);
 
-							// result = selected.Name().substring(i);
-							// if(result != null){
-							// viewEvent(1);
-							// } else {
-							// viewEvent(2);
-							// }
-						}
-					}
-				});
+					// result = selected.Name().substring(i);
+					// if(result != null){
+					// viewEvent(1);
+					// } else {
+					// viewEvent(2);
+					// }
+				}
+			}
+		});
 
-		provider.addDataDisplay(table);
-		pager.setDisplay(table);
-		
+		//provider.addDataDisplay(table);
+		//pager.setDisplay(table);
+
 		RootPanel.get("row1").add(CategoryAll);
 		RootPanel.get("row1").add(CategorySport);
 		RootPanel.get("row1").add(CategoryDance);
 		RootPanel.get("row1").add(CategoryConcert);
 		RootPanel.get("row1").add(CategoryBars);
+		RootPanel.get("row1").add(test);
 
 		RootPanel.get("row2").add(TimeUpcoming);
 		RootPanel.get("row2").add(TimeOneDay);
@@ -461,7 +505,7 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 		RootPanel.get("row2").add(TimeThreeDays);
 		RootPanel.get("row2").add(TimeOneWeek);
 
-		RootPanel.get("row3").add(table);
+		//RootPanel.get("row3").add(table);
 		pager.addStyleName("elementPager");
 		RootPanel.get("row4").add(pager);
 
@@ -475,7 +519,7 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 	public void loadDetailsPage(int eventID) {
 
 		clearDescriptionPage();
-		
+
 		// TO-DO:
 		// Connect to the database and get the number of columns for the
 		// description of an event
@@ -483,7 +527,7 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 		Frame youtubeVideo = new Frame(flink1);
 		//To set the size of the video
 		youtubeVideo.setWidth("95%");
-		
+
 		Grid g = new Grid(2, 2);
 		int col = 0;
 		// Put some values in the grid cells.
@@ -537,21 +581,21 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 	}
 
 	private void clearMainPage() {
-		
+
 		RootPanel.get("row1").clear();
 		RootPanel.get("row2").clear();
 		RootPanel.get("row3").clear();
 		RootPanel.get("row4").clear();
 	}
-	
+
 	private void clearDescriptionPage() {
-		
+
 		RootPanel.get("row5").clear();
 		RootPanel.get("row6").clear();
 		RootPanel.get("row7").clear();
-		
+
 	}
-	
+
 	private void hideMainPage() {
 		// TODO Auto-generated method stub
 		RootPanel.get("row1").setStyleName("hide");
@@ -560,7 +604,7 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 		RootPanel.get("row4").setStyleName("hide");
 
 	}
-	
+
 	private void showMainPage() {
 		// TODO Auto-generated method stub
 		RootPanel.get("row1").setStyleName("show");

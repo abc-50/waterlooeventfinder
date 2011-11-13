@@ -5,522 +5,171 @@ import java.util.*;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.waterlooeventfinder2.client.EventRetrievalService;
+import com.waterlooeventfinder2.shared.Category;
 import com.waterlooeventfinder2.shared.Event;
+import com.waterlooeventfinder2.server.utils;
 
 @SuppressWarnings("serial")
 public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
-		EventRetrievalService {
+EventRetrievalService {
 
 	/**
-	 * 
-	 */
+* 
+*/
 	private static final long serialVersionUID = 1L;
 
-	public ArrayList<Event> GetAllEvents() throws Exception {
-		Connection conn = null;
+	private static final String URL = "jdbc:mysql://127.0.0.1:3306/";
+	private static final String DB = "eventsfinder";
+	private static final String USER = "root";
+	private static final String PW = "1secret";
+
+	public ArrayList<Event> GetAllEvents() {
+		Connection dbConn = null;
 
 		ArrayList<Event> rtn = new ArrayList<Event>();
 		rtn.clear();
-		// String query = "select * from Event";
-		//
-		// try {
-		// //Class.forName("org.sqlite.JDBC");
-		// conn =
-		// DriverManager.getConnection("jdbc:sqlite:C:\\Users\\Mike\\MySQLiteDB\\t");
-		//
-		// try {
-		// Statement stmt = conn.createStatement();
-		// ResultSet rs = stmt.executeQuery(query);
-		//
-		// while (rs.next()) {
-		// int userId = rs.getInt("userID");
-		// int categoryId = rs.getInt("category");
-		// Date startHour = rs.getDate("startTime");
-		// Date endHour = rs.getDate("endTime");
-		// String location = rs.getString("location");
-		// String eventDescription = rs.getString("eventDescription");
-		// String eventName = rs.getString("eventName");
-		// String eventWebsite = rs.getString("eventWebsite");
-		// String eventVideo = rs.getString("eventVideo");
-		// String eventPhoneNumber = rs.getString("eventPhoneNumber");
-		// String eventEmail = rs.getString("eventEmail");
-		//
-		// rtn.add(new Event(userId, categoryId, startHour, endHour, location,
-		// eventDescription,
-		// eventName, eventWebsite, eventVideo, eventPhoneNumber, eventEmail));
-		//
-		// }
-		// } catch (SQLException e) {
-		// e.printStackTrace();
-		// }
-		// } catch (SQLException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// } finally {
-		// conn.close();
-		// }
+		String query = "select * from Event";
+		
+		try {
+			dbConn = DriverManager.getConnection( URL + DB, USER, PW );
+			
+			try {
+				Statement stmt = dbConn.createStatement();
+				ResultSet rs = stmt.executeQuery(query);
+				
+				while (rs.next()) {
 
-		Calendar start = Calendar.getInstance();
-		Calendar end = Calendar.getInstance();
-
-		start.add(Calendar.DATE, +1);
-		end.add(Calendar.DATE, +1);
-
-		Calendar calendar = new GregorianCalendar();
-		String am_pm;
-
-		int hour = calendar.get(Calendar.HOUR);
-
-		// EVENTS USED FOR THE DEMO
-		// ONCE ALL EVENTS HAVE BEEN ADDED TO getEventsByFilter
-		// EVENTS HAS TO BE ADDED CLASSED FROM THEIR STARTING DAY + HOUR
+					//rtn.add(RStoEvent(rs));
+					
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+			dbConn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 
 		return rtn;
 	}
 
+
 	// use "1", "2", "3", "4" "5" as temporary time filters
 	public ArrayList<Event> GetEventsByFilter(String categoryFilter,
-			String timeFilter, int startEventNumber, int endEventNumber) {
+	String timeFilter, int startEventNumber, int endEventNumber) {
 
-		// We want to show ALL + UPCOMING
+		Connection dbConn = null;
+		String url = "jdbc:mysql://127.0.0.1:3306/eventsfinder";
+		
 		ArrayList<Event> rtn = new ArrayList<Event>();
-
-		Calendar start = Calendar.getInstance();
-		Calendar end = Calendar.getInstance();
-
-		// EVENTS OF TODAY
-
-		if (categoryFilter.equals("All")) {
-			if (timeFilter.equals("Upcoming")) {
-				if (startEventNumber == 0) {
-					start.add(Calendar.MINUTE, +30);
-					end.add(Calendar.HOUR, +3);
-					rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-							"location1", "desc1", "Concert U2 - Waterloo !",
-							"www.website5.com", "www.youtube.com",
-							"519-777-7890", "event@mail.com"));
-
-					start.add(Calendar.MINUTE, +30);
-					end.add(Calendar.HOUR, +2);
-					rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-							"location1", "desc1", "Niagara Falls visit",
-							"www.website5.com", "www.youtube.com",
-							"519-777-7890", "event@mail.com"));
-
-					start.add(Calendar.HOUR, +2);
-					end.add(Calendar.HOUR, +1);
-					rtn.add(new Event(2, 2, start.getTime(), end.getTime(),
-							"location1", "desc1", "Bomber : Night Beer Event ",
-							"www.website5.com", "www.youtube.com",
-							"519-777-7890", "event@mail.com"));
-				}
-				
-				if (startEventNumber == 3) {
-				start.add(Calendar.HOUR, +3);
-				end.add(Calendar.HOUR, +7);
-				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-						"location1", "desc1", "Concert Coldplay - Waterloo !",
-						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
-
-				start.add(Calendar.HOUR, +1);
-				end.add(Calendar.HOUR, +1);
-				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-						"location1", "desc1", "Concert Kean - Waterloo !",
-						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
-
-
-				start.add(Calendar.MINUTE, +30);
-				end.add(Calendar.HOUR, +1);
-				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-						"location1", "desc1", "Engineering Society Night Club",
-						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
-				}
-				
-				if (startEventNumber == 6) {
-				start.add(Calendar.HOUR, +5);
-				end.add(Calendar.HOUR, +5);
-				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-						"location1", "desc1", "GradeHouse Night > 19 years",
-						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
-
-				start.add(Calendar.MINUTE, +20);
-				end.add(Calendar.MINUTE, +20);
-				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-						"location1", "desc1", "Free Horse Riding Session",
-						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
-
-				start.add(Calendar.MINUTE, +20);
-				end.add(Calendar.HOUR, +1);
-				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-						"location1", "desc1", "Wine Degustation at SLC",
-						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
-				}
-				
-				if (startEventNumber == 9) {
-					
-				
-				rtn.add(new Event(4, 2, start.getTime(), end.getTime(),
-						"location2", "desc2",
-						"Hockey game Waterloo vs Wilfried", "www.website6.com",
-						"www.youtube.com", "519-777-7890", "event@mail.com"));
-
-				start.add(Calendar.DATE, +3);
-				end.add(Calendar.DATE, +4);
-				rtn.add(new Event(4, 2, start.getTime(), end.getTime(),
-						"location2", "desc2",
-						"Chess tournament Waterloo vs Wilfried",
-						"www.website6.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
-
-				start.add(Calendar.DATE, +8);
-				end.add(Calendar.DATE, +9);
-				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-						"location1", "desc1", "Camping at Algonquin Park",
-						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
-				}
-				
-				if (startEventNumber == 12) {
-				start.add(Calendar.DATE, +7);
-				start.add(Calendar.HOUR, +1);
-				end.add(Calendar.HOUR, +5);
-				rtn.add(new Event(1, 2, start.getTime(), end.getTime(),
-						"location1", "desc1", "Football: Waterloo vs Wilfried",
-						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
-
-				start.add(Calendar.DATE, +8);
-				end.add(Calendar.HOUR, +4);
-				rtn.add(new Event(1, 2, start.getTime(), end.getTime(),
-						"location1", "desc1", "Football: Waterloo vs McMaster",
-						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
-
-				start.add(Calendar.DATE, +9);
-				start.add(Calendar.HOUR, +2);
-				end.add(Calendar.HOUR, +6);
-				rtn.add(new Event(1, 2, start.getTime(), end.getTime(),
-						"location1", "desc1", "Football: Waterloo vs Toronto",
-						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
-				}
-				
-				start.add(Calendar.DATE, +0);
-				start.add(Calendar.HOUR, +1);
-				end.add(Calendar.HOUR, +3);
-				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-						"location1", "desc1", "Concert U2 - Waterloo !",
-						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
-
-				start.add(Calendar.HOUR, +3);
-				end.add(Calendar.HOUR, +6);
-				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-						"location1", "desc1", "Concert Coldplay - Waterloo !",
-						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
-
-				start.add(Calendar.HOUR, +4);
-				end.add(Calendar.HOUR, +7);
-				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-						"location1", "desc1", "Concert Kean - Waterloo !",
-						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
-
-				start.add(Calendar.HOUR, +4);
-				end.add(Calendar.HOUR, +7);
-				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-						"location1", "desc1",
-						"Concert AmyMacdonald - Waterloo !",
-						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
-
-				start.add(Calendar.HOUR, +4);
-				end.add(Calendar.HOUR, +7);
-				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-						"location1", "desc1",
-						"Concert The Cranberries - Waterloo !",
-						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
-
-				start.add(Calendar.DATE, +7);
-				start.add(Calendar.HOUR, +1);
-				end.add(Calendar.DATE, +7);
-				end.add(Calendar.HOUR, +7);
-				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-						"location1", "desc1", "Concert Eagles - Waterloo !",
-						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
-
-				
-
-
-				
-
-			} else if (timeFilter.equals("One week")) {
-
-			}
-
-		} else if (categoryFilter.equals("Sport")) {
-				// EVENTS OF TOMORROW
-
-				start.add(Calendar.DATE, +7);
-				start.add(Calendar.HOUR, +1);
-				end.add(Calendar.HOUR, +5);
-				rtn.add(new Event(1, 2, start.getTime(), end.getTime(),
-						"location1", "desc1", "Football: Waterloo vs Wilfried",
-						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
-
-				start.add(Calendar.DATE, +8);
-				end.add(Calendar.HOUR, +4);
-				rtn.add(new Event(1, 2, start.getTime(), end.getTime(),
-						"location1", "desc1", "Football: Waterloo vs McMaster",
-						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
-
-				start.add(Calendar.DATE, +9);
-				start.add(Calendar.HOUR, +2);
-				end.add(Calendar.HOUR, +6);
-				rtn.add(new Event(1, 2, start.getTime(), end.getTime(),
-						"location1", "desc1", "Football: Waterloo vs Toronto",
-						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
+		rtn.clear();
+		String query = "select * from Event";
+		
+		try {
+			dbConn = DriverManager.getConnection( url, USER, PW );
 			
-		} else if (categoryFilter.equals("Concert")) {
-			if (timeFilter.equals("Upcoming")) {
-				if (startEventNumber == 0) {
-				start.add(Calendar.DATE, +0);
-				start.add(Calendar.HOUR, +1);
-				end.add(Calendar.HOUR, +3);
-				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-						"location1", "desc1", "Concert U2 - Waterloo !",
-						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
-
-				start.add(Calendar.HOUR, +3);
-				end.add(Calendar.HOUR, +6);
-				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-						"location1", "desc1", "Concert Coldplay - Waterloo !",
-						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
-
-				start.add(Calendar.HOUR, +4);
-				end.add(Calendar.HOUR, +7);
-				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-						"location1", "desc1", "Concert Kean - Waterloo !",
-						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
+			try {
+				Statement stmt = dbConn.createStatement();
+				ResultSet rs = stmt.executeQuery(query);
 				
-				}else if (startEventNumber == 3) {
-				start.add(Calendar.HOUR, +4);
-				end.add(Calendar.HOUR, +7);
-				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-						"location1", "desc1",
-						"Concert AmyMacdonald - Waterloo !",
-						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
+				while (rs.next()) {
 
-				start.add(Calendar.HOUR, +4);
-				end.add(Calendar.HOUR, +7);
-				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-						"location1", "desc1",
-						"Concert The Cranberries - Waterloo !",
-						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
-
-				start.add(Calendar.DATE, +7);
-				start.add(Calendar.HOUR, +1);
-				end.add(Calendar.DATE, +7);
-				end.add(Calendar.HOUR, +7);
-				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-						"location1", "desc1", "Concert Eagles - Waterloo !",
-						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
-				
-				}else if (startEventNumber == 6) {
-
-				start.add(Calendar.DATE, +7);
-				start.add(Calendar.HOUR, +1);
-				end.add(Calendar.DATE, +7);
-				end.add(Calendar.HOUR, +7);
-				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-						"location1", "desc1", "Concert Eagles - Waterloo !",
-						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
-
-				start.add(Calendar.DATE, +7);
-				start.add(Calendar.HOUR, +1);
-				end.add(Calendar.DATE, +7);
-				end.add(Calendar.HOUR, +4);
-				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-						"location1", "desc1", "Concert Eagles - Waterloo !",
-						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
-
-				start.add(Calendar.DATE, +7);
-				start.add(Calendar.HOUR, +1);
-				end.add(Calendar.DATE, +7);
-				end.add(Calendar.HOUR, +4);
-				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-						"location1", "desc1", "Concert Eagles - Waterloo !",
-						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
-				
-				}else if (startEventNumber == 9) {
-
-				start.add(Calendar.DATE, +7);
-				start.add(Calendar.HOUR, +1);
-				end.add(Calendar.DATE, +7);
-				end.add(Calendar.HOUR, +4);
-				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-						"location1", "desc1", "Concert Eagles - Waterloo !",
-						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
-
-				start.add(Calendar.DATE, +7);
-				start.add(Calendar.HOUR, +1);
-				end.add(Calendar.DATE, +7);
-				end.add(Calendar.HOUR, +4);
-				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-						"location1", "desc1", "Concert Eagles - Waterloo !",
-						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
-
-				start.add(Calendar.DATE, +7);
-				start.add(Calendar.HOUR, +1);
-				end.add(Calendar.DATE, +7);
-				end.add(Calendar.HOUR, +4);
-				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-						"location1", "desc1", "Concert Eagles - Waterloo !",
-						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
-				
-				}else if (startEventNumber == 12) {
-
-				start.add(Calendar.DATE, +7);
-				start.add(Calendar.HOUR, +1);
-				end.add(Calendar.DATE, +7);
-				end.add(Calendar.HOUR, +4);
-				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-						"location1", "desc1", "Concert Eagles - Waterloo !",
-						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
-
-				start.add(Calendar.DATE, +7);
-				start.add(Calendar.HOUR, +1);
-				end.add(Calendar.DATE, +7);
-				end.add(Calendar.HOUR, +4);
-				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-						"location1", "desc1", "Concert Eagles - Waterloo !",
-						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
-
-				start.add(Calendar.DATE, +7);
-				start.add(Calendar.HOUR, +1);
-				end.add(Calendar.DATE, +7);
-				end.add(Calendar.HOUR, +4);
-				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-						"location1", "desc1", "Concert Eagles - Waterloo !",
-						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
-
+					rtn.add(utils.RStoEvent(rs));
+					Calendar start = Calendar.getInstance();
+					Calendar end = Calendar.getInstance();
+					start.add(Calendar.DATE, +8);
+					start.add(Calendar.HOUR, +3);
+					end.add(Calendar.DATE, +8);
+					end.add(Calendar.DATE, +8);
+					rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+					"location1", "desc1", "Concert AC/DC - Waterloo !",
+					"www.website5.com", "www.youtube.com", "519-777-7890",
+					"event@mail.com"));
 				}
-				
-				start.add(Calendar.DATE, +7);
-				start.add(Calendar.HOUR, +1);
-				end.add(Calendar.DATE, +7);
-				end.add(Calendar.HOUR, +4);
-				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-						"location1", "desc1", "Concert Eagles - Waterloo !",
-						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
-
-				start.add(Calendar.DATE, +7);
-				start.add(Calendar.HOUR, +1);
-				end.add(Calendar.DATE, +7);
-				end.add(Calendar.HOUR, +4);
-				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-						"location1", "desc1", "Concert Eagles - Waterloo !",
-						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
-
-				start.add(Calendar.DATE, +7);
-				start.add(Calendar.HOUR, +1);
-				end.add(Calendar.DATE, +7);
-				end.add(Calendar.HOUR, +4);
-				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-						"location1", "desc1", "Concert Eagles - Waterloo !",
-						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
-
-				start.add(Calendar.DATE, +7);
-				start.add(Calendar.HOUR, +1);
-				end.add(Calendar.DATE, +7);
-				end.add(Calendar.HOUR, +4);
-				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-						"location1", "desc1", "Concert Eagles - Waterloo !",
-						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
-
-				
-
-			} else if (timeFilter.equals("One week")) {
-				start.add(Calendar.DATE, +7);
-				start.add(Calendar.HOUR, +1);
-				end.add(Calendar.DATE, +7);
-				end.add(Calendar.HOUR, +4);
-				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-						"location1", "desc1", "Concert Muse - Waterloo !",
-						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
-
-				start.add(Calendar.DATE, +8);
-				start.add(Calendar.HOUR, +3);
-				end.add(Calendar.DATE, +8);
-				end.add(Calendar.HOUR, +5);
-				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-						"location1", "desc1", "Concert ACDC - Waterloo !",
-						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
-
-				start.add(Calendar.HOUR, +3);
-				end.add(Calendar.DATE, +8);
-				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-						"location1", "desc1", "Brilliance in Music!!! - Waterloo !",
-						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
-				
-				start.add(Calendar.DATE, +8);
-				start.add(Calendar.HOUR, +3);
-				end.add(Calendar.DATE, +8);
-				end.add(Calendar.DATE, +8);
-				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-						"location1", "desc1", "Concert AC/DC - Waterloo !",
-						"www.website5.com", "www.youtube.com", "519-777-7890",
-						"event@mail.com"));
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
+			
+			dbConn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 
-		}
-
-		return rtn;				
+		return rtn;
+		
+		// We want to show ALL + UPCOMING
+		
 
 
 	}
 
-	public Event GetEventById(int eventId) {
-		Calendar start = Calendar.getInstance();
-		Calendar end = Calendar.getInstance();
 
-		return new Event(1, 2, start.getTime(), end.getTime(), "location1",
-				"desc1", "name1", "www.website4.com", "www.youtube.com",
-				"519-777-7890", "event@mail.com");
+	public Event GetEventById(int eventId) {
+		Connection dbConn = null;
+
+		Event rtn = null;
+		
+		String query = String.format("select * from Event where eventId = %d", eventId);
+		
+		try {
+			dbConn = DriverManager.getConnection( URL + DB, USER, PW );
+			
+			try {
+				Statement stmt = dbConn.createStatement();
+				ResultSet rs = stmt.executeQuery(query);
+				
+				while (rs.next()) {
+
+					rtn = utils.RStoEvent(rs);
+					
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+			dbConn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		
+		return rtn;
+	}
+
+	@Override
+	public ArrayList<Category> GetAllCategory() {
+		ArrayList<Category> categories = null;
+		Connection dbConn = null;
+		
+		String query = "select * from Category";
+		
+		try {
+			dbConn = DriverManager.getConnection( URL + DB, USER, PW );
+			
+			try {
+				Statement stmt = dbConn.createStatement();
+				ResultSet rs = stmt.executeQuery(query);
+				
+				while (rs.next()) {
+
+					categories.add(utils.RStoCategory(rs));
+					
+					
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			if (dbConn != null) dbConn.close();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		
+		return categories;
 	}
 
 }

@@ -2,6 +2,7 @@ package com.waterlooeventfinder2.shared;
 
 import java.io.Serializable;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import java.util.*;
 
@@ -21,26 +22,6 @@ public class Event implements Serializable {
 	public Event() {
 	}
 
-	// public Event(ResultSet rs) {
-	// try {
-	// userId = rs.getInt("userID");
-	// categoryId = rs.getInt("category");
-	// starHour = rs.getDate("startTime");
-	// endHour = rs.getDate("endTime");
-	// location = rs.getString("location");
-	// eventDescription = rs.getString("eventDescription");
-	// eventName = rs.getString("eventName");
-	// eventWebsite = rs.getString("eventWebsite");
-	// eventVideo = rs.getString("eventVideo");
-	// eventPhoneNumber = rs.getString("eventPhoneNumber");
-	// eventEmail = rs.getString("eventEmail");
-	//
-	// } catch (SQLException e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// }
-
-	// }
 
 	public Event(int userId, int categoryId, Date starHour, Date endHour,
 			String location, String eventDescription, String eventName,

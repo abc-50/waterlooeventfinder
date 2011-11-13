@@ -1,0 +1,5 @@
+#java specific
+*.class
+
+/waterlooeventfinder2/war/eventdescription2/*
+/waterlooeventfinder2/war/waterlooeventfinder2/*
