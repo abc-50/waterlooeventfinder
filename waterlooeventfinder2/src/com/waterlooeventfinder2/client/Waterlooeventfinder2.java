@@ -174,6 +174,7 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 		final Button TimeOneWeek = new Button("1 week");
 
 
+		// MIKES SECTION PLEASE DO NOT CHANGE!
 		Button test = new Button("eventdetail");
 		test.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
@@ -181,6 +182,12 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 
 			}
 		});
+		
+		Button addEvent = new Button("Add Event");
+		
+		RootPanel.get("row1").add(test);
+		RootPanel.get("row1").add(addEvent);
+		// END MIKES SECTION
 
 
 		// We put in Green All + Upcoming
@@ -497,7 +504,6 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 		RootPanel.get("row1").add(CategoryDance);
 		RootPanel.get("row1").add(CategoryConcert);
 		RootPanel.get("row1").add(CategoryBars);
-		RootPanel.get("row1").add(test);
 
 		RootPanel.get("row2").add(TimeUpcoming);
 		RootPanel.get("row2").add(TimeOneDay);

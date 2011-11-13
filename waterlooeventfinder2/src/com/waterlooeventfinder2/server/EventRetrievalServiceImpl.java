@@ -61,14 +61,13 @@ EventRetrievalService {
 	String timeFilter, int startEventNumber, int endEventNumber) {
 
 		Connection dbConn = null;
-		String url = "jdbc:mysql://127.0.0.1:3306/eventsfinder";
 		
 		ArrayList<Event> rtn = new ArrayList<Event>();
 		rtn.clear();
 		String query = "select * from Event";
 		
 		try {
-			dbConn = DriverManager.getConnection( url, USER, PW );
+			dbConn = DriverManager.getConnection( URL + DB, USER, PW );
 			
 			try {
 				Statement stmt = dbConn.createStatement();
@@ -111,11 +110,11 @@ EventRetrievalService {
 		Connection dbConn = null;
 
 		Event rtn = null;
-		
+		String url = "jdbc:mysql://127.0.0.1:3306/eventsfinder";
 		String query = String.format("select * from Event where eventId = %d", eventId);
 		
 		try {
-			dbConn = DriverManager.getConnection( URL + DB, USER, PW );
+			dbConn = DriverManager.getConnection( URL + DB , USER, PW );
 			
 			try {
 				Statement stmt = dbConn.createStatement();
