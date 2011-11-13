@@ -8,9 +8,19 @@ h1 {
 
 .nameColumStyle{
 	text-align: center;
-	font-size: 1em;
+	font-size: 0.6em;
 	position: center;	
 }
+
+.cellTableFooter {
+  border-top: 2px solid #6f7277;
+  padding: 3px 15px;
+  text-align: left;
+  color: #4b4a4a;
+  text-shadow: #ddf 1px 1px 0;
+  overflow: hidden;
+}
+
 
 
 button.gwt-Button {
@@ -103,18 +113,23 @@ table {
 	background-color: #FFDEAD;
 }
 
-#label {
-	margin-left: auto;
-	font-size: 16pt;
-	color: #777777;
-	background-color: #8FBC8F; 
-	text-align: left;
-	margin-right: auto;
-	overflow: scroll;
+.column1Description{
+	font-size: 1em;
+	background-color: #D2B9D3; 
+	font-weight: bold;
+	text-align: center;
 }
-#frames {
-	font-size: 16pt;
-	height: 200px;
-	color: #777777;
-	align: middle;
+
+.column2Description{
+	font-size: 1em;
+	background-color: #EBDDE2; 
+	text-align: center;
+}
+
+.hide{
+	display:none;
+}
+
+.show{
+	display:block;
 }

@@ -496,13 +496,23 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 						"location1", "desc1", "Brilliance in Music!!! - Waterloo !",
 						"www.website5.com", "www.youtube.com", "519-777-7890",
 						"event@mail.com"));
+				
+				start.add(Calendar.DATE, +8);
+				start.add(Calendar.HOUR, +3);
+				end.add(Calendar.DATE, +8);
+				end.add(Calendar.DATE, +8);
+				rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
+						"location1", "desc1", "Concert AC/DC - Waterloo !",
+						"www.website5.com", "www.youtube.com", "519-777-7890",
+						"event@mail.com"));
 			}
 
 		}
 
-		return rtn;
-	}
+		return rtn;				
 
+
+	}
 
 	public Event GetEventById(int eventId) {
 		Calendar start = Calendar.getInstance();
