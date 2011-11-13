@@ -2,6 +2,7 @@ package com.waterlooeventfinder2.client;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -21,4 +22,9 @@ public interface EventRetrievalService extends RemoteService {
 	Event GetEventById(int eventId);
 	
 	ArrayList<Category> GetAllCategory();
+	
+	Integer AddEvent(int userId, int categoryId, Date starHour, Date endHour,
+			String location, String eventDescription, String eventName,
+			String eventWebsite, String eventVideo, String eventPhoneNumber,
+			String eventEmail);
 }

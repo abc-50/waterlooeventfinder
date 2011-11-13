@@ -2,6 +2,7 @@ package com.waterlooeventfinder2.server;
 
 import java.sql.*;
 import java.util.*;
+import java.util.Date;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.waterlooeventfinder2.client.EventRetrievalService;
@@ -169,6 +170,18 @@ EventRetrievalService {
 		} 
 		
 		return categories;
+	}
+
+
+	@Override
+	public Integer AddEvent(int userId, int categoryId, Date starHour,
+			Date endHour, String location, String eventDescription,
+			String eventName, String eventWebsite, String eventVideo,
+			String eventPhoneNumber, String eventEmail) {
+		// TODO ADD validation
+		
+		
+		return 1;
 	}
 
 }
