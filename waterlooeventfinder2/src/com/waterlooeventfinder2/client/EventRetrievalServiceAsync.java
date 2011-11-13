@@ -30,4 +30,8 @@ public interface EventRetrievalServiceAsync {
 			String eventWebsite, String eventVideo, String eventPhoneNumber,
 			String eventEmail, AsyncCallback<Integer> callback)
 			throws IllegalArgumentException;
+
+	void ConnectToAccount(String login, String password,
+			AsyncCallback<Integer> callback)
+	throws IllegalArgumentException;
 }

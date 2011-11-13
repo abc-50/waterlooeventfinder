@@ -27,4 +27,6 @@ public interface EventRetrievalService extends RemoteService {
 			String location, String eventDescription, String eventName,
 			String eventWebsite, String eventVideo, String eventPhoneNumber,
 			String eventEmail);
+
+	Integer ConnectToAccount(String login, String password);
 }

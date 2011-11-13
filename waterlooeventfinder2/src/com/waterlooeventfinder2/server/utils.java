@@ -49,4 +49,17 @@ public class utils {
 		
 		return c;
 	}
+	
+	public static int generateSessionID(ResultSet rs) {
+		int sessionId = 0;
+		try {
+			int catId = rs.getInt("userId");
+			sessionId = 15 + catId;
+		} catch (SQLException e) {
+			//TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return sessionId;
+	}
 }
