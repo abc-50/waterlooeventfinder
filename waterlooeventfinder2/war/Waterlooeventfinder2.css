@@ -133,3 +133,10 @@ table {
 .show{
 	display:block;
 }
+
+.gwt-PasswordTextBox{
+	width:20%;
+}
+.gwt-TextBox{
+	width:20%;
+}

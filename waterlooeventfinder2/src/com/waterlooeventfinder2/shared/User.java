@@ -1,6 +1,8 @@
 package com.waterlooeventfinder2.shared;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable{
 	private int userId;
 	private String loginId;
 	private String password;
@@ -8,26 +10,132 @@ public class User {
 	private String description;
 	private String phoneNumber;
 	private int userTypeId;
+	private boolean loggedInApplication = false;
 
-	public User(String login, String password) {
-		loginId = login;
+	public User() {
+
+	}
+
+	/**
+	 * @param userTypeId the userTypeId to set
+	 */
+	public void setUserTypeId(int userTypeId) {
+		this.userTypeId = userTypeId;
+	}
+
+	/**
+	 * @return the userTypeId
+	 */
+	public int getUserTypeId() {
+		return userTypeId;
+	}
+
+	/**
+	 * @param phoneNumber the phoneNumber to set
+	 */
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	/**
+	 * @return the phoneNumber
+	 */
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	/**
+	 * @param password the password to set
+	 */
+	public void setPassword(String password) {
 		this.password = password;
 	}
 
-	public String DisplayName() {
+	/**
+	 * @return the password
+	 */
+	public String getPassword() {
+		return password;
+	}
+
+	/**
+	 * @param displayName the displayName to set
+	 */
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
+	}
+
+	/**
+	 * @return the displayName
+	 */
+	public String getDisplayName() {
 		return displayName;
 	}
 
-	public void SetDisplayName(String name) {
-		displayName = name;
+	/**
+	 * @param description the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
-	public String Description() {
+	/**
+	 * @return the description
+	 */
+	public String getDescription() {
 		return description;
 	}
 
-	public void SetDescription(String desc) {
-		description = desc;
+	/**
+	 * @param loginId the loginId to set
+	 */
+	public void setLoginId(String loginId) {
+		this.loginId = loginId;
 	}
+
+	/**
+	 * @return the loginId
+	 */
+	public String getLoginId() {
+		return loginId;
+	}
+
+	/**
+	 * @param userId the userId to set
+	 */
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	/**
+	 * @return the userId
+	 */
+	public int getUserId() {
+		return userId;
+	}
+
+	
+
+	/**
+	 * @param loggedInApplication the loggedInApplication to set
+	 */
+	public void setLoggedInApplication(boolean loggedInApplication) {
+		this.loggedInApplication = loggedInApplication;
+	}
+
+	/**
+	 * @return the loggedInApplication
+	 */
+	public boolean isLoggedInApplication() {
+		return loggedInApplication;
+	}
+
+	
+
+	
+
+	
+
+	
 
 }

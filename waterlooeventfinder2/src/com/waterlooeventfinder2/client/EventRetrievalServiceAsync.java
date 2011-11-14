@@ -6,6 +6,7 @@ import java.util.Date;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.waterlooeventfinder2.shared.Category;
 import com.waterlooeventfinder2.shared.Event;
+import com.waterlooeventfinder2.shared.User;
 
 /**
  * The async counterpart of <code>EventRetrievalService</code>.
@@ -30,4 +31,11 @@ public interface EventRetrievalServiceAsync {
 			String eventWebsite, String eventVideo, String eventPhoneNumber,
 			String eventEmail, AsyncCallback<Integer> callback)
 			throws IllegalArgumentException;
+
+	void logToServer(String login, String password, AsyncCallback<User> callback);
+
+	void logout(AsyncCallback<Integer> callback);
+
+	void loginUsingSession(AsyncCallback<User> callback);
+	
 }

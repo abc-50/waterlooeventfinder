@@ -29,25 +29,39 @@ public class utils {
 					eventWebsite, eventVideo, eventPhoneNumber,
 					eventEmail);
 		} catch (SQLException e) {
-			//TODO Auto-generated catch block
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return ev;
 
 	}
-	
+
 	public static Category RStoCategory(ResultSet rs) {
 		Category c = null;
 		try {
 			int catId = rs.getInt("categoryId");
 			String catName = rs.getString("categoryName");
-			
+
 			c = new Category(catId, catName);
 		} catch (SQLException e) {
-			//TODO Auto-generated catch block
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return c;
 	}
+
+	public static int generateSessionID(ResultSet rs) {
+		int sessionId = 0;
+		try {
+			int catId = rs.getInt("userId");
+			sessionId = 15 + catId;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return sessionId;
+	}
 }
+
