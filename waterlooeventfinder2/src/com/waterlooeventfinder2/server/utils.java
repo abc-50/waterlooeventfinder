@@ -11,6 +11,7 @@ public class utils {
 	public static Event RStoEvent(ResultSet rs) {
 		Event ev = null;
 		try {
+			int eventId = rs.getInt("eventId");
 			int userId = rs.getInt("userID");
 			int categoryId = rs.getInt("category");
 			Date starHour = rs.getDate("startTime");
@@ -23,7 +24,7 @@ public class utils {
 			String eventPhoneNumber = rs.getString("eventPhoneNumber");
 			String eventEmail = rs.getString("eventEmail");
 			
-			ev = new Event(userId, categoryId, starHour, endHour,
+			ev = new Event(eventId, userId, categoryId, starHour, endHour,
 					location, eventDescription, eventName,
 					eventWebsite, eventVideo, eventPhoneNumber,
 					eventEmail);

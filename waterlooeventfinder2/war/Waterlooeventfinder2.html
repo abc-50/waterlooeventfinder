@@ -5,82 +5,93 @@
 <!-- with a "Quirks Mode" doctype is not supported. -->
 
 <html>
-  <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 
-    <!--                                                               -->
-    <!-- Consider inlining CSS to reduce the number of requested files -->
-    <!--                                                               -->
-    <link type="text/css" rel="stylesheet" href="Waterlooeventfinder2.css">
+<link type="text/css" rel="stylesheet" href="Waterlooeventfinder2.css">
 
-    <!--                                           -->
-    <!-- Any title is fine                         -->
-    <!--                                           -->
-    <title>Waterloo Event Finder</title>
-    
-    <!--                                           -->
-    <!-- This script loads your compiled module.   -->
-    <!-- If you add any GWT meta tags, they must   -->
-    <!-- be added before this line.                -->
-    <!--                                           -->
-    <script type="text/javascript" language="javascript" src="waterlooeventfinder2/waterlooeventfinder2.nocache.js"></script>
-  </head>
+<title>Waterloo Event Finder</title>
 
-  <!--                                           -->
-  <!-- The body can have arbitrary html, or      -->
-  <!-- you can leave the body empty if you want  -->
-  <!-- to create a completely dynamic UI.        -->
-  <!--                                           -->
-  <body>
+<script type="text/javascript" language="javascript"
+	src="waterlooeventfinder2/waterlooeventfinder2.nocache.js"></script>
+</head>
+<body>
 
-    <!-- OPTIONAL: include this if you want history support -->
-    <iframe src="javascript:''" id="__gwt_historyFrame" tabIndex='-1' style="position:absolute;width:0;height:0;border:0"></iframe>
-    
-    <!-- RECOMMENDED if your web app will not function without JavaScript enabled -->
-    <noscript>
-      <div style="width: 22em; position: absolute; left: 50%; margin-left: -11em; color: red; background-color: white; border: 1px solid red; padding: 4px; font-family: sans-serif">
-        Your web browser must have JavaScript enabled
-        in order for this application to display correctly.
-      </div>
-    </noscript>
+	<!-- OPTIONAL: include this if you want history support -->
+	<iframe src="javascript:''" id="__gwt_historyFrame" tabIndex='-1'
+		style="position: absolute; width: 0; height: 0; border: 0"></iframe>
 
-    <h1>Waterloo Event Finder</h1>
+	<!-- RECOMMENDED if your web app will not function without JavaScript enabled -->
+	<noscript>
+		<div
+			style="width: 22em; position: absolute; left: 50%; margin-left: -11em; color: red; background-color: white; border: 1px solid red; padding: 4px; font-family: sans-serif">
+			Your web browser must have JavaScript enabled in order for this
+			application to display correctly.</div>
+	</noscript>
 
+	<!-- For some unknown reason in Internet Explorer you have to have cellpadding/spacing ON THE ELEMENT and not on the STYLE if it is in the body tag like this -->
+        <table id="wrapper" cellpadding="0" cellspacing="0" style="width: 100%;height: 100%;">
+
+             <!-- Header row -->
+             <tr style="height: 25%;">
+                 <td colspan="2" id="header">header</td>
+             </tr>
+
+             <!-- Body row and left nav row -->
+             <tr style="height: 65%;">
+                 <td id="leftnav">leftnav</td>
+                 <td id="content"></td>
+             </tr>
+
+             <!-- Footer row -->
+             <tr style="height: 10%;">
+                <td colspan="2" id="footer">footer</td>
+             </tr>
+
+        </table>
+
+        <!-- This iframe handles history -->
+        <iframe id="__gwt_historyFrame" style="width:0;height:0;border:0"></iframe>
+        
+	<h1>Waterloo Event Finder</h1>
+
+
+
+<!-- <table>
+		<tr>
+			<td id="row1"></td>
+		</tr>
+		<tr>
+			<td id="row2"></td>
+		</tr>
+		<tr>
+			<td id="row3"></td>
+		</tr>
+		<tr>
+			<td id="row4"></td>
+		</tr>
+		<tr>
+			<td id="row5"></td>
+		</tr>
+		<tr>
+			<td id="row6"></td>
+		</tr>
+		<tr>
+			<td id="row7"></td>
+		</tr>
+		<tr>
+			<td id="row8"></td>
+		</tr>
+		<tr>
+			<td id="row9"></td>
+		</tr>
+	</table>
+
+
+
+	<div id="listOfEvents"></div>
+	<div id="elementPager"></div>
 	
-	
-    <table>
-      <tr>
-        <td id="row1"></td>
-      </tr>
-      <tr>
-        <td id="row2"></td>
-      </tr>
-      <tr>
-        <td id="row3"></td>
-      </tr>
-      <tr>
-        <td id="row4"></td>
-      </tr>
-       <tr>
-        <td id="row5"></td>
-      </tr>
-       <tr>
-        <td id="row6"></td>
-      </tr>
-       <tr>
-        <td id="row7"></td>
-      </tr>
-       <tr>
-        <td id="row8"></td>
-      </tr>
-       <tr>
-        <td id="row9"></td>
-      </tr>
-    </table>
-    
-    
-    
-    <div id="listOfEvents"></div>
-    <div id="elementPager"></div>
-  </body>
+-->
+</body>
 </html>

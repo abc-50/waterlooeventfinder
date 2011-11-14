@@ -12,17 +12,6 @@ public class Category {
 		this.categoryName = name;
 	}
 	
-//	public Category(ResultSet rs) {
-//		try {
-//			categoryId = rs.getInt("categoryId");
-//			categoryName = rs.getString("categoryName");
-//
-//			
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
 	
 	public int getCategoryId() {
 		return categoryId;

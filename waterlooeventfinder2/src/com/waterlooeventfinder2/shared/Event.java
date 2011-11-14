@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class Event implements Serializable {
+	private int eventId;
 	private int userId;
 	private int categoryId;
 	private Date starHour = new Date();
@@ -23,11 +24,12 @@ public class Event implements Serializable {
 	}
 
 
-	public Event(int userId, int categoryId, Date starHour, Date endHour,
+	public Event(int eventId, int userId, int categoryId, Date starHour, Date endHour,
 			String location, String eventDescription, String eventName,
 			String eventWebsite, String eventVideo, String eventPhoneNumber,
 			String eventEmail) {
 
+		this.eventId = eventId;
 		this.userId = userId;
 		this.setCategoryId(categoryId);
 		this.starHour = starHour;
@@ -115,5 +117,15 @@ public class Event implements Serializable {
 
 	public int getCategoryId() {
 		return categoryId;
+	}
+
+
+	public int getEventId() {
+		return eventId;
+	}
+
+
+	public void setEventId(int eventId) {
+		this.eventId = eventId;
 	}
 }

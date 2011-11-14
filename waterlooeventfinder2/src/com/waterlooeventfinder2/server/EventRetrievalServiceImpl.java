@@ -40,7 +40,7 @@ EventRetrievalService {
 				
 				while (rs.next()) {
 
-					//rtn.add(RStoEvent(rs));
+					rtn.add(utils.RStoEvent(rs));
 					
 				}
 			} catch (SQLException e) {
@@ -75,19 +75,9 @@ EventRetrievalService {
 				ResultSet rs = stmt.executeQuery(query);
 				
 				while (rs.next()) {
-
 					rtn.add(utils.RStoEvent(rs));
-					Calendar start = Calendar.getInstance();
-					Calendar end = Calendar.getInstance();
-					start.add(Calendar.DATE, +8);
-					start.add(Calendar.HOUR, +3);
-					end.add(Calendar.DATE, +8);
-					end.add(Calendar.DATE, +8);
-					rtn.add(new Event(3, 2, start.getTime(), end.getTime(),
-					"location1", "desc1", "Concert AC/DC - Waterloo !",
-					"www.website5.com", "www.youtube.com", "519-777-7890",
-					"event@mail.com"));
 				}
+				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -141,7 +131,7 @@ EventRetrievalService {
 
 	@Override
 	public ArrayList<Category> GetAllCategory() {
-		ArrayList<Category> categories = null;
+		ArrayList<Category> categories = new ArrayList<Category>();
 		Connection dbConn = null;
 		
 		String query = "select * from Category";
