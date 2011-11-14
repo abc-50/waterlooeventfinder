@@ -27,11 +27,14 @@ import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.waterlooeventfinder2.shared.Category;
 import com.waterlooeventfinder2.shared.Event;
+import com.waterlooeventfinder2.shared.User;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.DateTimeFormat.PredefinedFormat;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -95,11 +98,29 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 
 			public void onSuccess(Event result) {
 				Window.alert("got event: " + result.Name());
-				
+
 			}
 		};
 
 		retrievalService.GetEventById(id, callback);
+	}
+
+	protected void disconnect() {
+		if (retrievalService == null) {
+			retrievalService = GWT.create(EventRetrievalService.class);
+		}
+
+		AsyncCallback<Integer> callback = new AsyncCallback<Integer>() {
+			public void onFailure(Throwable caught) {
+				Window.alert(caught.getMessage());
+				// TODO: Do something with errors.
+			}
+
+			public void onSuccess(Integer result) {
+				Window.alert("Disconnected");
+			}
+		};
+		retrievalService.logout(callback);
 	}
 
 	// Associate an async data provider to the table
@@ -111,9 +132,9 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 		if (retrievalService == null) {
 			retrievalService = GWT.create(EventRetrievalService.class);
 		}
-		
+
 		// Set up the callback object.
-		AsyncCallback<Integer> callback = new AsyncCallback<Integer>() {
+		AsyncCallback<User> callback = new AsyncCallback<User>() {
 
 			public void onFailure(Throwable caught) {
 				Window.alert(caught.getMessage());
@@ -121,15 +142,63 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 			}
 
 			@Override
-			public void onSuccess(Integer result) {
+			public void onSuccess(User result) {
 				// TODO Auto-generated method stub
-				Window.alert("works");
+				// Window.alert(Integer.toString(result));
+				if (result.isLoggedInApplication() == false) {
+					Window.alert("Login Unsuccessful");
+				} else {
+					String name = result.getDisplayName();
+					Button LogOutButton = new Button(name + ": Logout",
+							new ClickHandler() {
+								public void onClick(ClickEvent event) {
+									disconnect();
+
+								}
+							});
+					RootPanel.get().add(LogOutButton);
+				}
+
 			}
+
 		};
 
-		retrievalService.ConnectToAccount(login, password, callback);
+		retrievalService.logToServer(login, password, callback);
 	}
 	
+	protected void loginUsingSession(final String login, final String password) {
+
+		if (retrievalService == null) {
+			retrievalService = GWT.create(EventRetrievalService.class);
+		}
+
+		// Set up the callback object.
+		AsyncCallback<User> callback = new AsyncCallback<User>() {
+
+			public void onFailure(Throwable caught) {
+				Window.alert(caught.getMessage());
+				// TODO: Do something with errors.
+			}
+
+			@Override
+			public void onSuccess(User result) {
+				// TODO Auto-generated method stub
+				// Window.alert(Integer.toString(result));
+				if (result.isLoggedInApplication() == false) {
+					Window.alert("Login Using Session Unsuccessful");
+					// TODO: Redirect to the login page
+				} else {
+					Window.alert("Login using Session successful");
+					// TODO: Display the elements as the user is logged in
+				}
+
+			}
+
+		};
+
+		retrievalService.loginUsingSession(callback);
+	}
+
 	protected void selectEvents(final String category, final String time) {
 
 		if (retrievalService == null) {
@@ -189,27 +258,27 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 	public void loadMainPage() { // WRITE EVERYTHING HERE !
 
 		final PasswordTextBox passwordBox = new PasswordTextBox();
-	    final TextBox loginBox = new TextBox();
+		final TextBox loginBox = new TextBox();
 
-	    // Add them to the root panel.
-	    VerticalPanel panel = new VerticalPanel();
-	    panel.add(loginBox);
-	    panel.add(passwordBox);
-	    
-	    
-	    Button buttonConnection = new Button("Connect to your account", new ClickHandler() {
-	        public void onClick(ClickEvent event) {
-	          Window.alert("Connection starts");
-	          String login = loginBox.getText();
-	          String password = passwordBox.getText();
-	          
-	          connectToAccount(login, password);
-	        }
-	      });
-	    
-	    panel.add(buttonConnection);
-	    RootPanel.get().add(panel);
-	    
+		// Add them to the root panel.
+		VerticalPanel panel = new VerticalPanel();
+		panel.add(loginBox);
+		panel.add(passwordBox);
+
+		Button buttonConnection = new Button("Connect to your account",
+				new ClickHandler() {
+					public void onClick(ClickEvent event) {
+						Window.alert("Connection starts");
+						String login = loginBox.getText();
+						String password = passwordBox.getText();
+
+						connectToAccount(login, password);
+					}
+				});
+
+		panel.add(buttonConnection);
+		RootPanel.get().add(panel);
+
 		showMainPage();
 		clearDescriptionPage();
 
@@ -224,7 +293,6 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 		final Button TimeThreeDays = new Button("3 days");
 		final Button TimeOneWeek = new Button("1 week");
 
-
 		// MIKES SECTION PLEASE DO NOT CHANGE!
 		Button test = new Button("eventdetail");
 		test.addClickHandler(new ClickHandler() {
@@ -233,13 +301,12 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 
 			}
 		});
-		
+
 		Button addEvent = new Button("Add Event");
-		
+
 		RootPanel.get("row1").add(test);
 		RootPanel.get("row1").add(addEvent);
 		// END MIKES SECTION
-
 
 		// We put in Green All + Upcoming
 		DOM.setElementAttribute(CategoryAll.getElement(), "id",
@@ -445,8 +512,8 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 		 * // table.createTable();
 		 * 
 		 * final SingleSelectionModel<Event> selectionModel = new
-		 * SingleSelectionModel<Event>();
-		 * // table.setSelectionModel(selectionModel);
+		 * SingleSelectionModel<Event>(); //
+		 * table.setSelectionModel(selectionModel);
 		 * 
 		 * selectionModel .addSelectionChangeHandler(new
 		 * SelectionChangeEvent.Handler() { public void
@@ -480,11 +547,11 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 				if (infoButtonPressed.getTime().equals("Upcoming")) {
 					startDateTime = DateTimeFormat.getFormat(
 							PredefinedFormat.TIME_SHORT).format(
-									object.getStarHour());
+							object.getStarHour());
 				} else {
 					startDateTime = DateTimeFormat.getFormat(
 							PredefinedFormat.DATE_TIME_SHORT).format(
-									object.getStarHour());
+							object.getStarHour());
 				}
 				return startDateTime;
 			}
@@ -498,54 +565,54 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 				if (infoButtonPressed.getTime().equals("Upcoming")) {
 					endDateTime = DateTimeFormat.getFormat(
 							PredefinedFormat.TIME_SHORT).format(
-									object.getEndHour());
+							object.getEndHour());
 				} else {
 					endDateTime = DateTimeFormat.getFormat(
 							PredefinedFormat.DATE_TIME_SHORT).format(
-									object.getEndHour());
+							object.getEndHour());
 				}
 				return endDateTime;
 			}
 		};
 
 		// Add columns to the table
-		 table.addColumn(nameColumn, "Name");
-		 table.addColumn(startColumn, "Start");
-		 table.addColumn(endColumn, "End");
+		table.addColumn(nameColumn, "Name");
+		table.addColumn(startColumn, "Start");
+		table.addColumn(endColumn, "End");
 
-		 table.addColumnStyleName(0, "nameColumStyle");
-		 table.addColumnStyleName(1, "StartColumStyle");
-		 table.addColumnStyleName(2, "EndColumnStyle");
+		table.addColumnStyleName(0, "nameColumStyle");
+		table.addColumnStyleName(1, "StartColumStyle");
+		table.addColumnStyleName(2, "EndColumnStyle");
 
 		table.setWidth("100%", true);
-		table.setColumnWidth(nameColumn, 40.0, Unit.PCT); 
+		table.setColumnWidth(nameColumn, 40.0, Unit.PCT);
 		table.setColumnWidth(startColumn, 20.0, Unit.PCT);
 		table.setColumnWidth(endColumn, 20.0, Unit.PCT);
 		table.setColumnWidth(endColumn, 20.0, Unit.PCT);
 
 		final SingleSelectionModel<Event> selectionModel = new SingleSelectionModel<Event>();
-//		table.setSelectionModel(selectionModel);
+		// table.setSelectionModel(selectionModel);
 		selectionModel
-		.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
-			public void onSelectionChange(SelectionChangeEvent event) {
-				Event selected = selectionModel.getSelectedObject();
-				if (selected != null) {
-					// randomly pick 0 or 1
-					viewEvent(selected.getCategoryId() % 2);
-					String search = "1";
-					String result = "";
-					int i;
-					i = selected.Name().indexOf(search);
+				.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+					public void onSelectionChange(SelectionChangeEvent event) {
+						Event selected = selectionModel.getSelectedObject();
+						if (selected != null) {
+							// randomly pick 0 or 1
+							viewEvent(selected.getCategoryId() % 2);
+							String search = "1";
+							String result = "";
+							int i;
+							i = selected.Name().indexOf(search);
 
-					// result = selected.Name().substring(i);
-					// if(result != null){
-					// viewEvent(1);
-					// } else {
-					// viewEvent(2);
-					// }
-				}
-			}
-		});
+							// result = selected.Name().substring(i);
+							// if(result != null){
+							// viewEvent(1);
+							// } else {
+							// viewEvent(2);
+							// }
+						}
+					}
+				});
 
 		provider.addDataDisplay(table);
 		pager.setDisplay(table);
@@ -582,7 +649,7 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 		// description of an event
 		final String flink1 = "http://www.youtube.com/embed/zkbXTQ95kLc";
 		Frame youtubeVideo = new Frame(flink1);
-		//To set the size of the video
+		// To set the size of the video
 		youtubeVideo.setWidth("95%");
 
 		Grid g = new Grid(2, 2);

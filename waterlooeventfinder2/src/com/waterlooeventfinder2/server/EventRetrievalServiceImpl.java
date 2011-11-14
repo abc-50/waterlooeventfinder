@@ -4,11 +4,15 @@ import java.sql.*;
 import java.util.*;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.waterlooeventfinder2.client.EventRetrievalService;
 import com.waterlooeventfinder2.shared.Category;
 import com.waterlooeventfinder2.shared.Event;
+import com.waterlooeventfinder2.shared.User;
 import com.waterlooeventfinder2.server.utils;
 
 @SuppressWarnings("serial")
@@ -180,27 +184,50 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public Integer ConnectToAccount(String login, String password) {
+	public User logToServer(String login, String password) {
 		// TODO Auto-generated method stub
+		User user = new User();
 
 		Connection dbConn = null;
-		String passwordEncrytped = BCrypt.hashpw(password, BCrypt.gensalt());
+		//String passwordEncrypted = BCrypt.hashpw(password, BCrypt.gensalt());
 		int rtn = 1;
-		// String query =
-		// String.format("select * from user where loginId = %d and password = %d",
-		// login, passwordEncrytped);
+		int sessionKey = 0;
 
-		//String query = "insert into user (loginId, password) values (" + login + "," + password + ")";
-		String query = "insert into user (loginId, password) values (test,passTest)";
-		
+		/*String insertQuery = String
+				.format("INSERT INTO user (loginId, password, displayName) VALUES ('%s','%s','Martin')",
+						login, passwordEncrypted);
+		*/
+		String selectQuery = String.format(
+				"SELECT * from user WHERE loginId = '%s' AND password = '%s'",
+				login, password);
+
 		try {
 			dbConn = DriverManager.getConnection(URL + DB, USER, PW);
 
 			try {
 				Statement stmt = dbConn.createStatement();
-				stmt.executeUpdate(query);
+				//stmt.executeUpdate(insertQuery);
+				ResultSet rs = stmt.executeQuery(selectQuery);
 
-				
+				while (rs.next()) {
+					if (rs.getString("loginId").equals(login)) {
+						sessionKey = 2;
+						user.setLoggedInApplication(true);
+						String nameUser = rs.getString("displayName");
+						user.setDisplayName(nameUser);
+
+						if (user.isLoggedInApplication()) {
+							// We store User Sessions
+							HttpServletRequest httpServletRequest = this
+									.getThreadLocalRequest();
+							HttpSession session = httpServletRequest
+									.getSession();
+							session.setAttribute("user", user);
+						}
+					} else {
+						user.setLoggedInApplication(false);
+					}
+				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -210,6 +237,28 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return user;
+	}
+
+	@Override
+	public User loginUsingSession() {
+		User user = null;
+		HttpServletRequest httpServletRequest = this.getThreadLocalRequest();
+		HttpSession session = httpServletRequest.getSession();
+		Object userSession = session.getAttribute("user");
+		if (userSession != null && userSession instanceof User) {
+			user = (User) userSession;
+		}
+		return user;
+	}
+
+	@Override
+	public int logout() {
+
+		HttpServletRequest httpServletRequest = this.getThreadLocalRequest();
+		HttpSession session = httpServletRequest.getSession();
+		session.removeAttribute("user");
+		
 		return 1;
 	}
 
