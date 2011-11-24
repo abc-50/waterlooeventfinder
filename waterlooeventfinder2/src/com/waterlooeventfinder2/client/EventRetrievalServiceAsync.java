@@ -23,6 +23,9 @@ public interface EventRetrievalServiceAsync {
 	void GetEventById(int eventId, AsyncCallback<Event> callback)
 			throws IllegalArgumentException;
 	
+	void GetEventByUserId(int userId, AsyncCallback<ArrayList<Event>> callback)
+			throws IllegalArgumentException;
+	
 	void GetAllCategory(AsyncCallback<ArrayList<Category>> callback)
 			throws IllegalArgumentException;
 	
@@ -37,5 +40,7 @@ public interface EventRetrievalServiceAsync {
 	void logout(AsyncCallback<Integer> callback);
 
 	void loginUsingSession(AsyncCallback<User> callback);
+
+	void deleteEventById(int eventId, AsyncCallback<Integer> callback);
 	
 }

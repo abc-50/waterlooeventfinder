@@ -10,7 +10,6 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
@@ -42,7 +41,7 @@ public class LoginContent extends Content {
 		Button buttonConnection = new Button("Connect to your account",
 				new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				Window.alert("Connection starts");
+				Window.alert("Connecte");
 				String login = loginBox.getText();
 				String password = passwordBox.getText();
 
@@ -56,24 +55,6 @@ public class LoginContent extends Content {
 		//		// set action 
 		//		//https://google-web-toolkit.googlecode.com/svn/javadoc/1.6/com/google/gwt/user/client/ui/FormPanel.html
 
-	}
-
-	protected void disconnect() {
-		if (retrievalService == null) {
-			retrievalService = GWT.create(EventRetrievalService.class);
-		}
-
-		AsyncCallback<Integer> callback = new AsyncCallback<Integer>() {
-			public void onFailure(Throwable caught) {
-				Window.alert(caught.getMessage());
-				// TODO: Do something with errors.
-			}
-
-			public void onSuccess(Integer result) {
-				Window.alert("Disconnected");
-			}
-		};
-		retrievalService.logout(callback);
 	}
 
 	// Associate an async data provider to the table
@@ -99,15 +80,15 @@ public class LoginContent extends Content {
 				if (result.isLoggedInApplication() == false) {
 					Window.alert("Login Unsuccessful");
 				} else {
-					String name = result.getDisplayName();
-					Button LogOutButton = new Button(name + ": Logout",
-							new ClickHandler() {
-						public void onClick(ClickEvent event) {
-							disconnect();
-
-						}
-					});
-					RootPanel.get().add(LogOutButton);
+					// Take the id of the user
+					int userId = 4;
+					
+					RootPanel.get("header").clear();
+					ContentContainer.getInstance();
+					ContentContainer.setContent(new MainButtonContent());
+					ContentContainer.setContent(new MyEventsButton(userId));
+					ContentContainer.setContent(new LogoutContent());
+					ContentContainer.setContent(new ClubEventsListContent(userId));
 				}
 
 			}

@@ -13,7 +13,6 @@ import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.SelectionChangeEvent;
@@ -27,7 +26,7 @@ public class EventsListContent extends Content {
 		if (retrievalService == null) {
 			retrievalService = GWT.create(EventRetrievalService.class);
 		}
-
+		
 		GetAllEvents();
 	}
 
@@ -60,6 +59,8 @@ public class EventsListContent extends Content {
 	 */
 	private void CreateCellTable(ArrayList<Event> results) {
 		CellTable<Event> table = new CellTable<Event>();
+		// To set the size of the table
+		table.setPageSize(5);
 		SimplePager pager = new SimplePager();
 		
 		if (results != null) {
@@ -98,7 +99,8 @@ public class EventsListContent extends Content {
 				public void onSelectionChange(SelectionChangeEvent event) {
 					Event selected = selectionModel.getSelectedObject();
 					if (selected != null) {
-						ContentContainer.getInstance().setContent(new EventDetailContent(selected.getEventId()));
+						ContentContainer.getInstance();
+						ContentContainer.setContent(new EventDetailContent(selected.getEventId()));
 					}
 				}
 			});

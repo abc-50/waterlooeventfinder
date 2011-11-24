@@ -4,5 +4,16 @@
 	<classpathentry kind="src" output="test-classes" path="test"/>
 	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Users/Martin/Desktop/Librairies/org.springframework.aop-3.0.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Martin/Desktop/Librairies/org.springframework.asm-3.0.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Martin/Desktop/Librairies/org.springframework.beans-3.0.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Martin/Desktop/Librairies/org.springframework.context.support-3.0.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Martin/Desktop/Librairies/org.springframework.context-3.0.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Martin/Desktop/Librairies/org.springframework.core-3.0.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Martin/Desktop/Librairies/org.springframework.expression-3.0.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Martin/Desktop/Librairies/org.springframework.web-3.0.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Martin/Desktop/Librairies/spring-security-config-3.0.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Martin/Desktop/Librairies/spring-security-core-3.0.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Martin/Desktop/Librairies/spring-security-web-3.0.5.RELEASE.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

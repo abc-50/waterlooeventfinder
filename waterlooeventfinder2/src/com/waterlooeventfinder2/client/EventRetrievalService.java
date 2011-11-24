@@ -1,6 +1,5 @@
 package com.waterlooeventfinder2.client;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -23,6 +22,8 @@ public interface EventRetrievalService extends RemoteService {
 	Event GetEventById(int eventId);
 
 	ArrayList<Category> GetAllCategory();
+	
+	ArrayList<Event> GetEventByUserId(int userId);
 
 	Integer AddEvent(int userId, int categoryId, Date starHour, Date endHour,
 			String location, String eventDescription, String eventName,
@@ -34,4 +35,9 @@ public interface EventRetrievalService extends RemoteService {
 	User loginUsingSession();
 
 	int logout();
+
+	int deleteEventById(int eventId);
+
+
+	
 }

@@ -7,6 +7,7 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.waterlooeventfinder2.client.EventRetrievalService;
 import com.waterlooeventfinder2.shared.Category;
@@ -26,7 +27,7 @@ EventRetrievalService {
 	private static final String URL = "jdbc:mysql://127.0.0.1:3306/";
 	private static final String DB = "eventsfinder";
 	private static final String USER = "root";
-	private static final String PW = "";
+	private static final String PW = "a3z4e5r6";
 
 	public ArrayList<Event> GetAllEvents() {
 		Connection dbConn = null;
@@ -129,6 +130,42 @@ EventRetrievalService {
 
 		return rtn;
 	}
+	
+	
+	
+	@Override
+	public ArrayList<Event> GetEventByUserId(int userId) {
+		// TODO Auto-generated method stub
+		Connection dbConn = null;
+
+		ArrayList<Event> rtn = new ArrayList<Event>();
+		rtn.clear();
+		String query = String.format("select * from Event where userID = %d", userId);
+		
+		try {
+			dbConn = DriverManager.getConnection( URL + DB, USER, PW );
+			
+			try {
+				Statement stmt = dbConn.createStatement();
+				ResultSet rs = stmt.executeQuery(query);
+				
+				while (rs.next()) {
+
+					rtn.add(utils.RStoEvent(rs));
+					
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+			dbConn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+
+		return rtn;
+	}
 
 	@Override
 	public ArrayList<Category> GetAllCategory() {
@@ -171,6 +208,33 @@ EventRetrievalService {
 		// TODO ADD validation
 
 		return 1;
+	}
+	
+	@Override
+	public int deleteEventById(int eventId) {
+		// TODO Auto-generated method stub
+		Connection dbConn = null;
+		
+		String query = String.format("DELETE FROM Event WHERE eventId = %d", eventId);
+
+		try {
+			dbConn = DriverManager.getConnection(URL + DB, USER, PW);
+
+			try {
+				Statement stmt = dbConn.createStatement();
+				stmt.executeUpdate(query);
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			dbConn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return 0;
 	}
 
 	@Override
@@ -251,5 +315,11 @@ EventRetrievalService {
 		
 		return 1;
 	}
+
+
+	
+
+
+	
 
 }
