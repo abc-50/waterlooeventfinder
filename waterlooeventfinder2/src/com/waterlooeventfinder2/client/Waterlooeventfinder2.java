@@ -21,9 +21,7 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 		RootPanel.get("footer").clear();
 
 		ContentContainer.getInstance();
-		ContentContainer.setContent(new MainButtonContent());
-		ContentContainer.setContent(new LoginButtonContent());
-		
+		ContentContainer.setHeader(new NormalUserHeader());
 		ContentContainer.setContent(new EventsListContent());
 	}
 

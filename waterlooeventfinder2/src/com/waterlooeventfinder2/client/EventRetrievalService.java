@@ -25,7 +25,7 @@ public interface EventRetrievalService extends RemoteService {
 	
 	ArrayList<Event> GetEventByUserId(int userId);
 
-	Integer AddEvent(int userId, int categoryId, Date starHour, Date endHour,
+	String AddEvent(int userId, int categoryId, String start, String end,
 			String location, String eventDescription, String eventName,
 			String eventWebsite, String eventVideo, String eventPhoneNumber,
 			String eventEmail);
@@ -38,6 +38,9 @@ public interface EventRetrievalService extends RemoteService {
 
 	int deleteEventById(int eventId);
 
+	ArrayList<Category> getCategories();
+
+	
 
 	
 }

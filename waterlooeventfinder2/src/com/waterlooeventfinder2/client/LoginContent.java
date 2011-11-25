@@ -41,7 +41,6 @@ public class LoginContent extends Content {
 		Button buttonConnection = new Button("Connect to your account",
 				new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				Window.alert("Connecte");
 				String login = loginBox.getText();
 				String password = passwordBox.getText();
 
@@ -61,7 +60,7 @@ public class LoginContent extends Content {
 	// XXX: Use AsyncCallback in the method onRangeChanged
 	// to actually get the data from the server side
 
-	protected void connectToAccount(final String login, final String password) {
+	private void connectToAccount(final String login, final String password) {
 
 		if (retrievalService == null) {
 			retrievalService = GWT.create(EventRetrievalService.class);
@@ -83,11 +82,7 @@ public class LoginContent extends Content {
 					// Take the id of the user
 					int userId = 4;
 					
-					RootPanel.get("header").clear();
-					ContentContainer.getInstance();
-					ContentContainer.setContent(new MainButtonContent());
-					ContentContainer.setContent(new MyEventsButton(userId));
-					ContentContainer.setContent(new LogoutContent());
+					ContentContainer.setHeader(new ClubHeader(userId));
 					ContentContainer.setContent(new ClubEventsListContent(userId));
 				}
 
@@ -98,7 +93,7 @@ public class LoginContent extends Content {
 		retrievalService.logToServer(login, password, callback);
 	}
 
-	protected void loginUsingSession(final String login, final String password) {
+	private void loginUsingSession(final String login, final String password) {
 
 		if (retrievalService == null) {
 			retrievalService = GWT.create(EventRetrievalService.class);

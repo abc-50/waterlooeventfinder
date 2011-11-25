@@ -17,7 +17,7 @@ import com.waterlooeventfinder2.server.utils;
 
 @SuppressWarnings("serial")
 public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
-EventRetrievalService {
+		EventRetrievalService {
 
 	/**
 * 
@@ -35,54 +35,53 @@ EventRetrievalService {
 		ArrayList<Event> rtn = new ArrayList<Event>();
 		rtn.clear();
 		String query = "select * from Event";
-		
+
 		try {
-			dbConn = DriverManager.getConnection( URL + DB, USER, PW );
-			
+			dbConn = DriverManager.getConnection(URL + DB, USER, PW);
+
 			try {
 				Statement stmt = dbConn.createStatement();
 				ResultSet rs = stmt.executeQuery(query);
-				
+
 				while (rs.next()) {
 
 					rtn.add(utils.RStoEvent(rs));
-					
+
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			
+
 			dbConn.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
+		}
 
 		return rtn;
 	}
 
-
 	// use "1", "2", "3", "4" "5" as temporary time filters
 	public ArrayList<Event> GetEventsByFilter(String categoryFilter,
-	String timeFilter, int startEventNumber, int endEventNumber) {
+			String timeFilter, int startEventNumber, int endEventNumber) {
 
 		Connection dbConn = null;
-		
+
 		ArrayList<Event> rtn = new ArrayList<Event>();
 		rtn.clear();
 		String query = "select * from Event";
-		
+
 		try {
-			dbConn = DriverManager.getConnection( URL + DB, USER, PW );
-			
+			dbConn = DriverManager.getConnection(URL + DB, USER, PW);
+
 			try {
 				Statement stmt = dbConn.createStatement();
 				ResultSet rs = stmt.executeQuery(query);
-				
+
 				while (rs.next()) {
 					rtn.add(utils.RStoEvent(rs));
 				}
-				
+
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -130,9 +129,7 @@ EventRetrievalService {
 
 		return rtn;
 	}
-	
-	
-	
+
 	@Override
 	public ArrayList<Event> GetEventByUserId(int userId) {
 		// TODO Auto-generated method stub
@@ -140,29 +137,30 @@ EventRetrievalService {
 
 		ArrayList<Event> rtn = new ArrayList<Event>();
 		rtn.clear();
-		String query = String.format("select * from Event where userID = %d", userId);
-		
+		String query = String.format("select * from Event where userID = %d",
+				userId);
+
 		try {
-			dbConn = DriverManager.getConnection( URL + DB, USER, PW );
-			
+			dbConn = DriverManager.getConnection(URL + DB, USER, PW);
+
 			try {
 				Statement stmt = dbConn.createStatement();
 				ResultSet rs = stmt.executeQuery(query);
-				
+
 				while (rs.next()) {
 
 					rtn.add(utils.RStoEvent(rs));
-					
+
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			
+
 			dbConn.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
+		}
 
 		return rtn;
 	}
@@ -201,21 +199,12 @@ EventRetrievalService {
 	}
 
 	@Override
-	public Integer AddEvent(int userId, int categoryId, Date starHour,
-			Date endHour, String location, String eventDescription,
-			String eventName, String eventWebsite, String eventVideo,
-			String eventPhoneNumber, String eventEmail) {
-		// TODO ADD validation
-
-		return 1;
-	}
-	
-	@Override
 	public int deleteEventById(int eventId) {
 		// TODO Auto-generated method stub
 		Connection dbConn = null;
-		
-		String query = String.format("DELETE FROM Event WHERE eventId = %d", eventId);
+
+		String query = String.format("DELETE FROM Event WHERE eventId = %d",
+				eventId);
 
 		try {
 			dbConn = DriverManager.getConnection(URL + DB, USER, PW);
@@ -243,14 +232,15 @@ EventRetrievalService {
 		User user = new User();
 
 		Connection dbConn = null;
-		//String passwordEncrypted = BCrypt.hashpw(password, BCrypt.gensalt());
+		// String passwordEncrypted = BCrypt.hashpw(password, BCrypt.gensalt());
 		int rtn = 1;
 		int sessionKey = 0;
 
-		/*String insertQuery = String
-				.format("INSERT INTO user (loginId, password, displayName) VALUES ('%s','%s','Martin')",
-						login, passwordEncrypted);
-		*/
+		/*
+		 * String insertQuery = String .format(
+		 * "INSERT INTO user (loginId, password, displayName) VALUES ('%s','%s','Martin')"
+		 * , login, passwordEncrypted);
+		 */
 		String selectQuery = String.format(
 				"SELECT * from user WHERE loginId = '%s' AND password = '%s'",
 				login, password);
@@ -260,7 +250,7 @@ EventRetrievalService {
 
 			try {
 				Statement stmt = dbConn.createStatement();
-				//stmt.executeUpdate(insertQuery);
+				// stmt.executeUpdate(insertQuery);
 				ResultSet rs = stmt.executeQuery(selectQuery);
 
 				while (rs.next()) {
@@ -312,14 +302,76 @@ EventRetrievalService {
 		HttpServletRequest httpServletRequest = this.getThreadLocalRequest();
 		HttpSession session = httpServletRequest.getSession();
 		session.removeAttribute("user");
-		
+
 		return 1;
 	}
 
+	@Override
+	public String AddEvent(int userId, int categoryId, String start,
+			String end, String location, String eventDescription,
+			String eventName, String eventWebsite, String eventVideo,
+			String eventPhoneNumber, String eventEmail) {
+		Connection dbConn = null;
 
-	
+		eventPhoneNumber = "510342349";
 
+		String query = String
+				.format("INSERT INTO Event (userID, category, startTime, endTime, location, eventDescription, eventName, eventWebsite, eventVideo, eventPhoneNumber, eventEmail)"
+						+ "								 VALUES ('%d','%d','%s','%s','%s','%s','%s','%s','%s','%s','%s')",
+						userId, categoryId, start, end, location,
+						eventDescription, eventName, eventWebsite, eventVideo,
+						eventPhoneNumber, eventEmail);
+		try {
+			dbConn = DriverManager.getConnection(URL + DB, USER, PW);
 
-	
+			try {
+				Statement stmt = dbConn.createStatement();
+				stmt.executeUpdate(query);
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			dbConn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return "ok";
+	}
+
+	@Override
+	public ArrayList<Category> getCategories() {
+		Connection dbConn = null;
+
+		ArrayList<Category> rtn = new ArrayList<Category>();
+
+		rtn.clear();
+		String query = "SELECT * FROM category ORDER BY categoryId";
+
+		try {
+			dbConn = DriverManager.getConnection(URL + DB, USER, PW);
+
+			try {
+				Statement stmt = dbConn.createStatement();
+				ResultSet rs = stmt.executeQuery(query);
+
+				while (rs.next()) {
+					rtn.add(utils.RStoCategory(rs));
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			dbConn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return rtn;
+	}
 
 }

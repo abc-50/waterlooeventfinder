@@ -29,10 +29,10 @@ public interface EventRetrievalServiceAsync {
 	void GetAllCategory(AsyncCallback<ArrayList<Category>> callback)
 			throws IllegalArgumentException;
 	
-	void AddEvent(int userId, int categoryId, Date starHour, Date endHour,
+	void AddEvent(int userId, int categoryId, String start, String end,
 			String location, String eventDescription, String eventName,
 			String eventWebsite, String eventVideo, String eventPhoneNumber,
-			String eventEmail, AsyncCallback<Integer> callback)
+			String eventEmail, AsyncCallback<String> callback)
 			throws IllegalArgumentException;
 
 	void logToServer(String login, String password, AsyncCallback<User> callback);
@@ -42,5 +42,7 @@ public interface EventRetrievalServiceAsync {
 	void loginUsingSession(AsyncCallback<User> callback);
 
 	void deleteEventById(int eventId, AsyncCallback<Integer> callback);
+
+	void getCategories(AsyncCallback<ArrayList<Category>> callback);
 	
 }
