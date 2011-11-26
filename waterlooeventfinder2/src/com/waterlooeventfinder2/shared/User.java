@@ -3,6 +3,10 @@ package com.waterlooeventfinder2.shared;
 import java.io.Serializable;
 
 public class User implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int userId;
 	private String loginId;
 	private String password;
@@ -10,7 +14,6 @@ public class User implements Serializable{
 	private String description;
 	private String phoneNumber;
 	private int userTypeId;
-	private boolean loggedInApplication = false;
 
 	public User() {
 
@@ -114,28 +117,5 @@ public class User implements Serializable{
 		return userId;
 	}
 
-	
-
-	/**
-	 * @param loggedInApplication the loggedInApplication to set
-	 */
-	public void setLoggedInApplication(boolean loggedInApplication) {
-		this.loggedInApplication = loggedInApplication;
-	}
-
-	/**
-	 * @return the loggedInApplication
-	 */
-	public boolean isLoggedInApplication() {
-		return loggedInApplication;
-	}
-
-	
-
-	
-
-	
-
-	
 
 }

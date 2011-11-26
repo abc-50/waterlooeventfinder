@@ -1,15 +1,6 @@
 package com.waterlooeventfinder2.client;
 
-import java.util.Iterator;
-
-import com.google.gwt.dom.client.Style.Unit;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.DockLayoutPanel;
-import com.google.gwt.user.client.ui.HasWidgets;
-import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Singleton class used for controlling content
@@ -18,7 +9,7 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class ContentContainer {
 	private static ContentContainer container;
-
+	
 	/**
 	 * Protected constructor
 	 */
@@ -39,6 +30,8 @@ public class ContentContainer {
 				}
 			}
 		}
+		
+		// automatically attempt to login via session
 
 		return container;
 	}
@@ -52,6 +45,9 @@ public class ContentContainer {
 		rp.clear();
 
 		rp.add(c.getPanel());
+	
 	}
+	
+
 
 }

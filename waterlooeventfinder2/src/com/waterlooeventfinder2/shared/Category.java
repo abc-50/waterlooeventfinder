@@ -1,8 +1,5 @@
 package com.waterlooeventfinder2.shared;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 public class Category {
 	private int categoryId;
 	private String categoryName;

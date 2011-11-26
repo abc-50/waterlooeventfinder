@@ -13,7 +13,6 @@ import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.SelectionChangeEvent;
@@ -23,7 +22,7 @@ import com.waterlooeventfinder2.shared.Event;
 public class EventsListContent extends Content {
 
 	public EventsListContent() {		
-		
+		super();
 		if (retrievalService == null) {
 			retrievalService = GWT.create(EventRetrievalService.class);
 		}
@@ -98,7 +97,8 @@ public class EventsListContent extends Content {
 				public void onSelectionChange(SelectionChangeEvent event) {
 					Event selected = selectionModel.getSelectedObject();
 					if (selected != null) {
-						ContentContainer.getInstance().setContent(new EventDetailContent(selected.getEventId()));
+						ContentContainer.getInstance();
+						ContentContainer.setContent(new EventDetailContent(selected.getEventId()));
 					}
 				}
 			});

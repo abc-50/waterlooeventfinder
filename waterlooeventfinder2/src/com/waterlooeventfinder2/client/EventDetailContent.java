@@ -3,15 +3,11 @@
  */
 package com.waterlooeventfinder2.client;
 
-import java.util.ArrayList;
-
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Frame;
-import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Label;
 import com.waterlooeventfinder2.shared.Event;

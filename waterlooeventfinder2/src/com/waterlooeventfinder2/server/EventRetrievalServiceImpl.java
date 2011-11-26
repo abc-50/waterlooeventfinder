@@ -11,12 +11,10 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.waterlooeventfinder2.client.EventRetrievalService;
 import com.waterlooeventfinder2.shared.Category;
 import com.waterlooeventfinder2.shared.Event;
-import com.waterlooeventfinder2.shared.User;
 import com.waterlooeventfinder2.server.utils;
 
-@SuppressWarnings("serial")
 public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
-EventRetrievalService {
+		EventRetrievalService {
 
 	/**
 * 
@@ -26,7 +24,7 @@ EventRetrievalService {
 	private static final String URL = "jdbc:mysql://127.0.0.1:3306/";
 	private static final String DB = "eventsfinder";
 	private static final String USER = "root";
-	private static final String PW = "";
+	private static final String PW = "1secret";
 
 	public ArrayList<Event> GetAllEvents() {
 		Connection dbConn = null;
@@ -34,54 +32,53 @@ EventRetrievalService {
 		ArrayList<Event> rtn = new ArrayList<Event>();
 		rtn.clear();
 		String query = "select * from Event";
-		
+
 		try {
-			dbConn = DriverManager.getConnection( URL + DB, USER, PW );
-			
+			dbConn = DriverManager.getConnection(URL + DB, USER, PW);
+
 			try {
 				Statement stmt = dbConn.createStatement();
 				ResultSet rs = stmt.executeQuery(query);
-				
+
 				while (rs.next()) {
 
 					rtn.add(utils.RStoEvent(rs));
-					
+
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			
+
 			dbConn.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
+		}
 
 		return rtn;
 	}
 
-
 	// use "1", "2", "3", "4" "5" as temporary time filters
 	public ArrayList<Event> GetEventsByFilter(String categoryFilter,
-	String timeFilter, int startEventNumber, int endEventNumber) {
+			String timeFilter, int startEventNumber, int endEventNumber) {
 
 		Connection dbConn = null;
-		
+
 		ArrayList<Event> rtn = new ArrayList<Event>();
 		rtn.clear();
 		String query = "select * from Event";
-		
+
 		try {
-			dbConn = DriverManager.getConnection( URL + DB, USER, PW );
-			
+			dbConn = DriverManager.getConnection(URL + DB, USER, PW);
+
 			try {
 				Statement stmt = dbConn.createStatement();
 				ResultSet rs = stmt.executeQuery(query);
-				
+
 				while (rs.next()) {
 					rtn.add(utils.RStoEvent(rs));
 				}
-				
+
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -174,50 +171,44 @@ EventRetrievalService {
 	}
 
 	@Override
-	public User logToServer(String login, String password) {
-		// TODO Auto-generated method stub
-		User user = new User();
+	public String logToServer(String login, String password) {
 
 		Connection dbConn = null;
-		//String passwordEncrypted = BCrypt.hashpw(password, BCrypt.gensalt());
-		int rtn = 1;
-		int sessionKey = 0;
+		// String passwordEncrypted = BCrypt.hashpw(password, BCrypt.gensalt());
 
-		/*String insertQuery = String
-				.format("INSERT INTO user (loginId, password, displayName) VALUES ('%s','%s','Martin')",
-						login, passwordEncrypted);
-		*/
-		String selectQuery = String.format(
-				"SELECT * from user WHERE loginId = '%s' AND password = '%s'",
-				login, password);
+		String selectQuery = String
+				.format("SELECT userId, password from user WHERE loginId = '%s'",
+						login);
+
+		HttpServletRequest httpServletRequest = this.getThreadLocalRequest();
+		HttpSession session = httpServletRequest.getSession();
 
 		try {
 			dbConn = DriverManager.getConnection(URL + DB, USER, PW);
 
 			try {
 				Statement stmt = dbConn.createStatement();
-				//stmt.executeUpdate(insertQuery);
+				// stmt.executeUpdate(insertQuery);
 				ResultSet rs = stmt.executeQuery(selectQuery);
 
-				while (rs.next()) {
-					if (rs.getString("loginId").equals(login)) {
-						sessionKey = 2;
-						user.setLoggedInApplication(true);
-						String nameUser = rs.getString("displayName");
-						user.setDisplayName(nameUser);
+				if (rs.next()) {
+					// check password hash
+					String passwordHash = rs.getString("password");
 
-						if (user.isLoggedInApplication()) {
-							// We store User Sessions
-							HttpServletRequest httpServletRequest = this
-									.getThreadLocalRequest();
-							HttpSession session = httpServletRequest
-									.getSession();
-							session.setAttribute("user", user);
-						}
+					if (passwordHash.equals(password)) {
+
+						// store session ID in database
+						int userId = rs.getInt("userId");
+						String sId = session.getId();
+
+						StoreSessionIDInDB(userId, sId);
+
+						return sId;
 					} else {
-						user.setLoggedInApplication(false);
+						return null;
 					}
 				}
+
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -227,29 +218,80 @@ EventRetrievalService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return user;
+
+		return null;
 	}
 
-	@Override
-	public User loginUsingSession() {
-		User user = null;
-		HttpServletRequest httpServletRequest = this.getThreadLocalRequest();
-		HttpSession session = httpServletRequest.getSession();
-		Object userSession = session.getAttribute("user");
-		if (userSession != null && userSession instanceof User) {
-			user = (User) userSession;
+	private void StoreSessionIDInDB(int userId, String sessionId) {
+		Connection dbConn = null;
+
+		String updateQuery = String.format(
+				"INSERT INTO session (userId, sessionID) VALUES ('%s', '%s') "
+						+ "ON DUPLICATE KEY UPDATE sessionID = '%s'", userId,
+				sessionId, sessionId);
+
+		try {
+			dbConn = DriverManager.getConnection(URL + DB, USER, PW);
+
+			Statement stmt = dbConn.createStatement();
+			stmt.executeUpdate(updateQuery);
+
+			dbConn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		return user;
+
 	}
 
 	@Override
-	public int logout() {
+	public String loginUsingSession(String sessionID) {
+		Connection dbConn = null;
 
-		HttpServletRequest httpServletRequest = this.getThreadLocalRequest();
-		HttpSession session = httpServletRequest.getSession();
-		session.removeAttribute("user");
-		
-		return 1;
+		String selectQuery = String.format(
+				"SELECT * FROM session where sessionID = '%s'", sessionID);
+
+		String rtn = null;
+
+		try {
+			dbConn = DriverManager.getConnection(URL + DB, USER, PW);
+
+			Statement stmt = dbConn.createStatement();
+			ResultSet rs = stmt.executeQuery(selectQuery);
+
+			if (rs.next()) {
+				rtn = rs.getString("userId");
+			}
+			dbConn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return rtn;
+	}
+
+	@Override
+	public Integer logout(String sessionID) {
+
+		Connection dbConn = null;
+
+		String deleteQuery = String.format(
+				"Delete FROM session where sessionID = '%s'", sessionID);
+
+		try {
+			dbConn = DriverManager.getConnection(URL + DB, USER, PW);
+
+			Statement stmt = dbConn.createStatement();
+			stmt.executeUpdate(deleteQuery);
+
+			dbConn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return 0;
 	}
 
 }

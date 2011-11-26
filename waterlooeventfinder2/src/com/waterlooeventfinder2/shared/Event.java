@@ -1,12 +1,13 @@
 package com.waterlooeventfinder2.shared;
 
 import java.io.Serializable;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 import java.util.*;
 
 public class Event implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int eventId;
 	private int userId;
 	private int categoryId;

@@ -1,40 +1,12 @@
 package com.waterlooeventfinder2.client;
 
-import java.util.ArrayList;
-
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.RootPanel;
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.Style.Unit;
-
-import com.google.gwt.user.cellview.client.SimplePager;
-import com.google.gwt.user.cellview.client.TextColumn;
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.Frame;
-import com.google.gwt.user.client.ui.Grid;
-import com.google.gwt.user.client.ui.PasswordTextBox;
-import com.google.gwt.user.client.ui.TextArea;
-import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.view.client.AsyncDataProvider;
-import com.google.gwt.view.client.HasData;
-import com.google.gwt.view.client.SelectionChangeEvent;
-import com.google.gwt.view.client.SingleSelectionModel;
-import com.waterlooeventfinder2.shared.Category;
-import com.waterlooeventfinder2.shared.Event;
-import com.waterlooeventfinder2.shared.User;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.KeyPressEvent;
-import com.google.gwt.i18n.client.DateTimeFormat;
-import com.google.gwt.i18n.client.DateTimeFormat.PredefinedFormat;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -47,13 +19,15 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 		//RootPanel leftNav = RootPanel.get("leftnav").add(new NavigationMenu());
 		//RootPanel footer = RootPanel.get("footer").add(new Footer());
 		
-		ContentContainer.getInstance().setContent(new EventsListContent());
+		ContentContainer.getInstance();
+		ContentContainer.setContent(new EventsListContent());
 	
 		Button b = new Button("Login", new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				ContentContainer.getInstance().setContent(new LoginContent());
+				ContentContainer.getInstance();
+				ContentContainer.setContent(new LoginContent());
 				
 			}
 		});
@@ -62,7 +36,8 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				ContentContainer.getInstance().setContent(new EventsListContent());
+				ContentContainer.getInstance();
+				ContentContainer.setContent(new EventsListContent());
 				
 			}
 		});
