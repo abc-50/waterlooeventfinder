@@ -1,10 +1,15 @@
 package com.waterlooeventfinder2.server;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.sql.*;
 import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.waterlooeventfinder2.client.EventRetrievalService;
 import com.waterlooeventfinder2.shared.Category;
@@ -22,7 +27,7 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 	private static final String URL = "jdbc:mysql://127.0.0.1:3306/";
 	private static final String DB = "eventsfinder";
 	private static final String USER = "root";
-	private static final String PW = "1secret";
+	private static final String PW = "a3z4e5r6";
 
 	public ArrayList<Event> GetAllEvents() {
 		Connection dbConn = null;
@@ -110,8 +115,20 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 				while (rs.next()) {
 
 					rtn = utils.RStoEvent(rs);
-
+					
+		
 				}
+				
+//				int categoryId = rtn.getCategoryId();
+//				String query2 = String.format("SELECT categoryName FROM category WHERE categoryId = %d", categoryId);
+//				stmt.executeQuery(query2);
+//				while (rs.next()) {
+//
+//					rtn = utils.RStoEvent(rs);
+//					
+//		
+//				}
+				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -346,41 +363,6 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public String AddEvent(int userId, int categoryId, String start,
-			String end, String location, String eventDescription,
-			String eventName, String eventWebsite, String eventVideo,
-			String eventPhoneNumber, String eventEmail) {
-		Connection dbConn = null;
-
-		eventPhoneNumber = "510342349";
-
-		String query = String
-				.format("INSERT INTO Event (userID, category, startTime, endTime, location, eventDescription, eventName, eventWebsite, eventVideo, eventPhoneNumber, eventEmail)"
-						+ "								 VALUES ('%d','%d','%s','%s','%s','%s','%s','%s','%s','%s','%s')",
-						userId, categoryId, start, end, location,
-						eventDescription, eventName, eventWebsite, eventVideo,
-						eventPhoneNumber, eventEmail);
-		try {
-			dbConn = DriverManager.getConnection(URL + DB, USER, PW);
-
-			try {
-				Statement stmt = dbConn.createStatement();
-				stmt.executeUpdate(query);
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-
-			dbConn.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return "ok";
-	}
-
-	@Override
 	public ArrayList<Category> getCategories() {
 		Connection dbConn = null;
 
@@ -411,6 +393,62 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 		}
 
 		return rtn;
+	}
+
+	@Override
+	public boolean CheckUrl(String website) {
+		try {
+			URL url = new URL(website);
+			URLConnection conn = url.openConnection();
+			conn.connect();
+		} catch (MalformedURLException e) {
+			return false;
+		} catch (IOException e) {
+			return false;
+		}
+		
+		return true;
+	}
+
+	@Override
+	public String AddEvent(int userId, String categoryId, String start,
+			String end, String location, String eventDescription,
+			String eventName, String eventWebsite, String eventVideo,
+			String eventPhoneNumber, String eventEmail) {
+		Connection dbConn = null;
+
+		eventPhoneNumber = "510342349";
+
+		String query = String
+				.format("INSERT INTO Event (userID, category, startTime, endTime, location, eventDescription, eventName, eventWebsite, eventVideo, eventPhoneNumber, eventEmail)"
+						+ "								 VALUES ('%d','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')",
+						userId, categoryId, start, end, location,
+						eventDescription, eventName, eventWebsite, eventVideo,
+						eventPhoneNumber, eventEmail);
+		try {
+			dbConn = DriverManager.getConnection(URL + DB, USER, PW);
+
+			try {
+				Statement stmt = dbConn.createStatement();
+				stmt.executeUpdate(query);
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			dbConn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return "ok";
+	}
+
+	@Override
+	public Category getCategoryNameById(int categoryId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

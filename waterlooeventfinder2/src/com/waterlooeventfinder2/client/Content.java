@@ -54,9 +54,9 @@ public abstract class Content extends Composite {
 			@Override
 			public void onSuccess(String result) {
 				if (result == null) {
-					Window.alert("Login Using Session Unsuccessful: " + result);
+					//Window.alert("Login Using Session Unsuccessful: " + result);
 				} else {
-					Window.alert("Login using Session successful: "+ result);
+					//Window.alert("Login using Session successful: "+ result);
 				}
 
 			}

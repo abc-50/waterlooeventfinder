@@ -129,4 +129,6 @@ public class Event implements Serializable {
 	public void setEventId(int eventId) {
 		this.eventId = eventId;
 	}
+
+
 }
