@@ -1,8 +1,18 @@
 package com.waterlooeventfinder2.shared;
 
-public class Category {
+import java.io.Serializable;
+
+public class Category implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int categoryId;
 	private String categoryName;
+	
+	public Category(){
+		
+	}
 	
 	public Category(int id, String name) {
 		this.categoryId = id;

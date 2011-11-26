@@ -1,8 +1,6 @@
 package com.waterlooeventfinder2.client;
 
 import java.util.ArrayList;
-import java.util.Date;
-
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 import com.waterlooeventfinder2.shared.Category;
@@ -21,8 +19,10 @@ public interface EventRetrievalService extends RemoteService {
 	Event GetEventById(int eventId);
 
 	ArrayList<Category> GetAllCategory();
+	
+	ArrayList<Event> GetEventByUserId(int userId);
 
-	Integer AddEvent(int userId, int categoryId, Date starHour, Date endHour,
+	String AddEvent(int userId, int categoryId, String start, String end,
 			String location, String eventDescription, String eventName,
 			String eventWebsite, String eventVideo, String eventPhoneNumber,
 			String eventEmail);
@@ -32,4 +32,12 @@ public interface EventRetrievalService extends RemoteService {
 	String loginUsingSession(String sessionID);
 
 	Integer logout(String sessionID);
+
+	int deleteEventById(int eventId);
+
+	ArrayList<Category> getCategories();
+
+	
+
+	
 }

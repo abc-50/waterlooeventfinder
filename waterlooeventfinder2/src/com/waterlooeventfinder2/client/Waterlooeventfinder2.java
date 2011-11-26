@@ -3,10 +3,7 @@ package com.waterlooeventfinder2.client;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.RootPanel;
 
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.ClickEvent;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -19,31 +16,13 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 		//RootPanel leftNav = RootPanel.get("leftnav").add(new NavigationMenu());
 		//RootPanel footer = RootPanel.get("footer").add(new Footer());
 		
+		RootPanel.get("header").clear();
+		RootPanel.get("leftnav").clear();
+		RootPanel.get("footer").clear();
+
 		ContentContainer.getInstance();
+		ContentContainer.setHeader(new NormalUserHeader());
 		ContentContainer.setContent(new EventsListContent());
-	
-		Button b = new Button("Login", new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				ContentContainer.getInstance();
-				ContentContainer.setContent(new LoginContent());
-				
-			}
-		});
-		
-		Button main = new Button("Home", new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				ContentContainer.getInstance();
-				ContentContainer.setContent(new EventsListContent());
-				
-			}
-		});
-		
-		RootPanel.get("header").add(b);
-		RootPanel.get("header").add(main);
 	}
 
 	@Override

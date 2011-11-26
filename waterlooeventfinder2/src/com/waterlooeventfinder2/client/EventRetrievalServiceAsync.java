@@ -1,8 +1,6 @@
 package com.waterlooeventfinder2.client;
 
 import java.util.ArrayList;
-import java.util.Date;
-
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.waterlooeventfinder2.shared.Category;
 import com.waterlooeventfinder2.shared.Event;
@@ -22,13 +20,16 @@ public interface EventRetrievalServiceAsync {
 	void GetEventById(int eventId, AsyncCallback<Event> callback)
 			throws IllegalArgumentException;
 	
+	void GetEventByUserId(int userId, AsyncCallback<ArrayList<Event>> callback)
+			throws IllegalArgumentException;
+	
 	void GetAllCategory(AsyncCallback<ArrayList<Category>> callback)
 			throws IllegalArgumentException;
 	
-	void AddEvent(int userId, int categoryId, Date starHour, Date endHour,
+	void AddEvent(int userId, int categoryId, String start, String end,
 			String location, String eventDescription, String eventName,
 			String eventWebsite, String eventVideo, String eventPhoneNumber,
-			String eventEmail, AsyncCallback<Integer> callback)
+			String eventEmail, AsyncCallback<String> callback)
 			throws IllegalArgumentException;
 
 	void logToServer(String login, String password, AsyncCallback<String> callback);
@@ -36,5 +37,9 @@ public interface EventRetrievalServiceAsync {
 	void logout(String sessionId, AsyncCallback<Integer> callback);
 
 	void loginUsingSession(String sessionID, AsyncCallback<String> callback);
+
+	void deleteEventById(int eventId, AsyncCallback<Integer> callback);
+
+	void getCategories(AsyncCallback<ArrayList<Category>> callback);
 	
 }

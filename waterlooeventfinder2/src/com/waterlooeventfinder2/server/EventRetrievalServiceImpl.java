@@ -2,8 +2,6 @@ package com.waterlooeventfinder2.server;
 
 import java.sql.*;
 import java.util.*;
-import java.util.Date;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -128,6 +126,41 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
+	public ArrayList<Event> GetEventByUserId(int userId) {
+		// TODO Auto-generated method stub
+		Connection dbConn = null;
+
+		ArrayList<Event> rtn = new ArrayList<Event>();
+		rtn.clear();
+		String query = String.format("select * from Event where userID = %d",
+				userId);
+
+		try {
+			dbConn = DriverManager.getConnection(URL + DB, USER, PW);
+
+			try {
+				Statement stmt = dbConn.createStatement();
+				ResultSet rs = stmt.executeQuery(query);
+
+				while (rs.next()) {
+
+					rtn.add(utils.RStoEvent(rs));
+
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			dbConn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return rtn;
+	}
+
+	@Override
 	public ArrayList<Category> GetAllCategory() {
 		ArrayList<Category> categories = new ArrayList<Category>();
 		Connection dbConn = null;
@@ -161,13 +194,31 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public Integer AddEvent(int userId, int categoryId, Date starHour,
-			Date endHour, String location, String eventDescription,
-			String eventName, String eventWebsite, String eventVideo,
-			String eventPhoneNumber, String eventEmail) {
-		// TODO ADD validation
+	public int deleteEventById(int eventId) {
+		// TODO Auto-generated method stub
+		Connection dbConn = null;
 
-		return 1;
+		String query = String.format("DELETE FROM Event WHERE eventId = %d",
+				eventId);
+
+		try {
+			dbConn = DriverManager.getConnection(URL + DB, USER, PW);
+
+			try {
+				Statement stmt = dbConn.createStatement();
+				stmt.executeUpdate(query);
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			dbConn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return 0;
 	}
 
 	@Override
@@ -292,6 +343,74 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 		}
 
 		return 0;
+	}
+
+	@Override
+	public String AddEvent(int userId, int categoryId, String start,
+			String end, String location, String eventDescription,
+			String eventName, String eventWebsite, String eventVideo,
+			String eventPhoneNumber, String eventEmail) {
+		Connection dbConn = null;
+
+		eventPhoneNumber = "510342349";
+
+		String query = String
+				.format("INSERT INTO Event (userID, category, startTime, endTime, location, eventDescription, eventName, eventWebsite, eventVideo, eventPhoneNumber, eventEmail)"
+						+ "								 VALUES ('%d','%d','%s','%s','%s','%s','%s','%s','%s','%s','%s')",
+						userId, categoryId, start, end, location,
+						eventDescription, eventName, eventWebsite, eventVideo,
+						eventPhoneNumber, eventEmail);
+		try {
+			dbConn = DriverManager.getConnection(URL + DB, USER, PW);
+
+			try {
+				Statement stmt = dbConn.createStatement();
+				stmt.executeUpdate(query);
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			dbConn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return "ok";
+	}
+
+	@Override
+	public ArrayList<Category> getCategories() {
+		Connection dbConn = null;
+
+		ArrayList<Category> rtn = new ArrayList<Category>();
+
+		rtn.clear();
+		String query = "SELECT * FROM category ORDER BY categoryId";
+
+		try {
+			dbConn = DriverManager.getConnection(URL + DB, USER, PW);
+
+			try {
+				Statement stmt = dbConn.createStatement();
+				ResultSet rs = stmt.executeQuery(query);
+
+				while (rs.next()) {
+					rtn.add(utils.RStoCategory(rs));
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			dbConn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return rtn;
 	}
 
 }

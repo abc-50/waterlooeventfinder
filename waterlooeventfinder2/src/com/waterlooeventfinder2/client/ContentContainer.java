@@ -48,6 +48,11 @@ public class ContentContainer {
 	
 	}
 	
+	public static void setHeader(Header c) {
+		RootPanel rp = RootPanel.get("header");
+		rp.clear();
 
+		rp.add(c.getPanel());
+	}
 
 }

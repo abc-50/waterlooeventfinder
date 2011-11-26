@@ -40,7 +40,6 @@ public class LoginContent extends Content {
 		Button loginButton = new Button("Login",
 				new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				Window.alert("Connection starts");
 				String login = loginBox.getText();
 				String password = passwordBox.getText();
 
@@ -111,6 +110,11 @@ public class LoginContent extends Content {
 				    final long DURATION = 1000 * 60 * 60 * 24 * 5; //duration remembering login. 5 days
 				    Date expires = new Date(System.currentTimeMillis() + DURATION);
 				    Cookies.setCookie("sid", SessionID, expires, null, "/", false);
+				    
+				    int userId = 4;
+					
+					ContentContainer.setHeader(new ClubHeader(userId));
+					ContentContainer.setContent(new ClubEventsListContent(userId));
 				}
 
 			}

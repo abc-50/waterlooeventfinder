@@ -19,21 +19,22 @@ import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.waterlooeventfinder2.shared.Event;
 
-public class EventsListContent extends Content {
+public class ClubEventsListContent extends Content{
 
-	public EventsListContent() {		
-		super();
+	public ClubEventsListContent(int userId) {		
+		
 		if (retrievalService == null) {
 			retrievalService = GWT.create(EventRetrievalService.class);
 		}
 		
-		GetAllEvents();
+		GetEventByUserId(userId);
+		
 	}
 
 	/**
 	 * Populate events list from database
 	 */
-	private void GetAllEvents() {
+	private void GetEventByUserId(final int userId) {
 		if (retrievalService == null) {
 			retrievalService = GWT.create(EventRetrievalService.class);
 		}
@@ -46,18 +47,18 @@ public class EventsListContent extends Content {
 			}
 
 			public void onSuccess(ArrayList<Event> results) {
-				CreateCellTable(results);				
+				CreateCellTable(userId, results);				
 			}
 		};
 
-		retrievalService.GetAllEvents(callback);
+		retrievalService.GetEventByUserId(userId, callback);
 	}
 
 	/**
 	 * Using a list of events to create a cell table
 	 * @param results arraylist of events
 	 */
-	private void CreateCellTable(ArrayList<Event> results) {
+	private void CreateCellTable(final int userId, ArrayList<Event> results) {
 		CellTable<Event> table = new CellTable<Event>();
 		// To set the size of the table
 		table.setPageSize(5);
@@ -100,7 +101,7 @@ public class EventsListContent extends Content {
 					Event selected = selectionModel.getSelectedObject();
 					if (selected != null) {
 						ContentContainer.getInstance();
-						ContentContainer.setContent(new EventDetailContent(selected.getEventId()));
+						ContentContainer.setContent(new ClubEventDetailContent(userId, selected.getEventId()));
 					}
 				}
 			});
@@ -114,6 +115,9 @@ public class EventsListContent extends Content {
 		}
 	}
 	
+	
+	
 
 
 }
+
