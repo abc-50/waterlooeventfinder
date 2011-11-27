@@ -84,7 +84,7 @@ public class ClubHeader extends Header{
 			@Override
 			public void onClick(ClickEvent event) {
 				ContentContainer.getInstance();
-				ContentContainer.setContent(new AddEventContent(userId));
+				ContentContainer.setContent(new ClubEventDetailContent(userId, 0, "addEvent"));
 
 			}
 		});

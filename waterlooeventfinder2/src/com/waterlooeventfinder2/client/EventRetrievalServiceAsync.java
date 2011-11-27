@@ -1,7 +1,10 @@
 package com.waterlooeventfinder2.client;
 
 import java.util.ArrayList;
+
+import com.google.gwt.dev.util.Callback;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.waterlooeventfinder2.shared.Category;
 import com.waterlooeventfinder2.shared.Event;
 import com.waterlooeventfinder2.shared.Time;
@@ -19,23 +22,24 @@ public interface EventRetrievalServiceAsync {
 
 	void GetEventById(int eventId, AsyncCallback<Event> callback)
 			throws IllegalArgumentException;
-	
+
 	void GetEventByUserId(int userId, AsyncCallback<ArrayList<Event>> callback)
 			throws IllegalArgumentException;
-	
+
 	void GetAllCategory(AsyncCallback<ArrayList<Category>> callback)
 			throws IllegalArgumentException;
-	
+
 	void GetAllTime(AsyncCallback<ArrayList<Time>> callback)
 			throws IllegalArgumentException;
-	
-	void AddEvent(int userId, int categoryId, String start, String end,
+
+	void AddEvent(int userId, String categoryId, String start, String end,
 			String location, String eventDescription, String eventName,
 			String eventWebsite, String eventVideo, String eventPhoneNumber,
 			String eventEmail, AsyncCallback<String> callback)
 			throws IllegalArgumentException;
 
-	void logToServer(String login, String password, AsyncCallback<String> callback);
+	void logToServer(String login, String password,
+			AsyncCallback<String> callback);
 
 	void logout(String sessionId, AsyncCallback<Integer> callback);
 
@@ -43,5 +47,18 @@ public interface EventRetrievalServiceAsync {
 
 	void deleteEventById(int eventId, AsyncCallback<Integer> callback);
 
-	
+	void CheckUrl(String website, AsyncCallback<Boolean> callback);
+
+	void getCategoryNameById(int categoryId, AsyncCallback<Category> callback);
+
+	void DeleteUserByName(String nameOfUser, AsyncCallback<Integer> callback);
+
+	void AddUserByName(String nameOfUser, String password2,
+			AsyncCallback<String> callback);
+
+	void ModifyEvent(int eventId, int userId, String categoryId,
+			String startEvent, String endEvent, String location,
+			String description, String name, String website, String video,
+			String phoneNumber, String email, AsyncCallback<String> callback);
+
 }

@@ -105,10 +105,13 @@ public class LoginContent extends Content {
 					Window.alert("Session ID : " + SessionID);
 				    utils.setCookie("sid", SessionID);
 				    
-				    int userId = 4;
+				    int userId = 3;
 					
 					ContentContainer.setHeader(new ClubHeader(userId));
 					ContentContainer.setContent(new ClubEventsListContent(userId));
+				    
+//				    ContentContainer.setHeader(new AdminHeader());
+									    
 				}
 
 			}

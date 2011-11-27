@@ -101,7 +101,7 @@ public class ClubEventsListContent extends Content{
 					Event selected = selectionModel.getSelectedObject();
 					if (selected != null) {
 						ContentContainer.getInstance();
-						ContentContainer.setContent(new ClubEventDetailContent(userId, selected.getEventId()));
+						ContentContainer.setContent(new ClubEventDetailContent(userId, selected.getEventId(), "modifyEvent"));
 					}
 				}
 			});
