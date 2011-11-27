@@ -1,7 +1,10 @@
 package com.waterlooeventfinder2.client;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 
 public class ClubHeader extends Header{
@@ -53,26 +56,26 @@ public class ClubHeader extends Header{
 	}
 
 	private void disconnect() {
-//
-//		if (retrievalService == null) {
-//			retrievalService = GWT.create(EventRetrievalService.class);
-//		}
-//
-//		AsyncCallback<Integer> callback = new AsyncCallback<Integer>() {
-//			public void onFailure(Throwable caught) {
-//				Window.alert(caught.getMessage());
-//				// TODO: Do something with errors.
-//			}
-//
-//			public void onSuccess(Integer result) {
-//				Window.alert("Disconnected");
-//				ContentContainer.getInstance();
-//				ContentContainer.setHeader(new NormalUserHeader());
-//				ContentContainer.setContent(new EventsListContent());
-//				
-//			}
-//		};
-//		retrievalService.logout(SessionI, callback);
+
+		if (retrievalService == null) {
+			retrievalService = GWT.create(EventRetrievalService.class);
+		}
+
+		AsyncCallback<Integer> callback = new AsyncCallback<Integer>() {
+			public void onFailure(Throwable caught) {
+				Window.alert(caught.getMessage());
+				// TODO: Do something with errors.
+			}
+
+			public void onSuccess(Integer result) {
+				Window.alert("Disconnected");
+				ContentContainer.getInstance();
+				ContentContainer.setHeader(new NormalUserHeader());
+				ContentContainer.setContent(new EventsListContent());
+				
+			}
+		};
+		retrievalService.logout(utils.getStringCookie("sid"), callback);
 	}
 	
 	private void CreateAddButton(final int userId){

@@ -6,6 +6,8 @@ import java.util.Date;
 
 import com.waterlooeventfinder2.shared.Category;
 import com.waterlooeventfinder2.shared.Event;
+import com.waterlooeventfinder2.shared.Time;
+import com.waterlooeventfinder2.shared.User;
 
 public class utils {
 	public static Event RStoEvent(ResultSet rs) {
@@ -14,8 +16,8 @@ public class utils {
 			int eventId = rs.getInt("eventId");
 			int userId = rs.getInt("userID");
 			int categoryId = rs.getInt("category");
-			Date starHour = rs.getDate("startTime");
-			Date endHour = rs.getDate("endTime");
+			Date starHour = rs.getTimestamp("startTime");
+			Date endHour = rs.getTimestamp("endTime");
 			String location = rs.getString("location");
 			String eventDescription = rs.getString("eventDescription");
 			String eventName = rs.getString("eventName");
@@ -23,12 +25,11 @@ public class utils {
 			String eventVideo = rs.getString("eventVideo");
 			String eventPhoneNumber = rs.getString("eventPhoneNumber");
 			String eventEmail = rs.getString("eventEmail");
-			
+
 			ev = new Event(eventId, userId, categoryId, starHour, endHour,
-					location, eventDescription, eventName,
-					eventWebsite, eventVideo, eventPhoneNumber,
-					eventEmail);
-		} catch (SQLException e) {
+					location, eventDescription, eventName, eventWebsite,
+					eventVideo, eventPhoneNumber, eventEmail);
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -43,25 +44,48 @@ public class utils {
 			String catName = rs.getString("categoryName");
 
 			c = new Category(catId, catName);
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		return c;
 	}
-
-	public static int generateSessionID(ResultSet rs) {
-		int sessionId = 0;
+	
+	public static Time RStoTime(ResultSet rs) {
+		Time t = null;
+		
 		try {
-			int catId = rs.getInt("userId");
-			sessionId = 15 + catId;
-		} catch (SQLException e) {
+			int timeId = rs.getInt("timeId");
+			String timeDisplay = rs.getString("timeDisplayName");
+
+			t = new Time(timeId, timeDisplay);
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		return sessionId;
+		return t;
 	}
-}
 
+	public static User RStoUser(ResultSet rs) {
+		User u = null;
+
+		try {
+			int userId = rs.getInt("userId");
+			String loginId = rs.getString("loginId");
+			String displayName = rs.getString("displayName");
+			String phoneNumber = rs.getString("phoneNumber");
+			//String email = rs.getString("email");
+			
+			u = new User(userId,loginId,"",displayName,"",phoneNumber,1);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return u;
+	}
+
+}

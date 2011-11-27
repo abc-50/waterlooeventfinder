@@ -87,7 +87,7 @@ public class AddEventContent extends Content {
 			}
 		};
 
-		retrievalService.getCategories(callback);
+		retrievalService.GetAllCategory(callback);
 
 	}
 

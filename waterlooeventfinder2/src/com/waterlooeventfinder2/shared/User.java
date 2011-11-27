@@ -2,7 +2,7 @@ package com.waterlooeventfinder2.shared;
 
 import java.io.Serializable;
 
-public class User implements Serializable{
+public class User implements Serializable {
 	/**
 	 * 
 	 */
@@ -19,8 +19,22 @@ public class User implements Serializable{
 
 	}
 
+	public User(int userId, String loginId, String password,
+			String displayName, String description, String phoneNumber,
+			int userTypeId) {
+		this.userId = userId;
+		this.loginId = loginId;
+		this.password = password;
+		this.displayName = displayName;
+		this.description = description;
+		this.phoneNumber = phoneNumber;
+		this.userTypeId = userTypeId;
+
+	}
+
 	/**
-	 * @param userTypeId the userTypeId to set
+	 * @param userTypeId
+	 *            the userTypeId to set
 	 */
 	public void setUserTypeId(int userTypeId) {
 		this.userTypeId = userTypeId;
@@ -34,7 +48,8 @@ public class User implements Serializable{
 	}
 
 	/**
-	 * @param phoneNumber the phoneNumber to set
+	 * @param phoneNumber
+	 *            the phoneNumber to set
 	 */
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
@@ -48,7 +63,8 @@ public class User implements Serializable{
 	}
 
 	/**
-	 * @param password the password to set
+	 * @param password
+	 *            the password to set
 	 */
 	public void setPassword(String password) {
 		this.password = password;
@@ -62,7 +78,8 @@ public class User implements Serializable{
 	}
 
 	/**
-	 * @param displayName the displayName to set
+	 * @param displayName
+	 *            the displayName to set
 	 */
 	public void setDisplayName(String displayName) {
 		this.displayName = displayName;
@@ -76,7 +93,8 @@ public class User implements Serializable{
 	}
 
 	/**
-	 * @param description the description to set
+	 * @param description
+	 *            the description to set
 	 */
 	public void setDescription(String description) {
 		this.description = description;
@@ -90,7 +108,8 @@ public class User implements Serializable{
 	}
 
 	/**
-	 * @param loginId the loginId to set
+	 * @param loginId
+	 *            the loginId to set
 	 */
 	public void setLoginId(String loginId) {
 		this.loginId = loginId;
@@ -104,7 +123,8 @@ public class User implements Serializable{
 	}
 
 	/**
-	 * @param userId the userId to set
+	 * @param userId
+	 *            the userId to set
 	 */
 	public void setUserId(int userId) {
 		this.userId = userId;
@@ -116,6 +136,5 @@ public class User implements Serializable{
 	public int getUserId() {
 		return userId;
 	}
-
 
 }

@@ -1,13 +1,18 @@
 package com.waterlooeventfinder2.server;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.waterlooeventfinder2.client.EventRetrievalService;
 import com.waterlooeventfinder2.shared.Category;
+import com.waterlooeventfinder2.shared.Time;
 import com.waterlooeventfinder2.shared.Event;
 import com.waterlooeventfinder2.server.utils;
 
@@ -57,15 +62,22 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 	}
 
 	// use "1", "2", "3", "4" "5" as temporary time filters
-	public ArrayList<Event> GetEventsByFilter(String categoryFilter,
-			String timeFilter, int startEventNumber, int endEventNumber) {
+	public ArrayList<Event> GetEventsByFilter(int categoryFilter, int timeFilter) {
 
+		Calendar c = Calendar.getInstance();
+		SimpleDateFormat dateFormat = new SimpleDateFormat(
+				"yyyy-MM-dd HH:mm:ss");
 		Connection dbConn = null;
 
-		ArrayList<Event> rtn = new ArrayList<Event>();
-		rtn.clear();
-		String query = "select * from Event";
+		c.add(Calendar.DATE, GetTimeInDays(timeFilter));
 
+		ArrayList<Event> rtn = new ArrayList<Event>();
+
+		String query = String.format(
+				"select * from Event where category = %d and startTime > '%s'",
+				categoryFilter + 1, dateFormat.format(c.getTime()));
+
+		
 		try {
 			dbConn = DriverManager.getConnection(URL + DB, USER, PW);
 
@@ -194,6 +206,39 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
+	public ArrayList<Time> GetAllTime() {
+		ArrayList<Time> times = new ArrayList<Time>();
+		Connection dbConn = null;
+
+		String query = "select * from Time";
+
+		try {
+			dbConn = DriverManager.getConnection(URL + DB, USER, PW);
+
+			try {
+				Statement stmt = dbConn.createStatement();
+				ResultSet rs = stmt.executeQuery(query);
+
+				while (rs.next()) {
+
+					times.add(utils.RStoTime(rs));
+
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			if (dbConn != null)
+				dbConn.close();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return times;
+	}
+
+	@Override
 	public int deleteEventById(int eventId) {
 		// TODO Auto-generated method stub
 		Connection dbConn = null;
@@ -295,14 +340,40 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 
 	}
 
+	private int GetTimeInDays(int timeFilter) {
+		Connection dbConn = null;
+		int rtn = 0;
+
+		String selectQ = String
+				.format("Select timeInDays from time where timeId = %d",
+						timeFilter + 1);
+
+		try {
+			dbConn = DriverManager.getConnection(URL + DB, USER, PW);
+
+			Statement stmt = dbConn.createStatement();
+			ResultSet rs = stmt.executeQuery(selectQ);
+
+			if (rs.next()) {
+				rtn = rs.getInt("timeInDays");
+			}
+			dbConn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return rtn;
+	}
+
 	@Override
-	public String loginUsingSession(String sessionID) {
+	public Integer loginUsingSession(String sessionID) {
 		Connection dbConn = null;
 
 		String selectQuery = String.format(
 				"SELECT * FROM session where sessionID = '%s'", sessionID);
 
-		String rtn = null;
+		Integer rtn = 0;
 
 		try {
 			dbConn = DriverManager.getConnection(URL + DB, USER, PW);
@@ -311,7 +382,7 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 			ResultSet rs = stmt.executeQuery(selectQuery);
 
 			if (rs.next()) {
-				rtn = rs.getString("userId");
+				rtn = rs.getInt("userId");
 			}
 			dbConn.close();
 		} catch (SQLException e) {
@@ -378,39 +449,6 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 		}
 
 		return "ok";
-	}
-
-	@Override
-	public ArrayList<Category> getCategories() {
-		Connection dbConn = null;
-
-		ArrayList<Category> rtn = new ArrayList<Category>();
-
-		rtn.clear();
-		String query = "SELECT * FROM category ORDER BY categoryId";
-
-		try {
-			dbConn = DriverManager.getConnection(URL + DB, USER, PW);
-
-			try {
-				Statement stmt = dbConn.createStatement();
-				ResultSet rs = stmt.executeQuery(query);
-
-				while (rs.next()) {
-					rtn.add(utils.RStoCategory(rs));
-				}
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-
-			dbConn.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return rtn;
 	}
 
 }
