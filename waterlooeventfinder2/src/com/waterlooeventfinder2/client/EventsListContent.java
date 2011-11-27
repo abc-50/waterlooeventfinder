@@ -83,7 +83,12 @@ public class EventsListContent extends Content {
 
 			table.addColumn(nameColumn, "Description");
 			table.addColumn(startDateColumn, "Start Time");
-
+			
+			// Style for the list
+			table.setColumnWidth(nameColumn, "40%");
+			table.setColumnWidth(startDateColumn, "30%");
+			table.setStylePrimaryName("StyleTable");
+			
 			ListDataProvider<Event> dataProvider = new ListDataProvider<Event>();
 			dataProvider.addDataDisplay(table);
 			pager.setDisplay(table);

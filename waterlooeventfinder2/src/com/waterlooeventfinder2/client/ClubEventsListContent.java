@@ -59,6 +59,8 @@ public class ClubEventsListContent extends Content{
 	 * @param results arraylist of events
 	 */
 	private void CreateCellTable(final int userId, ArrayList<Event> results) {
+        
+
 		CellTable<Event> table = new CellTable<Event>();
 		// To set the size of the table
 		table.setPageSize(5);
@@ -84,7 +86,10 @@ public class ClubEventsListContent extends Content{
 
 			table.addColumn(nameColumn, "Description");
 			table.addColumn(startDateColumn, "Start Time");
-
+			table.setColumnWidth(nameColumn, "40%");
+			table.setColumnWidth(startDateColumn, "30%");
+			
+			
 			ListDataProvider<Event> dataProvider = new ListDataProvider<Event>();
 			dataProvider.addDataDisplay(table);
 			pager.setDisplay(table);
