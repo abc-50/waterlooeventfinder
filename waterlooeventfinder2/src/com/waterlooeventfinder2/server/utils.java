@@ -16,6 +16,9 @@ public class utils {
 			int categoryId = rs.getInt("category");
 			Date starHour = rs.getDate("startTime");
 			Date endHour = rs.getDate("endTime");
+			String startHourString = rs.getString("startTime");
+			String endHourString = rs.getString("startTime");
+			
 			String location = rs.getString("location");
 			String eventDescription = rs.getString("eventDescription");
 			String eventName = rs.getString("eventName");

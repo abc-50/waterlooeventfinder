@@ -130,5 +130,4 @@ public class Event implements Serializable {
 		this.eventId = eventId;
 	}
 
-
 }

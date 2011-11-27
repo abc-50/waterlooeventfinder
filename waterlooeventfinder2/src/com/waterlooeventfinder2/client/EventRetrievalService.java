@@ -3,6 +3,7 @@ package com.waterlooeventfinder2.client;
 import java.util.ArrayList;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
+import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.waterlooeventfinder2.shared.Category;
 import com.waterlooeventfinder2.shared.Event;
 
@@ -40,6 +41,16 @@ public interface EventRetrievalService extends RemoteService {
 	boolean CheckUrl(String website);
 
 	Category getCategoryNameById(int categoryId);
+
+	int DeleteUserByName(String nameOfUser);
+
+	String AddUserByName(String nameOfUser, String password2);
+
+	String ModifyEvent(int eventId, int userId, String categoryId,
+			String startEvent, String endEvent, String location,
+			String description, String name, String website, String video,
+			String phoneNumber, String email);
+
 
 
 	

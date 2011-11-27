@@ -9,6 +9,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.i18n.client.DateTimeFormat.PredefinedFormat;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
@@ -54,18 +55,21 @@ public class ClubEventDetailContent extends Content {
 		}
 
 		if (goal.equals("addEvent")) {
+
 			setCategories(null);
 			AddFieldsHours();
 			CreateFormatForBoxes();
 			CreateEventDetails();
 			CreateRemoveFieldsButton();
 			CreateSaveAndCreateEventButton(userId);
+
 		} else if (goal.equals("modifyEvent")) {
+			AddFieldsHours();
 			CreateFormatForBoxes();
 			createDeleteButton(userId, eventId);
-			CreateSaveButton(eventId);
+			CreateSaveButton(eventId, userId);
 			GetEvent(eventId);
-			
+
 		}
 	}
 
@@ -93,11 +97,13 @@ public class ClubEventDetailContent extends Content {
 	private void setContentFields(Event ev) {
 		nameBox.setText(ev.Name());
 		setCategories(ev);
-		
-		
+
 		datePicker1.setValue(ev.getStarHour(), true);
 		datePicker2.setValue(ev.getEndHour(), true);
-		
+
+		Date StartEventDate = ev.getStarHour();
+		String startDateTime = DateTimeFormat.getFormat(PredefinedFormat.HOUR24_MINUTE).format(StartEventDate);
+		Window.alert(startDateTime);
 		// startBox.setText(ev.getStarHour().toString());
 		// endBox.setText(ev.getEndHour().toString());
 		locationBox.setText(ev.Location());
@@ -125,18 +131,67 @@ public class ClubEventDetailContent extends Content {
 
 	}
 
-	private void CreateSaveButton(final int eventId) {
-		Button saveButton = new Button("Save modifications",
+	private void CreateSaveButton(final int eventId, final int userId) {
+		Button SaveAndCreateEventButton = new Button("Save modifications",
 				new ClickHandler() {
-
-					@Override
 					public void onClick(ClickEvent event) {
-						saveEventById(eventId);
+						String name = nameBox.getText();
+						
+						String categoryId = category.getValue(category
+								.getSelectedIndex());
+						Window.alert(categoryId);
+						
+						String startEvent = CreateStringStartEvent();
+						String endEvent = CreateStringEndEvent();
+						
+						String location = locationBox.getText();
 
+						String description = descriptionBox.getText();
+						String website = websiteBox.getText();
+						String video = videoBox.getText();
+						String phoneNumber = phoneNumberBox.getText();
+						String email = emailBox.getText();
+
+						try {
+							if (ControlFieldsContent(name, categoryId,
+									startEvent, endEvent, location,
+									description, website, video, phoneNumber,
+									email)) {
+
+								if (retrievalService == null) {
+									retrievalService = GWT
+											.create(EventRetrievalService.class);
+								}
+
+								// Set up the callback object.
+								AsyncCallback<String> callback = new AsyncCallback<String>() {
+
+									public void onFailure(Throwable caught) {
+										Window.alert(caught.getMessage());
+									}
+
+									@Override
+									public void onSuccess(String result) {
+										Window.alert("Event modified");
+
+									}
+								};
+
+								retrievalService.ModifyEvent(eventId, userId, categoryId,
+										startEvent, endEvent, location,
+										description, name, website, video,
+										phoneNumber, email, callback);
+
+							}
+						} catch (IllegalArgumentException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
+
 				});
 
-		hpanel.add(saveButton);
+		hpanel.add(SaveAndCreateEventButton);
 		panel.add(hpanel);
 
 	}
@@ -225,7 +280,8 @@ public class ClubEventDetailContent extends Content {
 				}
 				if (event != null) {
 					for (int i = 0; i < category.getItemCount(); i++) {
-						if (category.getValue(i).equals(Integer.toString(event.getCategoryId()))) {
+						if (category.getValue(i).equals(
+								Integer.toString(event.getCategoryId()))) {
 							category.setItemSelected(i, true);
 						}
 					}
@@ -239,6 +295,7 @@ public class ClubEventDetailContent extends Content {
 	}
 
 	private void AddFieldsHours() {
+
 		int i = 0;
 		while (i < 24) {
 
@@ -351,6 +408,7 @@ public class ClubEventDetailContent extends Content {
 
 		int minLength = minuteStart.getValue(minuteStart.getSelectedIndex())
 				.length();
+		Window.alert(Integer.toString(minLength));
 		String minuteStringStart = minuteStart.getValue(
 				minuteStart.getSelectedIndex()).substring(0, minLength - 3);
 
@@ -405,20 +463,21 @@ public class ClubEventDetailContent extends Content {
 		} else if (description.length() < 10 || name.length() > 1000) {
 			Window.alert("Please use between 10 and 1000 characters for the description");
 			return false;
-		} else if (!checkWebsiteUrl(website)) {
-			Window.alert(website);
-
-			Window.alert("The url for your website is invalid : Please use httpwww.YOUR-WEBSITE.com format");
-			return false;
-
-		} else if (!verifyYoutubeVideoLink(video)) {
-			Window.alert("Please insert a correct Youtube Video link ");
-			videoBox.setText("");
-			return false;
-		} else if (!verifyEmail(email)) {
-			Window.alert("Please insert a correct email");
-			return false;
 		}
+//		else if (!checkWebsiteUrl(website)) {
+//			Window.alert(website);
+//
+//			Window.alert("The url for your website is invalid : Please use httpwww.YOUR-WEBSITE.com format");
+//			return false;
+//
+//		} else if (!verifyYoutubeVideoLink(video)) {
+//			Window.alert("Please insert a correct Youtube Video link ");
+//			videoBox.setText("");
+//			return false;
+//		} else if (!verifyEmail(email)) {
+//			Window.alert("Please insert a correct email");
+//			return false;
+//		}
 
 		return true;
 
@@ -530,15 +589,13 @@ public class ClubEventDetailContent extends Content {
 		ft.setWidget(curRow, 1, category);
 		curRow++;
 
-		
-
 		// Set the default value
 		// Add the widgets to the page
 		ft.setText(curRow, 0, "Start date: ");
 		ft.setWidget(curRow, 1, startDate);
 		ft.setWidget(curRow, 2, datePicker1);
 		curRow++;
-		
+
 		ft.setText(curRow, 0, "End date: ");
 		ft.setWidget(curRow, 1, endDate);
 		ft.setWidget(curRow, 2, datePicker2);

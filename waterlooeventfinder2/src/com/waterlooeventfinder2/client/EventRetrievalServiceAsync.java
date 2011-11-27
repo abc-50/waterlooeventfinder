@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.google.gwt.dev.util.Callback;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.waterlooeventfinder2.shared.Category;
 import com.waterlooeventfinder2.shared.Event;
 
@@ -47,6 +48,16 @@ public interface EventRetrievalServiceAsync {
 	void CheckUrl(String website, AsyncCallback<Boolean> callback);
 
 	void getCategoryNameById(int categoryId, AsyncCallback<Category> callback);
+
+	void DeleteUserByName(String nameOfUser, AsyncCallback<Integer> callback);
+
+	void AddUserByName(String nameOfUser, String password2,
+			AsyncCallback<String> callback);
+
+	void ModifyEvent(int eventId, int userId, String categoryId,
+			String startEvent, String endEvent, String location,
+			String description, String name, String website, String video,
+			String phoneNumber, String email, AsyncCallback<String> callback);
 
 	
 }

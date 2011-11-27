@@ -111,10 +111,13 @@ public class LoginContent extends Content {
 				    Date expires = new Date(System.currentTimeMillis() + DURATION);
 				    Cookies.setCookie("sid", SessionID, expires, null, "/", false);
 				    
-				    int userId = 4;
+				    int userId = 3;
 					
 					ContentContainer.setHeader(new ClubHeader(userId));
 					ContentContainer.setContent(new ClubEventsListContent(userId));
+				    
+//				    ContentContainer.setHeader(new AdminHeader());
+									    
 				}
 
 			}
