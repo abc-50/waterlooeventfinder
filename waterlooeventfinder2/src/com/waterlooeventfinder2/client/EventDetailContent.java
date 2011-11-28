@@ -56,6 +56,9 @@ public class EventDetailContent extends Content {
 
 	private FlexTable CreateEventDetails(Event ev) {
 		FlexTable ft = new FlexTable();
+		
+		ft.setStyleName("NormalUserEntireTableDescription", true);
+		
 		int curRow = 0;
 
 		if (ev != null) {
@@ -118,6 +121,12 @@ public class EventDetailContent extends Content {
 				ft.setText(curRow, 1, ev.Email());
 				curRow++;
 			}
+			
+			for (int i=0; i<ft.getRowCount(); i++){
+				ft.getFlexCellFormatter().setStyleName(i, 0, "FlexTableNormalUserStyle");
+			}
+			
+			
 		}
 
 		return ft;

@@ -13,6 +13,8 @@ import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -34,8 +36,11 @@ public class LoginContent extends Content {
 
 		// Add them to the root panel.
 		VerticalPanel vpanel = new VerticalPanel();
+		vpanel.setStyleName("LoginStyle");
+		vpanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		vpanel.add(loginBox);
 		vpanel.add(passwordBox);
+		
 
 		Button loginButton = new Button("Login",
 				new ClickHandler() {
@@ -102,15 +107,15 @@ public class LoginContent extends Content {
 					// store sessionID in a cookie
 					SessionID = result;
 					
-					Window.alert("Session ID : " + SessionID);
+					//Window.alert("Session ID : " + SessionID);
 				    utils.setCookie("sid", SessionID);
 				    
 				    int userId = 3;
 					
-//					ContentContainer.setHeader(new ClubHeader(userId));
-//					ContentContainer.setContent(new ClubEventsListContent(userId));
-//				    
-				    ContentContainer.setHeader(new AdminHeader());
+					ContentContainer.setHeader(new ClubHeader(userId));
+					ContentContainer.setContent(new ClubEventsListContent(userId));
+				    
+//				    ContentContainer.setHeader(new AdminHeader());
 									    
 				}
 

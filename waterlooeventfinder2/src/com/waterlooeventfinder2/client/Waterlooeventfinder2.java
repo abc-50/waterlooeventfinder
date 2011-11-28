@@ -29,13 +29,21 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 
 			ContentContainer.getInstance();
 			ContentContainer.setHeader(new ClubHeader(userId));
+
+			ContentContainer.getInstance();
+			ContentContainer.setContent(new ClubEventsListContent(userId));
 		}  else {
 			ContentContainer.getInstance();
 			ContentContainer.setHeader(new NormalUserHeader());
-		}
 
+			ContentContainer.getInstance();
+			ContentContainer.setContent(new EventsListContent());
+		}
+		
 		ContentContainer.getInstance();
-		ContentContainer.setContent(new EventsListContent());
+		ContentContainer.setFooter(new ElementFooter());
+
+		
 	}
 
 	@Override

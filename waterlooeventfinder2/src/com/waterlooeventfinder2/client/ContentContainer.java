@@ -54,5 +54,12 @@ public class ContentContainer {
 
 		rp.add(c.getPanel());
 	}
+	
+	public static void setFooter(Footer c) {
+		RootPanel rp = RootPanel.get("footer");
+		rp.clear();
+
+		rp.add(c.getPanel());
+	}
 
 }

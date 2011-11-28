@@ -49,9 +49,9 @@ public abstract class Content extends Composite {
 			@Override
 			public void onSuccess(Integer result) {
 				if (result != 0) {
-					Window.alert("Login using Session successful: " + result);
+					//Window.alert("Login using Session successful: " + result);
 				} else {
-					Window.alert("Login Using Session Unsuccessful: " + result);
+					//Window.alert("Login Using Session Unsuccessful: " + result);
 
 					Cookies.removeCookie("sid");
 					// ContentContainer.getInstance().setContent(new

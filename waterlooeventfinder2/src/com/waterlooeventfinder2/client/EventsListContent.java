@@ -193,50 +193,6 @@ public class EventsListContent extends Content {
 	 *            arraylist of events
 	 */
 
-	private void CreateCellTable(ArrayList<Event> results) {
-		CellTable<Event> table = new CellTable<Event>();
-		// To set the size of the table
-		table.setPageSize(5);
-		SimplePager pager = new SimplePager();
-
-		if (results != null) {
-			// short description column
-			TextColumn<Event> nameColumn = new TextColumn<Event>() {
-				@Override
-				public String getValue(Event object) {
-					return object.Name();
-				}
-			};
-
-			// Starting time column
-			DateCell dateCell = new DateCell();
-			Column<Event, Date> startDateColumn = new Column<Event, Date>(
-					dateCell) {
-				@Override
-				public Date getValue(Event object) {
-					return object.getStarHour();
-				}
-			};
-
-			table.addColumn(nameColumn, "Description");
-			table.addColumn(startDateColumn, "Start Time");
-
-			// Style for the list
-			table.setColumnWidth(nameColumn, "40%");
-			table.setColumnWidth(startDateColumn, "30%");
-			table.setStylePrimaryName("StyleTable");
-
-			ListDataProvider<Event> dataProvider = new ListDataProvider<Event>();
-			dataProvider.addDataDisplay(table);
-			pager.setDisplay(table);
-
-			List<Event> list = dataProvider.getList();
-			for (Iterator<Event> i = results.iterator(); i.hasNext();) {
-				list.add(i.next());
-			}
-		}
-	}
-
 	private void SetupCellTable(ListDataProvider<Event> dataProvider,
 			CellTable<Event> table) {
 		table.setPageSize(10);
@@ -259,20 +215,13 @@ public class EventsListContent extends Content {
 			}
 		};
 
-		// DateCell dateCell = new DateCell();
-		// Column<Event, Date> startDateColumn = new Column<Event,
-		// Date>(dateCell) {
-		// @Override
-		// public Date getValue(Event object) {
-		// SimpleDateFormat dateFormat = new SimpleDateFormat(
-		// "yyyy-MM-dd HH:mm:ss");
-		// return object.getStarHour();
-		// }
-		// };
-
+		table.setColumnWidth(nameColumn, "50%");
+		table.setColumnWidth(startDateColumn, "30%");
+		table.setStylePrimaryName("styleTable");
+		
 		table.addColumn(nameColumn, "Description");
 		table.addColumn(startDateColumn, "Start Time");
-
+		
 		dataProvider.addDataDisplay(table);
 
 		final SingleSelectionModel<Event> selectionModel = new SingleSelectionModel<Event>();
