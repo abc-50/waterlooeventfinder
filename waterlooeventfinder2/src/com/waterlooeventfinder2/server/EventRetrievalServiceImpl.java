@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.PasswordTextBox;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.waterlooeventfinder2.client.EventRetrievalService;
 import com.waterlooeventfinder2.shared.Category;
@@ -21,6 +22,9 @@ import com.waterlooeventfinder2.shared.Time;
 import com.waterlooeventfinder2.shared.Event;
 import com.waterlooeventfinder2.shared.TypeUser;
 import com.waterlooeventfinder2.server.utils;
+
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
 public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 		EventRetrievalService {
@@ -129,18 +133,6 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 					rtn = utils.RStoEvent(rs);
 
 				}
-
-				// int categoryId = rtn.getCategoryId();
-				// String query2 =
-				// String.format("SELECT categoryName FROM category WHERE categoryId = %d",
-				// categoryId);
-				// stmt.executeQuery(query2);
-				// while (rs.next()) {
-				//
-				// rtn = utils.RStoEvent(rs);
-				//
-				//
-				// }
 
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -690,5 +682,6 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 
 		return userTypes;
 	}
+
 
 }

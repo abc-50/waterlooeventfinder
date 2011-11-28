@@ -52,36 +52,8 @@ public class LoginContent extends Content {
 			}
 		});
 
-		Button logoutButton = new Button("Logout",
-				new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				logout();
-			}
-		});
-		
 		vpanel.add(loginButton);
-		vpanel.add(logoutButton);
 		panel.add(vpanel);
-	}
-
-	private void logout() {
-		if (retrievalService == null) {
-			retrievalService = GWT.create(EventRetrievalService.class);
-		}
-
-		AsyncCallback<Integer> callback = new AsyncCallback<Integer>() {
-			public void onFailure(Throwable caught) {
-				Window.alert(caught.getMessage());
-				// TODO: Do something with errors.
-			}
-
-			public void onSuccess(Integer result) {
-				Window.alert("Disconnected");
-			}
-		};
-		retrievalService.logout(SessionID,callback);
-		
-		Cookies.removeCookie("sid");	// remove the cookie that stored the session ID
 	}
 
 	private void connectToAccount(final String login, final String password) {

@@ -1,11 +1,16 @@
 package com.waterlooeventfinder2.client;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.RootPanel;
 
 public class ClubHeader extends Header{
 	
@@ -15,8 +20,29 @@ public class ClubHeader extends Header{
 		MyEventsButton(userId);
 		CreateAddButton(userId);
 		CreateLogoutButton();
+		
+//		int height = getHeightScreen();
+//		double heightHeader = (double) height/3;
+//		Window.alert(Double.toString(heightHeader));
+//		
+//		int heightContent = height/2;
+//		int heightFooter = height/6;
+//		
+//		RootPanel.get("header").setHeight(Double.toString(heightHeader) + "px");
+//		RootPanel.get("content").setHeight(Double.toString(heightContent) + "px");
+//		RootPanel.get("footer").setHeight(Double.toString(heightFooter) + "px");
+		
 	}
 	
+//	private int getHeightScreen() {
+//		Toolkit toolkit = java.awt.Toolkit.getDefaultToolkit ();
+//		Dimension screensize = toolkit.getScreenSize ();
+//		
+//		int height = screensize.height;
+//		Window.alert(Integer.toString(height));
+//		return height;
+//	}
+
 	private void CreateMainButton() {
 		Button main = new Button("Home", new ClickHandler() {
 
@@ -43,6 +69,7 @@ public class ClubHeader extends Header{
 		});
 		
 		panel.add(myEvents);
+		panel.setCellHorizontalAlignment(myEvents, HasHorizontalAlignment.ALIGN_CENTER);
 	}
 	
 	private void CreateLogoutButton() {
@@ -52,6 +79,7 @@ public class ClubHeader extends Header{
 			}
 		});
 		panel.add(logOutButton);
+		panel.setCellHorizontalAlignment(logOutButton, HasHorizontalAlignment.ALIGN_RIGHT);
 		
 	}
 
@@ -90,6 +118,7 @@ public class ClubHeader extends Header{
 		});
 		
 		panel.add(addButton);
+		panel.setCellHorizontalAlignment(addButton, HasHorizontalAlignment.ALIGN_CENTER);
 		
 	}
 	

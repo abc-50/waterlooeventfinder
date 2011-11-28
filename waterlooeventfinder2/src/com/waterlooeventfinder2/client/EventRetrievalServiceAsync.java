@@ -66,4 +66,5 @@ public interface EventRetrievalServiceAsync {
 
 	void GetTypesUser(AsyncCallback<ArrayList<TypeUser>> callback);
 
+	
 }

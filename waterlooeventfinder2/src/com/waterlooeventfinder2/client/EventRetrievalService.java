@@ -57,4 +57,6 @@ public interface EventRetrievalService extends RemoteService {
 	ArrayList<TypeUser> GetTypesUser();
 
 	
+
+	
 }

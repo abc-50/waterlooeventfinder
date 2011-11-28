@@ -14,6 +14,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.ListBox;
@@ -31,6 +32,7 @@ public class ClubEventDetailContent extends Content {
 	ListBox category = new ListBox();
 
 	Button startDate = new Button();
+	
 	Button endDate = new Button();
 
 	ListBox hourStart = new ListBox();
@@ -56,7 +58,8 @@ public class ClubEventDetailContent extends Content {
 		}
 
 		if (goal.equals("addEvent")) {
-
+			startDate.setText("Select a date please");
+			endDate.setText("Select a date please");
 			setCategories(null);
 			AddFieldsHours();
 			CreateFormatForBoxes();
@@ -169,6 +172,8 @@ public class ClubEventDetailContent extends Content {
 				});
 
 		hpanel.add(deleteButton);
+		hpanel.setCellHorizontalAlignment(deleteButton, HasHorizontalAlignment.ALIGN_CENTER);
+		
 		panel.add(hpanel);
 
 	}
@@ -233,7 +238,10 @@ public class ClubEventDetailContent extends Content {
 				});
 
 		hpanel.add(SaveAndCreateEventButton);
+		hpanel.setCellHorizontalAlignment(SaveAndCreateEventButton, HasHorizontalAlignment.ALIGN_CENTER);
+		
 		panel.add(hpanel);
+		hpanel.setStyleName("buttonsClubEvents");
 
 	}
 
@@ -265,16 +273,16 @@ public class ClubEventDetailContent extends Content {
 	}
 
 	private void CreateFormatForBoxes() {
-		descriptionBox.setCharacterWidth(70);
-		descriptionBox.setVisibleLines(15);
+		descriptionBox.setVisibleLines(10);
+		descriptionBox.setWidth("60%");
 
-		websiteBox.setWidth("50%");
-		nameBox.setWidth("50%");
-		locationBox.setWidth("50%");
-		websiteBox.setWidth("50%");
-		videoBox.setWidth("50%");
-		phoneNumberBox.setWidth("50%");
-		emailBox.setWidth("50%");
+		websiteBox.setWidth("60%");
+		nameBox.setWidth("60%");
+		locationBox.setWidth("60%");
+		websiteBox.setWidth("60%");
+		videoBox.setWidth("60%");
+		phoneNumberBox.setWidth("60%");
+		emailBox.setWidth("60%");
 
 		// Set the value in the text box when the user selects a date
 		datePicker1.addValueChangeHandler(new ValueChangeHandler() {
@@ -386,7 +394,9 @@ public class ClubEventDetailContent extends Content {
 					}
 				});
 		hpanel.add(RemoveFieldsButton);
+		hpanel.setCellHorizontalAlignment(RemoveFieldsButton, HasHorizontalAlignment.ALIGN_CENTER);
 		panel.add(hpanel);
+		
 	}
 
 	private void CreateSaveAndCreateEventButton(final int userId) {
@@ -449,6 +459,9 @@ public class ClubEventDetailContent extends Content {
 				});
 
 		hpanel.add(SaveAndCreateEventButton);
+		hpanel.setCellHorizontalAlignment(SaveAndCreateEventButton, HasHorizontalAlignment.ALIGN_CENTER);
+		hpanel.setStyleName("buttonsClubEvents");
+		
 		panel.add(hpanel);
 	}
 
@@ -670,10 +683,12 @@ public class ClubEventDetailContent extends Content {
 		HorizontalPanel hpanelTimeStart = new HorizontalPanel();
 		hpanelTimeStart.add(hourStart);
 		hpanelTimeStart.add(minuteStart);
+		hpanelTimeStart.setCellHorizontalAlignment(minuteStart, HasHorizontalAlignment.ALIGN_LOCALE_START);
 		
 		HorizontalPanel hpanelTimeEnd = new HorizontalPanel();
 		hpanelTimeEnd.add(hourEnd);
 		hpanelTimeEnd.add(minuteEnd);
+		hpanelTimeStart.setCellHorizontalAlignment(minuteEnd, HasHorizontalAlignment.ALIGN_LOCALE_START);
 		
 		ft.setText(curRow, 0, "Start time: ");
 		ft.setWidget(curRow, 1, hpanelTimeStart);
