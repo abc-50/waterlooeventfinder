@@ -16,7 +16,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-
+import com.waterlooeventfinder2.client.utils;
 /**
  * Login page content
  * @author Mike
@@ -57,10 +57,6 @@ public class LoginContent extends Content {
 		vpanel.add(loginButton);
 		vpanel.add(logoutButton);
 		panel.add(vpanel);
-
-		//		// set action 
-		//		//https://google-web-toolkit.googlecode.com/svn/javadoc/1.6/com/google/gwt/user/client/ui/FormPanel.html
-
 	}
 
 	private void logout() {
@@ -107,20 +103,19 @@ public class LoginContent extends Content {
 					SessionID = result;
 					
 					Window.alert("Session ID : " + SessionID);
-				    final long DURATION = 1000 * 60 * 60 * 24 * 5; //duration remembering login. 5 days
-				    Date expires = new Date(System.currentTimeMillis() + DURATION);
-				    Cookies.setCookie("sid", SessionID, expires, null, "/", false);
+				    utils.setCookie("sid", SessionID);
 				    
 				    int userId = 3;
 					
-					ContentContainer.setHeader(new ClubHeader(userId));
-					ContentContainer.setContent(new ClubEventsListContent(userId));
-				    
-//				    ContentContainer.setHeader(new AdminHeader());
+//					ContentContainer.setHeader(new ClubHeader(userId));
+//					ContentContainer.setContent(new ClubEventsListContent(userId));
+//				    
+				    ContentContainer.setHeader(new AdminHeader());
 									    
 				}
 
 			}
+
 
 		};
 

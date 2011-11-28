@@ -12,14 +12,6 @@ h1 {
 	position: center;	
 }
 
-.cellTableFooter {
-  border-top: 2px solid #6f7277;
-  padding: 3px 15px;
-  text-align: left;
-  color: #4b4a4a;
-  text-shadow: #ddf 1px 1px 0;
-  overflow: hidden;
-}
 
 
 
@@ -32,7 +24,7 @@ button.gwt-Button {
   height: 40px;
   width: 25%;
   background-color: #e4e4e4;
-  font: normal 0.8em arial, helvetica, verdana, sans-serif;
+  font: normal 1em arial, helvetica, verdana, sans-serif;
 }
 
 #pressed button.gwt-Button{
@@ -44,7 +36,7 @@ button.gwt-Button {
   height: 28px;
   width: 18%;
   background-color: #e4e4e4;
-  font: normal 0.8em arial, helvetica, verdana, sans-serif;
+  font: normal 1em arial, helvetica, verdana, sans-serif;
 }
 
 button.gwt-Button:active, button.ecwid-MessageBox-button:active {
@@ -91,12 +83,6 @@ table {
 	text-align: center;
 }
 
-.cellTableSelectedRow {
-  background: #628cd5;
-  color: white;
-  height: auto;
-  overflow: auto;
-}
 
 #pressed-button{
   color: green;
@@ -140,3 +126,19 @@ table {
 .gwt-TextBox{
 	width:20%;
 }
+
+#header{
+	font-size : 2em;
+	
+}
+
+#content{
+	margin-top: 40%;
+	padding: 3%;
+}
+
+.StyleTable{
+	font-size: 1.2em;
+	text-align : center;
+}
+

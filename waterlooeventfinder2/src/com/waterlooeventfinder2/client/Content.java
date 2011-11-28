@@ -9,34 +9,30 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 // simplify creation and layout of a new page
 public abstract class Content extends Composite {
-	
+
 	protected EventRetrievalServiceAsync retrievalService = GWT
 			.create(EventRetrievalService.class);
-	
+
 	protected String SessionID;
-	
+
 	// add all elements to one panel
 	protected VerticalPanel panel = new VerticalPanel();
-	
+
 	// constructor
 	public Content() {
 		SessionID = Cookies.getCookie("sid");
-		
-		if (SessionID != null ) {
+
+		if (SessionID != null) {
 			checkSessionIdWithSever();
-		} else {
-			// display login page
 		}
-//	    if ( sessionID != null ) checkWithServerIfSessionIdIsStillLegal();
-//	    else displayLoginBox();
+
 	}
 
 	public VerticalPanel getPanel() {
-		
+
 		return panel;
 	}
-	
-	
+
 	private void checkSessionIdWithSever() {
 
 		if (retrievalService == null) {
@@ -44,26 +40,26 @@ public abstract class Content extends Composite {
 		}
 
 		// Set up the callback object.
-		AsyncCallback<String> callback = new AsyncCallback<String>() {
+		AsyncCallback<Integer> callback = new AsyncCallback<Integer>() {
 
 			public void onFailure(Throwable caught) {
 				Window.alert(caught.getMessage());
-				// TODO: Do something with errors.
 			}
 
 			@Override
-			public void onSuccess(String result) {
-				if (result == null) {
-					//Window.alert("Login Using Session Unsuccessful: " + result);
+			public void onSuccess(Integer result) {
+				if (result != 0) {
+					Window.alert("Login using Session successful: " + result);
 				} else {
-					//Window.alert("Login using Session successful: "+ result);
+					Window.alert("Login Using Session Unsuccessful: " + result);
+
+					Cookies.removeCookie("sid");
+					// ContentContainer.getInstance().setContent(new
+					// LoginContent());
 				}
-
 			}
-
 		};
 
 		retrievalService.loginUsingSession(SessionID, callback);
 	}
-	// save current user here
 }

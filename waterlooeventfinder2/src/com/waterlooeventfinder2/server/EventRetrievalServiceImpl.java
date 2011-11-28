@@ -5,7 +5,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -14,7 +17,9 @@ import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.waterlooeventfinder2.client.EventRetrievalService;
 import com.waterlooeventfinder2.shared.Category;
+import com.waterlooeventfinder2.shared.Time;
 import com.waterlooeventfinder2.shared.Event;
+import com.waterlooeventfinder2.shared.TypeUser;
 import com.waterlooeventfinder2.server.utils;
 
 public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
@@ -63,14 +68,20 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 	}
 
 	// use "1", "2", "3", "4" "5" as temporary time filters
-	public ArrayList<Event> GetEventsByFilter(String categoryFilter,
-			String timeFilter, int startEventNumber, int endEventNumber) {
+	public ArrayList<Event> GetEventsByFilter(int categoryFilter, int timeFilter) {
 
+		Calendar c = Calendar.getInstance();
+		SimpleDateFormat dateFormat = new SimpleDateFormat(
+				"yyyy-MM-dd HH:mm:ss");
 		Connection dbConn = null;
 
+		c.add(Calendar.DATE, GetTimeInDays(timeFilter));
+
 		ArrayList<Event> rtn = new ArrayList<Event>();
-		rtn.clear();
-		String query = "select * from Event";
+
+		String query = String.format(
+				"select * from Event where category = %d and startTime > '%s'",
+				categoryFilter + 1, dateFormat.format(c.getTime()));
 
 		try {
 			dbConn = DriverManager.getConnection(URL + DB, USER, PW);
@@ -116,20 +127,21 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 				while (rs.next()) {
 
 					rtn = utils.RStoEvent(rs);
-					
-		
+
 				}
-				
-//				int categoryId = rtn.getCategoryId();
-//				String query2 = String.format("SELECT categoryName FROM category WHERE categoryId = %d", categoryId);
-//				stmt.executeQuery(query2);
-//				while (rs.next()) {
-//
-//					rtn = utils.RStoEvent(rs);
-//					
-//		
-//				}
-				
+
+				// int categoryId = rtn.getCategoryId();
+				// String query2 =
+				// String.format("SELECT categoryName FROM category WHERE categoryId = %d",
+				// categoryId);
+				// stmt.executeQuery(query2);
+				// while (rs.next()) {
+				//
+				// rtn = utils.RStoEvent(rs);
+				//
+				//
+				// }
+
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -209,6 +221,39 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 		}
 
 		return categories;
+	}
+
+	@Override
+	public ArrayList<Time> GetAllTime() {
+		ArrayList<Time> times = new ArrayList<Time>();
+		Connection dbConn = null;
+
+		String query = "select * from Time";
+
+		try {
+			dbConn = DriverManager.getConnection(URL + DB, USER, PW);
+
+			try {
+				Statement stmt = dbConn.createStatement();
+				ResultSet rs = stmt.executeQuery(query);
+
+				while (rs.next()) {
+
+					times.add(utils.RStoTime(rs));
+
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			if (dbConn != null)
+				dbConn.close();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return times;
 	}
 
 	@Override
@@ -313,14 +358,40 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 
 	}
 
+	private int GetTimeInDays(int timeFilter) {
+		Connection dbConn = null;
+		int rtn = 0;
+
+		String selectQ = String
+				.format("Select timeInDays from time where timeId = %d",
+						timeFilter + 1);
+
+		try {
+			dbConn = DriverManager.getConnection(URL + DB, USER, PW);
+
+			Statement stmt = dbConn.createStatement();
+			ResultSet rs = stmt.executeQuery(selectQ);
+
+			if (rs.next()) {
+				rtn = rs.getInt("timeInDays");
+			}
+			dbConn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return rtn;
+	}
+
 	@Override
-	public String loginUsingSession(String sessionID) {
+	public Integer loginUsingSession(String sessionID) {
 		Connection dbConn = null;
 
 		String selectQuery = String.format(
 				"SELECT * FROM session where sessionID = '%s'", sessionID);
 
-		String rtn = null;
+		Integer rtn = 0;
 
 		try {
 			dbConn = DriverManager.getConnection(URL + DB, USER, PW);
@@ -329,7 +400,7 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 			ResultSet rs = stmt.executeQuery(selectQuery);
 
 			if (rs.next()) {
-				rtn = rs.getString("userId");
+				rtn = rs.getInt("userId");
 			}
 			dbConn.close();
 		} catch (SQLException e) {
@@ -364,39 +435,6 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public ArrayList<Category> getCategories() {
-		Connection dbConn = null;
-
-		ArrayList<Category> rtn = new ArrayList<Category>();
-
-		rtn.clear();
-		String query = "SELECT * FROM category ORDER BY categoryId";
-
-		try {
-			dbConn = DriverManager.getConnection(URL + DB, USER, PW);
-
-			try {
-				Statement stmt = dbConn.createStatement();
-				ResultSet rs = stmt.executeQuery(query);
-
-				while (rs.next()) {
-					rtn.add(utils.RStoCategory(rs));
-				}
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-
-			dbConn.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return rtn;
-	}
-
-	@Override
 	public boolean CheckUrl(String website) {
 		try {
 			URL url = new URL(website);
@@ -407,7 +445,7 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 		} catch (IOException e) {
 			return false;
 		}
-		
+
 		return true;
 	}
 
@@ -420,7 +458,6 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 
 		eventPhoneNumber = "510342349";
 
-				
 		String query = String
 				.format("INSERT INTO Event (userID, category, startTime, endTime, location, eventDescription, eventName, eventWebsite, eventVideo, eventPhoneNumber, eventEmail)"
 						+ "								 VALUES ('%d','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')",
@@ -447,33 +484,27 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 		return "ok";
 	}
 
-
 	@Override
-	public int DeleteUserByName(String userName) {
+	public String DeleteUserByName(String userName) {
 		Connection dbConn = null;
 
-		
-		
+		String message = "";
+
 		String query = String.format("SELECT userId FROM user", userName);
 		int userId = 0;
-		
+
 		try {
 			dbConn = DriverManager.getConnection(URL + DB, USER, PW);
 
 			try {
 				Statement stmt = dbConn.createStatement();
 				ResultSet rs = stmt.executeQuery(query);
-				
-				
-				while(rs.next()){
+
+				while (rs.next()) {
 					userId = rs.getInt("userId");
-					
+
 				}
-				
 
-
-				
-				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -483,8 +514,9 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		String queryDeleteEventUserId = String.format("DELETE FROM event WHERE userId = '%d'",userId);
+
+		String queryDeleteEventUserId = String.format(
+				"DELETE FROM event WHERE userId = '%d'", userId);
 		try {
 			dbConn = DriverManager.getConnection(URL + DB, USER, PW);
 
@@ -492,10 +524,11 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 				Statement stmt = dbConn.createStatement();
 				stmt.executeUpdate(queryDeleteEventUserId);
 
-//				
-//				String queryDeleteUserById = String.format("UPDATE user SET disabled = 1 WHERE userId = '%d'",userId);
-//				stmt.executeUpdate(queryDeleteUserById);
-				
+				//
+				// String queryDeleteUserById =
+				// String.format("UPDATE user SET disabled = 1 WHERE userId = '%d'",userId);
+				// stmt.executeUpdate(queryDeleteUserById);
+
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -505,15 +538,16 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		String queryDeleteUserById = String.format("DELETE FROM user WHERE userId = '%d'",userId);
+
+		String queryDeleteUserById = String.format(
+				"DELETE FROM user WHERE userId = '%d'", userId);
 		try {
 			dbConn = DriverManager.getConnection(URL + DB, USER, PW);
 
 			try {
 				Statement stmt = dbConn.createStatement();
 				stmt.executeUpdate(queryDeleteUserById);
-				
+
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -523,9 +557,8 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 
-		return userId;
+		return message;
 	}
 
 	@Override
@@ -535,46 +568,12 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public String AddUserByName(String nameOfUser, String password2) {
-		
-//		Connection dbConn = null;
-//		String query = String
-//				.format("INSERT INTO user (userID, password, loginId, displayName, userType) VALUES ('%d','%s','%s','%s', '%d')",
-//						userId, categoryId, start, end, location,
-//						eventDescription, eventName, eventWebsite, eventVideo,
-//						eventPhoneNumber, eventEmail);
-//		try {
-//			dbConn = DriverManager.getConnection(URL + DB, USER, PW);
-//
-//			try {
-//				Statement stmt = dbConn.createStatement();
-//				stmt.executeUpdate(query);
-//
-//			} catch (SQLException e) {
-//				e.printStackTrace();
-//			}
-//
-//			dbConn.close();
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+	public String AddUserByName(String nameOfUser, String password, String userType) {
 
-		return "ok";
-	}
-
-	@Override
-	public String ModifyEvent(int eventId, int userId, String categoryId,
-			String startEvent, String endEvent, String location,
-			String description, String name, String website, String video,
-			String phoneNumber, String email) {
-		
-		// TODO Auto-generated method stub
 		Connection dbConn = null;
-		
 		String query = String
-				.format("UPDATE event SET category = '%s', startTime = '%s', endTime = '%s', location = '%s', eventDescription='%s', eventName='%s', eventWebsite='%s', eventVideo='%s', eventPhoneNumber='%s', eventEmail='%s' WHERE eventId = '%d'"
-						, categoryId, startEvent, endEvent, location, description, name, website, video, phoneNumber, email, eventId);
+				.format("INSERT INTO user (password, loginId, displayName, userType) VALUES ('%s','%s','%s','%s')",
+						password, nameOfUser, nameOfUser, userType);
 		try {
 			dbConn = DriverManager.getConnection(URL + DB, USER, PW);
 
@@ -593,6 +592,103 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 		}
 
 		return "ok";
+	}
+
+	@Override
+	public String ModifyEvent(int eventId, int userId, String categoryId,
+			String startEvent, String endEvent, String location,
+			String description, String name, String website, String video,
+			String phoneNumber, String email) {
+
+		// TODO Auto-generated method stub
+		Connection dbConn = null;
+
+		String query = String
+				.format("UPDATE event SET category = '%s', startTime = '%s', endTime = '%s', location = '%s', eventDescription='%s', eventName='%s', eventWebsite='%s', eventVideo='%s', eventPhoneNumber='%s', eventEmail='%s' WHERE eventId = '%d'",
+						categoryId, startEvent, endEvent, location,
+						description, name, website, video, phoneNumber, email,
+						eventId);
+		try {
+			dbConn = DriverManager.getConnection(URL + DB, USER, PW);
+
+			try {
+				Statement stmt = dbConn.createStatement();
+				stmt.executeUpdate(query);
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			dbConn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return "ok";
+	}
+
+	@Override
+	public ArrayList<String> TakeAllNamesFromUsers() {
+		// TODO Auto-generated method stub
+		Connection dbConn = null;
+
+		ArrayList<String> userNames = new ArrayList<String>();
+
+		String query = String.format("SELECT displayName from user");
+		try {
+			dbConn = DriverManager.getConnection(URL + DB, USER, PW);
+
+			try {
+				Statement stmt = dbConn.createStatement();
+				ResultSet rs = stmt.executeQuery(query);
+
+				while (rs.next()) {
+
+					userNames.add(rs.getString("displayName"));
+
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			dbConn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return userNames;
+	}
+
+	@Override
+	public ArrayList<TypeUser> GetTypesUser() {
+		Connection dbConn = null;
+
+		ArrayList<TypeUser> userTypes = new ArrayList<TypeUser>();
+
+		String query = String.format("SELECT * FROM usertype");
+		try {
+			dbConn = DriverManager.getConnection(URL + DB, USER, PW);
+
+			try {
+				Statement stmt = dbConn.createStatement();
+				ResultSet rs = stmt.executeQuery(query);
+
+				while (rs.next()) {
+					userTypes.add(utils.RStoTypeUser(rs));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			dbConn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return userTypes;
 	}
 
 }

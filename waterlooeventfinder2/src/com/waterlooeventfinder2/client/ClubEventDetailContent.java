@@ -86,8 +86,8 @@ public class ClubEventDetailContent extends Content {
 			}
 
 			public void onSuccess(Event result) {
-				setContentFields(result);
 				CreateEventDetails();
+				setContentFields(result);
 			}
 		};
 
@@ -96,22 +96,60 @@ public class ClubEventDetailContent extends Content {
 
 	private void setContentFields(Event ev) {
 		nameBox.setText(ev.Name());
+
 		setCategories(ev);
 
 		datePicker1.setValue(ev.getStarHour(), true);
 		datePicker2.setValue(ev.getEndHour(), true);
 
-		Date StartEventDate = ev.getStarHour();
-		String startDateTime = DateTimeFormat.getFormat(PredefinedFormat.HOUR24_MINUTE).format(StartEventDate);
-		Window.alert(startDateTime);
-		// startBox.setText(ev.getStarHour().toString());
-		// endBox.setText(ev.getEndHour().toString());
+		setTimeForFields(ev);
+
 		locationBox.setText(ev.Location());
 		descriptionBox.setText(ev.Description());
 		websiteBox.setText(ev.Website());
 		videoBox.setText(ev.Video());
 		phoneNumberBox.setText(ev.PhoneNumber());
 		emailBox.setText(ev.Email());
+
+	}
+
+	private void setTimeForFields(Event ev) {
+		Date startEventDate = ev.getStarHour();
+		String startDateTime = DateTimeFormat.getFormat(
+				PredefinedFormat.HOUR24_MINUTE).format(startEventDate);
+
+		String hourStartString = startDateTime.substring(0, 2);
+		String minuteStartString = startDateTime.substring(3, 5);
+
+		Date endEventDate = ev.getEndHour();
+		String endDateTime = DateTimeFormat.getFormat(
+				PredefinedFormat.HOUR24_MINUTE).format(endEventDate);
+
+		String hourEndString = endDateTime.substring(0, 2);
+		String minuteEndString = endDateTime.substring(3, 5);
+
+		Window.alert(hourEndString + minuteEndString);
+
+		for (int i = 0; i < hourStart.getItemCount(); i++) {
+
+			if ((hourStart.getValue(i).substring(0, 2)).equals(hourStartString)) {
+				hourStart.setSelectedIndex(i);
+			}
+			if ((hourEnd.getValue(i).substring(0, 2)).equals(hourEndString)) {
+				hourEnd.setSelectedIndex(i);
+			}
+		}
+
+		for (int i = 0; i < minuteStart.getItemCount(); i++) {
+
+			if ((minuteStart.getValue(i).substring(0, 2))
+					.equals(minuteStartString)) {
+				minuteStart.setItemSelected(i, true);
+			}
+			if ((minuteEnd.getValue(i).substring(0, 2)).equals(minuteEndString)) {
+				minuteEnd.setItemSelected(i, true);
+			}
+		}
 
 	}
 
@@ -136,14 +174,13 @@ public class ClubEventDetailContent extends Content {
 				new ClickHandler() {
 					public void onClick(ClickEvent event) {
 						String name = nameBox.getText();
-						
+
 						String categoryId = category.getValue(category
 								.getSelectedIndex());
-						Window.alert(categoryId);
-						
+
 						String startEvent = CreateStringStartEvent();
 						String endEvent = CreateStringEndEvent();
-						
+
 						String location = locationBox.getText();
 
 						String description = descriptionBox.getText();
@@ -177,10 +214,10 @@ public class ClubEventDetailContent extends Content {
 									}
 								};
 
-								retrievalService.ModifyEvent(eventId, userId, categoryId,
-										startEvent, endEvent, location,
-										description, name, website, video,
-										phoneNumber, email, callback);
+								retrievalService.ModifyEvent(eventId, userId,
+										categoryId, startEvent, endEvent,
+										location, description, name, website,
+										video, phoneNumber, email, callback);
 
 							}
 						} catch (IllegalArgumentException e) {
@@ -290,7 +327,7 @@ public class ClubEventDetailContent extends Content {
 			}
 		};
 
-		retrievalService.getCategories(callback);
+		retrievalService.GetAllCategory(callback);
 
 	}
 
@@ -298,8 +335,14 @@ public class ClubEventDetailContent extends Content {
 
 		int i = 0;
 		while (i < 24) {
+			String num = "";
+			if (i < 10) {
+				num = Integer.toString(i);
+				num = "0" + num;
+			} else {
+				num = Integer.toString(i);
+			}
 
-			String num = Integer.toString(i);
 			hourStart.addItem(num + "h");
 			hourEnd.addItem(num + "h");
 			i = i + 1;
@@ -308,7 +351,14 @@ public class ClubEventDetailContent extends Content {
 
 		i = 0;
 		while (i < 60) {
-			String num = Integer.toString(i);
+			String num = "";
+			if (i < 10) {
+				num = Integer.toString(i);
+				num = "0" + num;
+			} else {
+				num = Integer.toString(i);
+			}
+
 			minuteStart.addItem(num + "min");
 			minuteEnd.addItem(num + "min");
 			i = i + 5;
@@ -412,12 +462,6 @@ public class ClubEventDetailContent extends Content {
 		String minuteStringStart = minuteStart.getValue(
 				minuteStart.getSelectedIndex()).substring(0, minLength - 3);
 
-		if (hourStringStart.length() == 1) {
-			hourStringStart = "0" + hourStringStart;
-		}
-		if (minuteStringStart.length() == 1) {
-			minuteStringStart = "0" + minuteStringStart;
-		}
 		String startDateFinal = dateStart + " " + hourStringStart + ":"
 				+ minuteStringStart + ":00";
 		return startDateFinal;
@@ -436,12 +480,6 @@ public class ClubEventDetailContent extends Content {
 		String minuteStringEnd = minuteEnd.getValue(
 				minuteEnd.getSelectedIndex()).substring(0, minLength - 3);
 
-		if (hourStringEnd.length() == 1) {
-			hourStringEnd = "0" + hourStringEnd;
-		}
-		if (minuteStringEnd.length() == 1) {
-			minuteStringEnd = "0" + minuteStringEnd;
-		}
 		String endDateFinal = dateEnd + " " + hourStringEnd + ":"
 				+ minuteStringEnd + ":00";
 		return endDateFinal;
@@ -464,20 +502,37 @@ public class ClubEventDetailContent extends Content {
 			Window.alert("Please use between 10 and 1000 characters for the description");
 			return false;
 		}
-//		else if (!checkWebsiteUrl(website)) {
-//			Window.alert(website);
-//
-//			Window.alert("The url for your website is invalid : Please use httpwww.YOUR-WEBSITE.com format");
-//			return false;
-//
-//		} else if (!verifyYoutubeVideoLink(video)) {
-//			Window.alert("Please insert a correct Youtube Video link ");
-//			videoBox.setText("");
-//			return false;
-//		} else if (!verifyEmail(email)) {
-//			Window.alert("Please insert a correct email");
-//			return false;
-//		}
+		// else if (!checkWebsiteUrl(website)) {
+		// Window.alert(website);
+		//
+		// Window.alert("The url for your website is invalid : Please use httpwww.YOUR-WEBSITE.com format");
+		// return false;
+		//
+		// } else if (!verifyYoutubeVideoLink(video)) {
+		// Window.alert("Please insert a correct Youtube Video link ");
+		// videoBox.setText("");
+		// return false;
+		// } else if (!verifyEmail(email)) {
+		// Window.alert("Please insert a correct email");
+		// return false;
+		// }
+		else if (phoneNumber.length() != 0) {
+			Window.alert(phoneNumber);
+			try {
+				Double.parseDouble(phoneNumber);
+			} catch (NumberFormatException nFE) {
+				Window.alert("Please use only numbers in your PHONE NUMBER");
+				return false;
+			}
+			
+			if (phoneNumber.length() < 10 || phoneNumber.length() > 13) {
+				Window.alert("Review the PHONE NUMBER please");
+				return false;
+			}
+			
+			return true;
+
+		}
 
 		return true;
 
