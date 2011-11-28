@@ -44,7 +44,7 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 
 		ArrayList<Event> rtn = new ArrayList<Event>();
 		rtn.clear();
-		String query = "select * from Event";
+		String query = "SELECT * FROM event";
 
 		try {
 			dbConn = DriverManager.getConnection(URL + DB, USER, PW);
@@ -118,7 +118,7 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 		Connection dbConn = null;
 
 		Event rtn = null;
-		String query = String.format("select * from Event where eventId = %d",
+		String query = String.format("select * from event where eventId = %d",
 				eventId);
 
 		try {
@@ -220,7 +220,7 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 		ArrayList<Time> times = new ArrayList<Time>();
 		Connection dbConn = null;
 
-		String query = "select * from Time";
+		String query = "SELECT * FROM time";
 
 		try {
 			dbConn = DriverManager.getConnection(URL + DB, USER, PW);
