@@ -14,6 +14,7 @@ import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.SimplePager;
@@ -253,22 +254,12 @@ public class EventsListContent extends Content {
 		TextColumn<Event> startDateColumn = new TextColumn<Event>() {
 			@Override
 			public String getValue(Event object) {
-				SimpleDateFormat dateFormat = new SimpleDateFormat(
-						"yyyy-MM-dd HH:mm:ss");
+				DateTimeFormat dateFormat = DateTimeFormat.getFormat("yyyy-MM-dd HH:mm:ss");
 				return dateFormat.format(object.getStarHour());
 			}
 		};
 
-		// DateCell dateCell = new DateCell();
-		// Column<Event, Date> startDateColumn = new Column<Event,
-		// Date>(dateCell) {
-		// @Override
-		// public Date getValue(Event object) {
-		// SimpleDateFormat dateFormat = new SimpleDateFormat(
-		// "yyyy-MM-dd HH:mm:ss");
-		// return object.getStarHour();
-		// }
-		// };
+
 
 		table.addColumn(nameColumn, "Description");
 		table.addColumn(startDateColumn, "Start Time");

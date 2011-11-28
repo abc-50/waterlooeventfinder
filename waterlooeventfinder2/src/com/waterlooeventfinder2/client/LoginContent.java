@@ -47,15 +47,15 @@ public class LoginContent extends Content {
 			}
 		});
 
-		Button logoutButton = new Button("Logout",
-				new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				logout();
-			}
-		});
+//		Button logoutButton = new Button("Logout",
+//				new ClickHandler() {
+//			public void onClick(ClickEvent event) {
+//				logout();
+//			}
+//		});
 		
 		vpanel.add(loginButton);
-		vpanel.add(logoutButton);
+//		vpanel.add(logoutButton);
 		panel.add(vpanel);
 	}
 
