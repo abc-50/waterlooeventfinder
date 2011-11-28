@@ -14,6 +14,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextArea;
@@ -66,14 +67,15 @@ public class ClubEventDetailContent extends Content {
 		} else if (goal.equals("modifyEvent")) {
 			AddFieldsHours();
 			CreateFormatForBoxes();
-			createDeleteButton(userId, eventId);
-			CreateSaveButton(eventId, userId);
-			GetEvent(eventId);
+			GetEvent(eventId, userId);
+			
 
 		}
 	}
 
-	private void GetEvent(int eventId) {
+	private void GetEvent(int eventId, int userId) {
+		final int event = eventId;
+		final int user = userId;
 		if (retrievalService == null) {
 			retrievalService = GWT.create(EventRetrievalService.class);
 		}
@@ -88,6 +90,8 @@ public class ClubEventDetailContent extends Content {
 			public void onSuccess(Event result) {
 				CreateEventDetails();
 				setContentFields(result);
+				createDeleteButton(user, event);
+				CreateSaveButton(event, user);
 			}
 		};
 
@@ -633,7 +637,7 @@ public class ClubEventDetailContent extends Content {
 	private void CreateEventDetails() {
 
 		FlexTable ft = new FlexTable();
-
+		ft.setStyleName("FlexTableStyle");
 		int curRow = 0;
 
 		ft.setText(curRow, 0, "Event Name: ");
@@ -644,26 +648,39 @@ public class ClubEventDetailContent extends Content {
 		ft.setWidget(curRow, 1, category);
 		curRow++;
 
-		// Set the default value
-		// Add the widgets to the page
+		HorizontalPanel hpanelDateStart = new HorizontalPanel();
+		hpanelDateStart.add(startDate);
+		hpanelDateStart.add(datePicker1);
+		hpanelDateStart.setCellVerticalAlignment(startDate, HasVerticalAlignment.ALIGN_MIDDLE);
+		
+		
+		HorizontalPanel hpanelDateEnd = new HorizontalPanel();
+		hpanelDateEnd.add(endDate);
+		hpanelDateEnd.add(datePicker2);
+		hpanelDateStart.setCellVerticalAlignment(endDate, HasVerticalAlignment.ALIGN_MIDDLE);
+		
 		ft.setText(curRow, 0, "Start date: ");
-		ft.setWidget(curRow, 1, startDate);
-		ft.setWidget(curRow, 2, datePicker1);
+		ft.setWidget(curRow, 1, hpanelDateStart);
 		curRow++;
 
 		ft.setText(curRow, 0, "End date: ");
-		ft.setWidget(curRow, 1, endDate);
-		ft.setWidget(curRow, 2, datePicker2);
+		ft.setWidget(curRow, 1, hpanelDateEnd);
 		curRow++;
 
+		HorizontalPanel hpanelTimeStart = new HorizontalPanel();
+		hpanelTimeStart.add(hourStart);
+		hpanelTimeStart.add(minuteStart);
+		
+		HorizontalPanel hpanelTimeEnd = new HorizontalPanel();
+		hpanelTimeEnd.add(hourEnd);
+		hpanelTimeEnd.add(minuteEnd);
+		
 		ft.setText(curRow, 0, "Start time: ");
-		ft.setWidget(curRow, 1, hourStart);
-		ft.setWidget(curRow, 2, minuteStart);
+		ft.setWidget(curRow, 1, hpanelTimeStart);
 		curRow++;
 
 		ft.setText(curRow, 0, "End time: ");
-		ft.setWidget(curRow, 1, hourEnd);
-		ft.setWidget(curRow, 2, minuteEnd);
+		ft.setWidget(curRow, 1, hpanelTimeEnd);
 		curRow++;
 
 		ft.setText(curRow, 0, "Location: ");
