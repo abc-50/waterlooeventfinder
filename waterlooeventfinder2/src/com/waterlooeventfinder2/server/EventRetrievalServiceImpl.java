@@ -32,7 +32,7 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 	private static final String URL = "jdbc:mysql://127.0.0.1:3306/";
 	private static final String DB = "eventsfinder";
 	private static final String USER = "root";
-	private static final String PW = "1secret";
+	private static final String PW = "a3z4e5r6";
 	private Calendar c;
 	private SimpleDateFormat dateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd HH:mm:ss");
@@ -412,13 +412,13 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 	 * attempt to login using given session id
 	 */
 	@Override
-	public Integer loginUsingSession(String sessionID) {
+	public ArrayList<Integer> loginUsingSession(String sessionID) {
 		Connection dbConn = null;
-
+		int userId = 0;
 		String selectQuery = String.format(
 				"SELECT * FROM session where sessionID = '%s'", sessionID);
 
-		Integer rtn = 0;
+		ArrayList<Integer> rtn = new ArrayList<Integer>();
 
 		try {
 			dbConn = DriverManager.getConnection(URL + DB, USER, PW);
@@ -427,11 +427,31 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 			ResultSet rs = stmt.executeQuery(selectQuery);
 
 			if (rs.next()) {
-				rtn = rs.getInt("userId");
+				
+				rtn.add(rs.getInt("userId"));
+				userId = rs.getInt("userId");
 			}
 			dbConn.close();
 		} catch (SQLException e) {
 
+			e.printStackTrace();
+		}
+		
+		dbConn = null;
+		String selectUserType = String.format(
+				"SELECT * FROM user where userId = '%d'", userId);
+
+		try {
+			dbConn = DriverManager.getConnection(URL + DB, USER, PW);
+
+			Statement stmt = dbConn.createStatement();
+			ResultSet rs = stmt.executeQuery(selectUserType);
+
+			if (rs.next()) {
+				rtn.add(rs.getInt("userType"));
+			}
+			dbConn.close();
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 

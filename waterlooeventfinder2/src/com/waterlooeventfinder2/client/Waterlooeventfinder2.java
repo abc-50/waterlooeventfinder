@@ -1,5 +1,6 @@
 package com.waterlooeventfinder2.client;
 
+import java.util.ArrayList;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -7,7 +8,6 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.RootPanel;
-
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -20,8 +20,6 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 	 */
 	private void loadMainPage() {
 
-		
-
 		RootPanel.get("header").clear();
 		RootPanel.get("content").clear();
 		RootPanel.get("footer").clear();
@@ -32,12 +30,19 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 			// cookie present, attempt to login
 			checkSessionIdWithSever(SessionID);
 			int userId = utils.getIntCookie("userId");
+			int userType = utils.getIntCookie("userType");
 
-			ContentContainer.getInstance();
-			ContentContainer.setHeader(new ClubHeader(userId));
+			if (userType == 1 || userType == 2) {
+				ContentContainer.getInstance();
+				ContentContainer.setHeader(new AdminHeader());
+				ContentContainer.setContent(new EventsListContent());
+			} else {
+				ContentContainer.getInstance();
+				ContentContainer.setHeader(new ClubHeader(userId));
+				ContentContainer.getInstance();
+				ContentContainer.setContent(new ClubEventsListContent(userId));
 
-			ContentContainer.getInstance();
-			ContentContainer.setContent(new ClubEventsListContent(userId));
+			}
 
 		} else {
 			// not logged in
@@ -47,11 +52,10 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 			ContentContainer.getInstance();
 			ContentContainer.setContent(new EventsListContent());
 		}
-		
+
 		ContentContainer.getInstance();
 		ContentContainer.setFooter(new ElementFooter());
 
-		
 	}
 
 	@Override
@@ -64,22 +68,29 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 				.create(EventRetrievalService.class);
 
 		// Set up the callback object.
-		AsyncCallback<Integer> callback = new AsyncCallback<Integer>() {
+		AsyncCallback<ArrayList<Integer>> callback = new AsyncCallback<ArrayList<Integer>>() {
 
 			public void onFailure(Throwable caught) {
 				Window.alert(caught.getMessage());
 			}
 
-			@Override
-			public void onSuccess(Integer result) {
-				if (result != 0) {
-					// set user id to cookie too
-					utils.setCookie("userId", result.toString());
+			public void onSuccess(ArrayList<Integer> result) {
+				Window.alert(Integer.toString(result.size()));
+				if (result.size() != 0) {
+					if (result.get(0) != 0) {
+						// set user id to cookie too
+						utils.setCookie("userId", result.get(0).toString());
+						utils.setCookie("userType", result.get(1).toString());
+						Window.alert("Waterlooeventfinder.java -->"
+								+ result.get(1).toString());
+					}
 				} else {
 					// invalid or expired credentials
 					utils.removeCookie("sid");
 					utils.removeCookie("userId");
+					utils.removeCookie("userType");
 				}
+
 			}
 
 		};

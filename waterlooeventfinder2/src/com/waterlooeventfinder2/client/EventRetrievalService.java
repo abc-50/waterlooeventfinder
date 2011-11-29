@@ -32,7 +32,7 @@ public interface EventRetrievalService extends RemoteService {
 
 	String logToServer(String login, String password);
 
-	Integer loginUsingSession(String sessionID);
+	ArrayList<Integer> loginUsingSession(String sessionID);
 
 	Integer logout(String sessionID);
 

@@ -3,6 +3,8 @@
  */
 package com.waterlooeventfinder2.client;
 
+import java.util.ArrayList;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -37,6 +39,7 @@ public class LoginContent extends Content {
 		VerticalPanel vpanel = new VerticalPanel();
 		vpanel.setStyleName("LoginStyle");
 		vpanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+		
 		vpanel.add(loginBox);
 		vpanel.add(passwordBox);
 
@@ -81,25 +84,69 @@ public class LoginContent extends Content {
 
 					// store sessionID in a cookie
 					SessionID = result;
+					
 
 					// Window.alert("Session ID : " + SessionID);
 
 					utils.setCookie("sid", SessionID);
-
-					// TODO: WHAT DOES THIS DO???
-					int userId = utils.getIntCookie("userId");
-
-					ContentContainer.setHeader(new ClubHeader(userId));
-					ContentContainer.setContent(new ClubEventsListContent(
-							userId));
-
-					// ContentContainer.setHeader(new AdminHeader());
-
+					checkSessionIdWithSever(SessionID);
+					
 				}
 			}
 		};
 
 		retrievalService.logToServer(login, password, callback);
+	}
+	
+	private void checkSessionIdWithSever(String SessionID) {
+		EventRetrievalServiceAsync retrievalService = GWT
+				.create(EventRetrievalService.class);
+
+		// Set up the callback object.
+		AsyncCallback<ArrayList<Integer>> callback = new AsyncCallback<ArrayList<Integer>>() {
+
+			public void onFailure(Throwable caught) {
+				Window.alert(caught.getMessage());
+			}
+
+			public void onSuccess(ArrayList<Integer> result) {
+				Window.alert(Integer.toString(result.size()));
+				if (result.get(0) != 0) {
+					// set user id to cookie too
+					utils.setCookie("userId", result.get(0).toString());
+					utils.setCookie("userType", result.get(1).toString());
+					Window.alert("LoginContent2.java -->" + result.get(1).toString());
+					int userId = utils.getIntCookie("userId");
+					int userType = utils.getIntCookie("userType");
+					
+					//Window.alert("LoginContent --> "+ Integer.toString(userType));
+					if (userType == 1 || userType == 2) {
+						ContentContainer.getInstance();
+						ContentContainer.setHeader(new AdminHeader());
+						ContentContainer.setContent(new EventsListContent());
+					} else{
+						ContentContainer.getInstance();
+						ContentContainer.setHeader(new ClubHeader(userId));
+						ContentContainer.getInstance();
+						ContentContainer.setContent(new ClubEventsListContent(userId));
+
+					}
+				} else {
+					// invalid or expired credentials
+					utils.removeCookie("sid");
+					utils.removeCookie("userId");
+					utils.removeCookie("userType");
+					ContentContainer.getInstance();
+					ContentContainer.setHeader(new NormalUserHeader());
+					ContentContainer.getInstance();
+					ContentContainer.setContent(new EventsListContent());
+				}
+
+			}
+
+		};
+
+		retrievalService.loginUsingSession(SessionID, callback);
 	}
 
 }

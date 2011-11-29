@@ -1,5 +1,7 @@
 package com.waterlooeventfinder2.client;
 
+import java.util.ArrayList;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.Window;
@@ -49,19 +51,24 @@ public abstract class Content extends Composite {
 		}
 
 		// Set up the callback object.
-		AsyncCallback<Integer> callback = new AsyncCallback<Integer>() {
+		AsyncCallback<ArrayList<Integer>> callback = new AsyncCallback<ArrayList<Integer>>() {
 
 			public void onFailure(Throwable caught) {
 				Window.alert(caught.getMessage());
 			}
 
 			@Override
-			public void onSuccess(Integer result) {
-				if (result == 0) {
+			public void onSuccess(ArrayList<Integer> result) {
+				if (result.get(0) == 0) {
 					Cookies.removeCookie("sid");
+					//Cookies.removeCookie("userType");
 					ContentContainer.getInstance();
 					ContentContainer.setContent(new LoginContent());
+				}else if (result.get(0) != 0){
+					utils.setCookie("userId", result.get(0).toString());
+					utils.setCookie("userType", result.get(1).toString());
 				}
+				
 			}
 		};
 

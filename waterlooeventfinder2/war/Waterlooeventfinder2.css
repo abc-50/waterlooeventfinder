@@ -12,17 +12,13 @@ h1 {
 	position: center;	
 }
 
-
-
-
 button.gwt-Button {
   border-radius: 13px;
   -moz-border-radius: 13px;
   -webkit-border-radius: 13px;
-  margin-left: 2%;
   border: solid 2px #d3d4d6;
   height: 40px;
-  width: 25%;
+  width: 12em;
   background-color: #e4e4e4;
   font: normal 1em arial, helvetica, verdana, sans-serif;
 }
@@ -31,28 +27,15 @@ button.gwt-Button {
   border-radius: 13px;
   -moz-border-radius: 13px;
   -webkit-border-radius: 13px;
-  margin-left: 2%;
   border: solid 2px #d3d4d6;
-  height: 28px;
-  width: 18%;
+  height: 40px;
+  width: 12em;
   background-color: #e4e4e4;
   font: normal 1em arial, helvetica, verdana, sans-serif;
 }
 
 button.gwt-Button:active, button.ecwid-MessageBox-button:active {
 	background: #40C757;
-}
-
-.categoryButton{
-	color: blue;
-	width: 18%;
-	height: 2.5em;
-}
-
-.timeButton {
-	color: blue;
-	height: 2.5em;
-	width: 18%;
 }
 
 table {
@@ -128,17 +111,78 @@ table {
 }
 
 #header{
+	height: 100%;
 	font-size : 2em;
-	
+	background-color : beige;
+	padding-bottom:3%;	
+	padding-right: 1%;
+	padding-left: 1%;
 }
 
 #content{
+	height: auto;
 	margin-top: 40%;
-	padding: 3%;
+	background-color : #ECE5B6;
+	padding-top:4%;	
+	padding-bottom:4%;
+	padding-left:1%;
+	padding-right:1%;	
 }
 
-.StyleTable{
-	font-size: 1.2em;
-	text-align : center;
+#footer{
+	height: 100px;
+	margin-top: auto;
+	background-color : #ECE5B6;
+	
+}
+
+.FooterStyle{
+	height: 100%;
+	margin-top: 1%;
+	margin-left: auto;
+	width: 100%;
+    margin-right: auto;
+	text-align: center;
+	position: center;
+}
+
+.styleTable{
+	font-size: 1.3em;
+	color: #4b4a4a;	
+}
+
+.FlexTableStyle{
+	margin-left: 10%;
+	width: 80%;
+    margin-right: 20%;
+    color: #5858FA;
+    font-weight: bold;
+}
+
+.FlexTableNormalUserStyle{
+	font-weight: bold;
+    color: #5858FA;
+}
+
+.NormalUserEntireTableDescription{
+	margin-left: 10%;
+    margin-right: 20%;
+    width: 80%;
+    position: center;
+}
+
+.LoginStyle{
+	margin-left: auto;
+	width: 100%;
+    margin-right: auto;
+}
+
+.HorizontalPanelTime{
+	position: left;
+	text-align: left;
+}
+
+.buttonsClubEvents{
+	padding-top: 5%;
 }
 

@@ -42,7 +42,8 @@ public interface EventRetrievalServiceAsync {
 
 	void logout(String sessionId, AsyncCallback<Integer> callback);
 
-	void loginUsingSession(String sessionID, AsyncCallback<Integer> callback);
+	void loginUsingSession(String sessionID,
+			AsyncCallback<ArrayList<Integer>> callback);
 
 	void deleteEventById(int eventId, AsyncCallback<Integer> callback);
 

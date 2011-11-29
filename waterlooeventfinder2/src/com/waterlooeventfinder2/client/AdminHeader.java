@@ -3,17 +3,18 @@ package com.waterlooeventfinder2.client;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 
 public class AdminHeader extends Header {
 	public AdminHeader() {
 		CreateMainButton();
-		CreateLogoutButton();
 		DeleteUser();
 		AddUser();
+		CreateLogoutButton();
 	}
 
 	private void DeleteUser() {
-		Button main = new Button("Delete User", new ClickHandler() {
+		Button deleteUser = new Button("Delete User", new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
@@ -23,12 +24,13 @@ public class AdminHeader extends Header {
 			}
 		});
 
-		panel.add(main);
+		panel.add(deleteUser);
+		panel.setCellHorizontalAlignment(deleteUser, HasHorizontalAlignment.ALIGN_CENTER);
 
 	}
 
 	private void AddUser() {
-		Button main = new Button("Add User", new ClickHandler() {
+		Button addUser = new Button("Add User", new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
@@ -37,8 +39,8 @@ public class AdminHeader extends Header {
 			}
 		});
 
-		panel.add(main);
-
+		panel.add(addUser);
+		panel.setCellHorizontalAlignment(addUser, HasHorizontalAlignment.ALIGN_CENTER);
 	}
 
 	private void CreateMainButton() {
@@ -56,19 +58,6 @@ public class AdminHeader extends Header {
 
 	}
 
-	private void MyEventsButton(final int userId) {
-		Button myEvents = new Button("My events", new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-
-				ContentContainer.setContent(new ClubEventsListContent(userId));
-			}
-		});
-
-		panel.add(myEvents);
-	}
-
 	private void CreateLogoutButton() {
 		Button logOutButton = new Button("Logout", new ClickHandler() {
 			public void onClick(ClickEvent event) {
@@ -76,22 +65,7 @@ public class AdminHeader extends Header {
 			}
 		});
 		panel.add(logOutButton);
-
-	}
-
-	private void CreateAddButton(final int userId) {
-		Button addButton = new Button("Add an event", new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				ContentContainer.getInstance();
-				ContentContainer.setContent(new ClubEventDetailContent(userId,
-						0, "addEvent"));
-
-			}
-		});
-
-		panel.add(addButton);
+		panel.setCellHorizontalAlignment(logOutButton, HasHorizontalAlignment.ALIGN_RIGHT);
 
 	}
 
