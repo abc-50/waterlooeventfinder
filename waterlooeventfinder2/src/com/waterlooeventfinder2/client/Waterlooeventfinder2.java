@@ -1,11 +1,13 @@
 package com.waterlooeventfinder2.client;
 
+
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.RootPanel;
+
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -18,7 +20,10 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 	 */
 	private void loadMainPage() {
 
+		
+
 		RootPanel.get("header").clear();
+		RootPanel.get("content").clear();
 		RootPanel.get("footer").clear();
 
 		String SessionID = utils.getStringCookie("sid");
@@ -33,6 +38,7 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 
 			ContentContainer.getInstance();
 			ContentContainer.setContent(new ClubEventsListContent(userId));
+
 		} else {
 			// not logged in
 			ContentContainer.getInstance();
@@ -41,10 +47,11 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 			ContentContainer.getInstance();
 			ContentContainer.setContent(new EventsListContent());
 		}
-
+		
 		ContentContainer.getInstance();
 		ContentContainer.setFooter(new ElementFooter());
 
+		
 	}
 
 	@Override

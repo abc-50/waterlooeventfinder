@@ -70,7 +70,7 @@ public class LoginContent extends Content {
 		AsyncCallback<String> callback = new AsyncCallback<String>() {
 
 			public void onFailure(Throwable caught) {
-				Window.alert(caught.getMessage());
+				//Window.alert(caught.getMessage());
 			}
 
 			@Override
@@ -82,10 +82,12 @@ public class LoginContent extends Content {
 					// store sessionID in a cookie
 					SessionID = result;
 
+					// Window.alert("Session ID : " + SessionID);
+
 					utils.setCookie("sid", SessionID);
 
 					// TODO: WHAT DOES THIS DO???
-					int userId = 3;
+					int userId = utils.getIntCookie("userId");
 
 					ContentContainer.setHeader(new ClubHeader(userId));
 					ContentContainer.setContent(new ClubEventsListContent(

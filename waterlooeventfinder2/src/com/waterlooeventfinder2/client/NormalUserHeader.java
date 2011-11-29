@@ -3,6 +3,7 @@ package com.waterlooeventfinder2.client;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 
 public class NormalUserHeader extends Header{
 	
@@ -38,6 +39,7 @@ public class NormalUserHeader extends Header{
 		});
 
 		panel.add(login);
+		panel.setCellHorizontalAlignment(login, HasHorizontalAlignment.ALIGN_RIGHT);
 
 	}
 }

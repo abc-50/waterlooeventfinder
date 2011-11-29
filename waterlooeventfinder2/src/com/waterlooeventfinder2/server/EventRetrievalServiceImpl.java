@@ -26,7 +26,6 @@ import com.waterlooeventfinder2.shared.TypeUser;
 public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 		EventRetrievalService {
 
-
 	private static final long serialVersionUID = 1L;
 
 	// Connection strings
@@ -126,7 +125,7 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 		Connection dbConn = null;
 
 		Event rtn = null;
-		String query = String.format("select * from Event where eventId = %d",
+		String query = String.format("select * from event where eventId = %d",
 				eventId);
 
 		try {
@@ -234,7 +233,7 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 		ArrayList<Time> times = new ArrayList<Time>();
 		Connection dbConn = null;
 
-		String query = "select * from Time";
+		String query = "SELECT * FROM time";
 
 		try {
 			dbConn = DriverManager.getConnection(URL + DB, USER, PW);
@@ -541,9 +540,8 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 				Statement stmt = dbConn.createStatement();
 				ResultSet rs = stmt.executeQuery(query);
 
-				if (rs.next()) 
+				if (rs.next())
 					userId = rs.getInt("userId"); // get user id
-
 
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -564,7 +562,6 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 			try {
 				Statement stmt = dbConn.createStatement();
 				stmt.executeUpdate(queryDeleteEventUserId);
-
 
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -599,7 +596,6 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 		return message;
 	}
 
-	
 	@Override
 	public Category getCategoryNameById(int categoryId) {
 		// TODO: WHAT DOES THIS DO???

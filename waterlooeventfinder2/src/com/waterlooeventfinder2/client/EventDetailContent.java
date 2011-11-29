@@ -3,6 +3,8 @@
  */
 package com.waterlooeventfinder2.client;
 
+import java.util.ArrayList;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -10,6 +12,7 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Frame;
 import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Label;
+import com.waterlooeventfinder2.shared.Category;
 import com.waterlooeventfinder2.shared.Event;
 
 /**
@@ -17,6 +20,11 @@ import com.waterlooeventfinder2.shared.Event;
  * 
  */
 public class EventDetailContent extends Content {
+	
+	String category = "";
+	int curRow = 0;
+	FlexTable ft = new FlexTable();
+	
 	public EventDetailContent(int eventId) {
 
 		if (retrievalService == null) {
@@ -61,12 +69,12 @@ public class EventDetailContent extends Content {
 	 *            Event object
 	 * @return FlexTable
 	 */
-	private FlexTable CreateEventDetails(Event ev) {
-		FlexTable ft = new FlexTable();
+	private FlexTable CreateEventDetails(final Event ev) {
+		final FlexTable ft = new FlexTable();
 
 		ft.setStyleName("NormalUserEntireTableDescription", true);
 
-		int curRow = 0;
+		//int curRow = 0;
 
 		if (ev != null) {
 			if (ev.Name() != null) {
@@ -75,9 +83,39 @@ public class EventDetailContent extends Content {
 				curRow++;
 			}
 
+			
+			
 			if (ev.getCategoryId() != 0) {
 				ft.setText(curRow, 0, "Event Category: ");
-				ft.setText(curRow, 1, Integer.toString(ev.getCategoryId()));
+				ft.setText(curRow, 1, category);
+				final int saveCurRow = curRow;
+				
+				if (retrievalService == null) {
+					retrievalService = GWT.create(EventRetrievalService.class);
+				}
+
+				// Set up the callback object.
+				AsyncCallback<ArrayList<Category>> callback = new AsyncCallback<ArrayList<Category>>() {
+
+					public void onFailure(Throwable caught) {
+						Window.alert(caught.getMessage());
+					}
+
+					@Override
+					public void onSuccess(ArrayList<Category> result) {
+						for (Category categoryResults : result) {
+
+							if (categoryResults.getCategoryId() == ev.getCategoryId() ){
+								
+								category = categoryResults.getCategoryName();
+								ft.setText(saveCurRow, 1, category);
+							}
+						}
+					}
+				};
+
+				retrievalService.GetAllCategory(callback);
+
 				curRow++;
 			}
 

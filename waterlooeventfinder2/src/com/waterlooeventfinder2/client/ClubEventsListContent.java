@@ -1,14 +1,12 @@
 package com.waterlooeventfinder2.client;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import com.google.gwt.cell.client.DateCell;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.cellview.client.CellTable;
-import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.Window;
@@ -63,7 +61,7 @@ public class ClubEventsListContent extends Content{
 
 		CellTable<Event> table = new CellTable<Event>();
 		// To set the size of the table
-		table.setPageSize(5);
+		table.setPageSize(10);
 		SimplePager pager = new SimplePager();
 		
 		if (results != null) {
@@ -76,11 +74,12 @@ public class ClubEventsListContent extends Content{
 			};
 
 			// Starting time column
-			DateCell dateCell = new DateCell();
-			Column<Event, Date> startDateColumn = new Column<Event, Date>(dateCell) {
+			TextColumn<Event> startDateColumn = new TextColumn<Event>() {
 				@Override
-				public Date getValue(Event object) {
-					return object.getStarHour();
+				public String getValue(Event object) {
+					DateTimeFormat dateFormat = DateTimeFormat
+							.getFormat("E, MMMM dd 'at' HH:mm");
+					return dateFormat.format(object.getStarHour());
 				}
 			};
 

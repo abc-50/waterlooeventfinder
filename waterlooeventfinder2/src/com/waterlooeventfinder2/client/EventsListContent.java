@@ -215,7 +215,7 @@ public class EventsListContent extends Content {
 			@Override
 			public String getValue(Event object) {
 				DateTimeFormat dateFormat = DateTimeFormat
-						.getFormat("yyyy-MM-dd HH:mm:ss");
+						.getFormat("E, MMMM dd 'at' HH:mm");
 				return dateFormat.format(object.getStarHour());
 			}
 		};
@@ -227,7 +227,7 @@ public class EventsListContent extends Content {
 
 		table.addColumn(nameColumn, "Description");
 		table.addColumn(startDateColumn, "Start Time");
-
+		
 		// setup data provider for table
 		dataProvider.addDataDisplay(table);
 
