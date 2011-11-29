@@ -53,6 +53,7 @@ public class ClubEventDetailContent extends Content {
 	DatePicker datePicker2 = new DatePicker();
 
 	public ClubEventDetailContent(final int userId, int eventId, String goal) {
+		super();
 		if (retrievalService == null) {
 			retrievalService = GWT.create(EventRetrievalService.class);
 		}

@@ -20,7 +20,7 @@ import com.waterlooeventfinder2.shared.Event;
 public class ClubEventsListContent extends Content{
 
 	public ClubEventsListContent(int userId) {		
-		
+		super();
 		if (retrievalService == null) {
 			retrievalService = GWT.create(EventRetrievalService.class);
 		}

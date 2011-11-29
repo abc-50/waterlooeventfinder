@@ -32,7 +32,7 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 	private static final String URL = "jdbc:mysql://127.0.0.1:3306/";
 	private static final String DB = "eventsfinder";
 	private static final String USER = "root";
-	private static final String PW = "1secret";
+	private static final String PW = "";
 	private Calendar c;
 	private SimpleDateFormat dateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd HH:mm:ss");
