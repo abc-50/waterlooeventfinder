@@ -9,7 +9,10 @@ import com.google.gwt.user.client.ui.Button;
 
 public class ClubHeader extends Header{
 	
-	
+	/**
+	 * Creates the header content for logged in users
+	 * @param userId User Id of club member
+	 */
 	public ClubHeader(final int userId){
 		CreateMainButton();
 		MyEventsButton(userId);
@@ -48,35 +51,13 @@ public class ClubHeader extends Header{
 	private void CreateLogoutButton() {
 		Button logOutButton = new Button("Logout", new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				disconnect();
+				logout();
 			}
 		});
 		panel.add(logOutButton);
 		
 	}
 
-	private void disconnect() {
-
-		if (retrievalService == null) {
-			retrievalService = GWT.create(EventRetrievalService.class);
-		}
-
-		AsyncCallback<Integer> callback = new AsyncCallback<Integer>() {
-			public void onFailure(Throwable caught) {
-				Window.alert(caught.getMessage());
-				// TODO: Do something with errors.
-			}
-
-			public void onSuccess(Integer result) {
-				Window.alert("Disconnected");
-				ContentContainer.getInstance();
-				ContentContainer.setHeader(new NormalUserHeader());
-				ContentContainer.setContent(new EventsListContent());
-				
-			}
-		};
-		retrievalService.logout(utils.getStringCookie("sid"), callback);
-	}
 	
 	private void CreateAddButton(final int userId){
 		Button addButton = new Button("Add an event", new ClickHandler() {

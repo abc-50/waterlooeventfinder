@@ -48,18 +48,26 @@ public class ContentContainer {
 	
 	}
 	
-	public static void setHeader(Header c) {
+	/**
+	 * Set header on root panel
+	 * @param h
+	 */
+	public static void setHeader(Header h) {
 		RootPanel rp = RootPanel.get("header");
 		rp.clear();
 
-		rp.add(c.getPanel());
+		rp.add(h.getPanel());
 	}
 	
-	public static void setFooter(Footer c) {
+	/**
+	 * Set footer on root panel
+	 * @param f
+	 */
+	public static void setFooter(Footer f) {
 		RootPanel rp = RootPanel.get("footer");
 		rp.clear();
 
-		rp.add(c.getPanel());
+		rp.add(f.getPanel());
 	}
 
 }

@@ -1,7 +1,6 @@
 package com.waterlooeventfinder2.server;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Date;
 
 import com.waterlooeventfinder2.shared.Category;
@@ -10,7 +9,17 @@ import com.waterlooeventfinder2.shared.Time;
 import com.waterlooeventfinder2.shared.TypeUser;
 import com.waterlooeventfinder2.shared.User;
 
+/**
+ * Helper files
+ * @author Mike
+ *
+ */
 public class utils {
+	/**
+	 * Get event object from a result set
+	 * @param rs
+	 * @return
+	 */
 	public static Event RStoEvent(ResultSet rs) {
 		Event ev = null;
 		try {
@@ -31,13 +40,17 @@ public class utils {
 					location, eventDescription, eventName, eventWebsite,
 					eventVideo, eventPhoneNumber, eventEmail);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return ev;
 
 	}
 
+	/**
+	 * Get category object from a result set
+	 * @param rs
+	 * @return
+	 */
 	public static Category RStoCategory(ResultSet rs) {
 		Category c = null;
 		try {
@@ -46,13 +59,17 @@ public class utils {
 
 			c = new Category(catId, catName);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		return c;
 	}
 	
+	/**
+	 * Get type user object from a result set
+	 * @param rs
+	 * @return
+	 */
 	public static TypeUser RStoTypeUser(ResultSet rs) {
 		TypeUser c = null;
 		try {
@@ -61,13 +78,17 @@ public class utils {
 
 			c = new TypeUser(typeId, userType);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		return c;
 	}
 	
+	/**
+	 * Get time object from a result set
+	 * @param rs
+	 * @return
+	 */
 	public static Time RStoTime(ResultSet rs) {
 		Time t = null;
 		
@@ -77,13 +98,17 @@ public class utils {
 
 			t = new Time(timeId, timeDisplay);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		return t;
 	}
 
+	/**
+	 * Get user object from a result set
+	 * @param rs
+	 * @return
+	 */
 	public static User RStoUser(ResultSet rs) {
 		User u = null;
 
@@ -97,7 +122,6 @@ public class utils {
 			u = new User(userId,loginId,"",displayName,"",phoneNumber,1);
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

@@ -2,12 +2,10 @@ package com.waterlooeventfinder2.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.RootPanel;
-
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.RootPanel;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -15,27 +13,38 @@ import com.google.gwt.user.client.ui.Composite;
 
 public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 
+	/**
+	 * Set initial elements to display
+	 */
 	private void loadMainPage() {
-		
+
 		RootPanel.get("header").clear();
 		RootPanel.get("footer").clear();
 
 		String SessionID = utils.getStringCookie("sid");
-		
-		if (SessionID != null ) {
+
+		if (SessionID != null) {
+			// cookie present, attempt to login
 			checkSessionIdWithSever(SessionID);
 			int userId = utils.getIntCookie("userId");
 
-
 			ContentContainer.getInstance();
 			ContentContainer.setHeader(new ClubHeader(userId));
-		}  else {
+
+			ContentContainer.getInstance();
+			ContentContainer.setContent(new ClubEventsListContent(userId));
+		} else {
+			// not logged in
 			ContentContainer.getInstance();
 			ContentContainer.setHeader(new NormalUserHeader());
+
+			ContentContainer.getInstance();
+			ContentContainer.setContent(new EventsListContent());
 		}
 
 		ContentContainer.getInstance();
-		ContentContainer.setContent(new EventsListContent());
+		ContentContainer.setFooter(new ElementFooter());
+
 	}
 
 	@Override
@@ -57,12 +66,12 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 			@Override
 			public void onSuccess(Integer result) {
 				if (result != 0) {
-					//Window.alert("Login using Session successful: " + result);
+					// set user id to cookie too
 					utils.setCookie("userId", result.toString());
-
-					// TODO: set the user id here
 				} else {
-					//Window.alert("Login Using Session Unsuccessful: " + result);
+					// invalid or expired credentials
+					utils.removeCookie("sid");
+					utils.removeCookie("userId");
 				}
 			}
 

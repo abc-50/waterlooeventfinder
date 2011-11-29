@@ -441,7 +441,6 @@ public class ClubEventDetailContent extends Content {
 
 							}
 						} catch (IllegalArgumentException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					}

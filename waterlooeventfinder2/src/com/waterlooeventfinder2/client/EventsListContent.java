@@ -1,27 +1,19 @@
 package com.waterlooeventfinder2.client;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import sun.net.www.protocol.file.Handler;
-
-import com.google.gwt.cell.client.DateCell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.cellview.client.CellTable;
-import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.SelectionChangeEvent;
@@ -32,9 +24,9 @@ import com.waterlooeventfinder2.shared.Time;
 
 public class EventsListContent extends Content {
 
-	private int selectedCategory;
-	private int selectedTime;
-
+	/**
+	 * Creates a a events list view
+	 */
 	public EventsListContent() {
 		super();
 		if (retrievalService == null) {
@@ -45,56 +37,53 @@ public class EventsListContent extends Content {
 		final ListBox timeBox = new ListBox();
 		CellTable<Event> table = new CellTable<Event>();
 		final ListDataProvider<Event> ldp = new ListDataProvider<Event>();
+		HorizontalPanel hp = new HorizontalPanel();
+		SimplePager pager = new SimplePager();
 
-		// category
+		// Setup category filter
 		GetAllCategories(categoryBox);
 		categoryBox.addChangeHandler(new ChangeHandler() {
 
 			@Override
 			public void onChange(ChangeEvent event) {
 
-				selectedCategory = categoryBox.getSelectedIndex();
-
 				GetEventsByFilter(ldp, categoryBox.getSelectedIndex(),
 						timeBox.getSelectedIndex());
-				// Window.alert("selected category: " + selectedCategory);
 			}
 		});
 
-		panel.add(categoryBox);
+		hp.add(categoryBox);
 
-		// time
+		// Setup time filter
 		GetAllTimes(timeBox);
 		timeBox.addChangeHandler(new ChangeHandler() {
 
 			@Override
 			public void onChange(ChangeEvent event) {
-
-				selectedTime = timeBox.getSelectedIndex();
-
 				GetEventsByFilter(ldp, categoryBox.getSelectedIndex(),
 						timeBox.getSelectedIndex());
-				// Window.alert("selectedTime: " + selectedTime);
 			}
 		});
 
-		panel.add(timeBox);
+		hp.add(timeBox);
 
-		// events
+		// Setup events table
 		SetupCellTable(ldp, table);
-
 		GetAllEvents(ldp);
 
-		// To set the size of the table
-
-		SimplePager pager = new SimplePager();
 		pager.setDisplay(table);
 		pager.firstPage();
+		panel.add(hp);
 		panel.add(table);
 		panel.add(pager);
 
 	}
 
+	/**
+	 * RPC call to retrieve time filter text
+	 * 
+	 * @param timeBox
+	 */
 	private void GetAllTimes(final ListBox timeBox) {
 		if (retrievalService == null) {
 			retrievalService = GWT.create(EventRetrievalService.class);
@@ -108,6 +97,7 @@ public class EventsListContent extends Content {
 			}
 
 			public void onSuccess(ArrayList<Time> results) {
+				// add items to list
 				for (Iterator<Time> i = results.iterator(); i.hasNext();) {
 					timeBox.addItem(i.next().getTimeDisplayValue());
 				}
@@ -115,9 +105,13 @@ public class EventsListContent extends Content {
 		};
 
 		retrievalService.GetAllTime(callback);
-
 	}
 
+	/**
+	 * RPC Call to get category filter text
+	 * 
+	 * @param categoryBox
+	 */
 	private void GetAllCategories(final ListBox categoryBox) {
 		if (retrievalService == null) {
 			retrievalService = GWT.create(EventRetrievalService.class);
@@ -158,6 +152,7 @@ public class EventsListContent extends Content {
 			}
 
 			public void onSuccess(ArrayList<Event> results) {
+				// send results to data provider
 				populateCellTable(ldp, results);
 			}
 		};
@@ -165,6 +160,16 @@ public class EventsListContent extends Content {
 		retrievalService.GetAllEvents(callback);
 	}
 
+	/**
+	 * Populate events list with applied filters
+	 * 
+	 * @param ldp
+	 *            data provider
+	 * @param catFilter
+	 *            category filter int
+	 * @param timeFilter
+	 *            time filter int
+	 */
 	private void GetEventsByFilter(final ListDataProvider<Event> ldp,
 			int catFilter, int timeFilter) {
 		if (retrievalService == null) {
@@ -179,6 +184,7 @@ public class EventsListContent extends Content {
 			}
 
 			public void onSuccess(ArrayList<Event> results) {
+				// send filtered results to data provider
 				populateCellTable(ldp, results);
 			}
 		};
@@ -187,57 +193,11 @@ public class EventsListContent extends Content {
 	}
 
 	/**
-	 * Using a list of events to create a cell table
+	 * Setup table styles
 	 * 
-	 * @param table2
-	 * @param results
-	 *            arraylist of events
+	 * @param dataProvider
+	 * @param table
 	 */
-
-	private void CreateCellTable(ArrayList<Event> results) {
-		CellTable<Event> table = new CellTable<Event>();
-		// To set the size of the table
-		table.setPageSize(5);
-		SimplePager pager = new SimplePager();
-
-		if (results != null) {
-			// short description column
-			TextColumn<Event> nameColumn = new TextColumn<Event>() {
-				@Override
-				public String getValue(Event object) {
-					return object.Name();
-				}
-			};
-
-			// Starting time column
-			DateCell dateCell = new DateCell();
-			Column<Event, Date> startDateColumn = new Column<Event, Date>(
-					dateCell) {
-				@Override
-				public Date getValue(Event object) {
-					return object.getStarHour();
-				}
-			};
-
-			table.addColumn(nameColumn, "Description");
-			table.addColumn(startDateColumn, "Start Time");
-
-			// Style for the list
-			table.setColumnWidth(nameColumn, "40%");
-			table.setColumnWidth(startDateColumn, "30%");
-			table.setStylePrimaryName("StyleTable");
-
-			ListDataProvider<Event> dataProvider = new ListDataProvider<Event>();
-			dataProvider.addDataDisplay(table);
-			pager.setDisplay(table);
-
-			List<Event> list = dataProvider.getList();
-			for (Iterator<Event> i = results.iterator(); i.hasNext();) {
-				list.add(i.next());
-			}
-		}
-	}
-
 	private void SetupCellTable(ListDataProvider<Event> dataProvider,
 			CellTable<Event> table) {
 		table.setPageSize(10);
@@ -254,16 +214,21 @@ public class EventsListContent extends Content {
 		TextColumn<Event> startDateColumn = new TextColumn<Event>() {
 			@Override
 			public String getValue(Event object) {
-				DateTimeFormat dateFormat = DateTimeFormat.getFormat("yyyy-MM-dd HH:mm:ss");
+				DateTimeFormat dateFormat = DateTimeFormat
+						.getFormat("yyyy-MM-dd HH:mm:ss");
 				return dateFormat.format(object.getStarHour());
 			}
 		};
 
-
+		// styling
+		table.setColumnWidth(nameColumn, "50%");
+		table.setColumnWidth(startDateColumn, "30%");
+		table.setStylePrimaryName("styleTable");
 
 		table.addColumn(nameColumn, "Description");
 		table.addColumn(startDateColumn, "Start Time");
 
+		// setup data provider for table
 		dataProvider.addDataDisplay(table);
 
 		final SingleSelectionModel<Event> selectionModel = new SingleSelectionModel<Event>();
@@ -282,8 +247,15 @@ public class EventsListContent extends Content {
 
 	}
 
+	/**
+	 * Using a list of events to populate a data provider
+	 * 
+	 * @param results
+	 *            arraylist of events
+	 */
 	private void populateCellTable(ListDataProvider<Event> dataProvider,
 			ArrayList<Event> results) {
+
 		List<Event> list = dataProvider.getList();
 		list.clear();
 

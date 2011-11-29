@@ -28,11 +28,20 @@ public abstract class Content extends Composite {
 
 	}
 
+	/**
+	 * Accessor to display panel
+	 * @return a vertical panel filled with elements
+	 */
 	public VerticalPanel getPanel() {
 
 		return panel;
 	}
 
+	/**
+	 * Check the stored session Id with the server
+	 * If invalid, then redirect user to the login page, delete invalid cookie
+	 * If valid, do nothing/continue execution
+	 */
 	private void checkSessionIdWithSever() {
 
 		if (retrievalService == null) {
@@ -48,14 +57,10 @@ public abstract class Content extends Composite {
 
 			@Override
 			public void onSuccess(Integer result) {
-				if (result != 0) {
-					//Window.alert("Login using Session successful: " + result);
-				} else {
-					//Window.alert("Login Using Session Unsuccessful: " + result);
-
+				if (result == 0) {
 					Cookies.removeCookie("sid");
-					// ContentContainer.getInstance().setContent(new
-					// LoginContent());
+					ContentContainer.getInstance();
+					ContentContainer.setContent(new LoginContent());
 				}
 			}
 		};

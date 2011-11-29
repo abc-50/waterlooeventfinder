@@ -13,8 +13,6 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
-import com.waterlooeventfinder2.shared.Category;
-import com.waterlooeventfinder2.shared.Event;
 import com.waterlooeventfinder2.shared.TypeUser;
 
 public class AddUserContent extends Content {

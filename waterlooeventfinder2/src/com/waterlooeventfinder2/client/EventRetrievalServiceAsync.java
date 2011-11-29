@@ -2,9 +2,7 @@ package com.waterlooeventfinder2.client;
 
 import java.util.ArrayList;
 
-import com.google.gwt.dev.util.Callback;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.waterlooeventfinder2.shared.Category;
 import com.waterlooeventfinder2.shared.Event;
 import com.waterlooeventfinder2.shared.Time;
@@ -51,9 +49,9 @@ public interface EventRetrievalServiceAsync {
 	void CheckUrl(String website, AsyncCallback<Boolean> callback);
 
 	void getCategoryNameById(int categoryId, AsyncCallback<Category> callback);
-	
-	void AddUserByName(String nameOfUser, String password2,
-			String typeUser, AsyncCallback<String> callback);
+
+	void AddUserByName(String nameOfUser, String password2, String typeUser,
+			AsyncCallback<String> callback);
 
 	void ModifyEvent(int eventId, int userId, String categoryId,
 			String startEvent, String endEvent, String location,

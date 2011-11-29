@@ -72,7 +72,7 @@ public class AdminHeader extends Header {
 	private void CreateLogoutButton() {
 		Button logOutButton = new Button("Logout", new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				// disconnect();
+				logout();
 			}
 		});
 		panel.add(logOutButton);
