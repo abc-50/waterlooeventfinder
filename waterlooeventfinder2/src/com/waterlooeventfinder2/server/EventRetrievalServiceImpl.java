@@ -32,7 +32,7 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 	private static final String URL = "jdbc:mysql://127.0.0.1:3306/";
 	private static final String DB = "eventsfinder";
 	private static final String USER = "root";
-	private static final String PW = "a3z4e5r6";
+	private static final String PW = "1secret";
 	private Calendar c;
 	private SimpleDateFormat dateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd HH:mm:ss");
@@ -46,7 +46,7 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 		ArrayList<Event> rtn = new ArrayList<Event>();
 		c = Calendar.getInstance();
 		String query = String.format(
-				"select * from Event where startTime > '%s'",
+				"select * from Event where startTime > '%s' order by startTime",
 				dateFormat.format(c.getTime()));
 
 		try {
@@ -87,7 +87,7 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 
 		// query string
 		String query = String.format(
-				"select * from Event where category = %d and startTime > '%s'",
+				"select * from Event where category = %d and startTime > '%s' order by startTime",
 				categoryFilter + 1, dateFormat.format(c.getTime()));
 
 		try {

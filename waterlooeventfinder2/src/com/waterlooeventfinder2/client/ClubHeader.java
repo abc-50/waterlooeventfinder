@@ -3,10 +3,11 @@ package com.waterlooeventfinder2.client;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 
 public class ClubHeader extends Header{
-	
+	private DockPanel dp = new DockPanel();
 	/**
 	 * Creates the header content for logged in users
 	 * @param userId User Id of club member
@@ -16,6 +17,9 @@ public class ClubHeader extends Header{
 		MyEventsButton(userId);
 		CreateAddButton(userId);
 		CreateLogoutButton();
+		
+		dp.setStyleName("headerNav");
+		panel.add(dp);
 		
 //		int height = getHeightScreen();
 //		double heightHeader = (double) height/3;
@@ -50,7 +54,7 @@ public class ClubHeader extends Header{
 			}
 		});
 		
-		panel.add(main);		
+		dp.add(main, DockPanel.WEST);		
 		
 	}
 	
@@ -64,8 +68,8 @@ public class ClubHeader extends Header{
 			}
 		});
 		
-		panel.add(myEvents);
-		panel.setCellHorizontalAlignment(myEvents, HasHorizontalAlignment.ALIGN_CENTER);
+		dp.add(myEvents, DockPanel.WEST);
+		dp.setCellHorizontalAlignment(myEvents, HasHorizontalAlignment.ALIGN_LEFT);
 	}
 	
 	private void CreateLogoutButton() {
@@ -74,14 +78,14 @@ public class ClubHeader extends Header{
 				logout();
 			}
 		});
-		panel.add(logOutButton);
-		panel.setCellHorizontalAlignment(logOutButton, HasHorizontalAlignment.ALIGN_RIGHT);
+		dp.add(logOutButton, DockPanel.CENTER);
+		dp.setCellHorizontalAlignment(logOutButton, HasHorizontalAlignment.ALIGN_RIGHT);
 		
 	}
 
 	
 	private void CreateAddButton(final int userId){
-		Button addButton = new Button("Add an event", new ClickHandler() {
+		Button addButton = new Button("New Event", new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
@@ -91,8 +95,8 @@ public class ClubHeader extends Header{
 			}
 		});
 		
-		panel.add(addButton);
-		panel.setCellHorizontalAlignment(addButton, HasHorizontalAlignment.ALIGN_CENTER);
+		dp.add(addButton, DockPanel.WEST);
+		dp.setCellHorizontalAlignment(addButton, HasHorizontalAlignment.ALIGN_LEFT);
 		
 	}
 	

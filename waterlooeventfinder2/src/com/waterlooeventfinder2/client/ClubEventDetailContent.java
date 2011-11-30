@@ -17,6 +17,7 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
@@ -54,6 +55,11 @@ public class ClubEventDetailContent extends Content {
 
 	public ClubEventDetailContent(final int userId, int eventId, String goal) {
 		super();
+		Label editEvent = new Label("Edit Event");
+		editEvent.setStyleName("subHeading");
+		
+		panel.add(editEvent);
+		
 		if (retrievalService == null) {
 			retrievalService = GWT.create(EventRetrievalService.class);
 		}
@@ -241,7 +247,6 @@ public class ClubEventDetailContent extends Content {
 		hpanel.setCellHorizontalAlignment(SaveAndCreateEventButton, HasHorizontalAlignment.ALIGN_CENTER);
 		
 		panel.add(hpanel);
-		hpanel.setStyleName("buttonsClubEvents");
 
 	}
 
@@ -459,8 +464,7 @@ public class ClubEventDetailContent extends Content {
 
 		hpanel.add(SaveAndCreateEventButton);
 		hpanel.setCellHorizontalAlignment(SaveAndCreateEventButton, HasHorizontalAlignment.ALIGN_CENTER);
-		hpanel.setStyleName("buttonsClubEvents");
-		
+
 		panel.add(hpanel);
 	}
 

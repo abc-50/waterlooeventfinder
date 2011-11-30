@@ -8,13 +8,14 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.DockPanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
 import com.google.gwt.user.client.ui.SuggestBox;
 
 public class DeleteUserContent extends Content {
 	
-	HorizontalPanel hpanel = new HorizontalPanel();
+	DockPanel hpanel = new DockPanel();
 	
 	MultiWordSuggestOracle userNameList = new MultiWordSuggestOracle();  
 	
@@ -25,10 +26,13 @@ public class DeleteUserContent extends Content {
 		addElementToSuggestBox(userNameList);
 		createDeleteButton();
 		
-
+		panel.add(hpanel);
 	}
 	
 	private void addElementToSuggestBox(MultiWordSuggestOracle userNameList2) {
+		Label deleteUser = new Label("Delete User");
+		Label un = new Label("User Name: ");
+		
 		if (retrievalService == null) {
 			retrievalService = GWT.create(EventRetrievalService.class);
 		}
@@ -50,14 +54,17 @@ public class DeleteUserContent extends Content {
 				
 			}
 		};
-
+	
 		retrievalService.TakeAllNamesFromUsers(callback);
-		panel.add(userName);
+		
+		
+		deleteUser.setStyleName("subHeading");
+		hpanel.add(deleteUser, DockPanel.NORTH);
+		hpanel.add(un, DockPanel.CENTER);
+		hpanel.add(userName, DockPanel.EAST);
 	}
 
 	private void createDeleteButton() {
-		
-		
 		Button deleteButton = new Button("Delete this user",
 				new ClickHandler() {
 
@@ -66,12 +73,11 @@ public class DeleteUserContent extends Content {
 						final String nameOfUser = userName.getText();					
 						deleteUserByName(nameOfUser);
 					}
-
 					
 				});
 
-		hpanel.add(deleteButton);
-		panel.add(hpanel);
+		
+		hpanel.add(deleteButton, DockPanel.SOUTH);
 
 	}
 	
@@ -88,7 +94,7 @@ public class DeleteUserContent extends Content {
 			}
 
 			public void onSuccess(String result) {
-				Window.alert("The user " + nameOfUser + " and his events are now DELETED");
+				Window.alert("The user " + nameOfUser + " and all events associated with this user are now DELETED");
 			}
 		};
 

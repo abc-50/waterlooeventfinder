@@ -31,6 +31,12 @@ public class EventDetailContent extends Content {
 			retrievalService = GWT.create(EventRetrievalService.class);
 		}
 
+		Label editEvent = new Label("View Event");
+		editEvent.setStyleName("subHeading");
+		
+		panel.add(editEvent);
+		
+		
 		GetEvent(eventId);
 	}
 
@@ -151,7 +157,10 @@ public class EventDetailContent extends Content {
 
 			if (ev.Video() != null) {
 				ft.setText(curRow, 0, "Promotional video: ");
-				ft.setWidget(curRow, 1, new Frame(ev.Video()));
+				Frame ff = new Frame(ev.Video());
+				ff.setHeight("180px");
+				ff.setWidth("240px");
+				ft.setWidget(curRow, 1, ff);
 				curRow++;
 			}
 

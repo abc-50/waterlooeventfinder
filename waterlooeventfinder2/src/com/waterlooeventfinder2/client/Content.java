@@ -36,6 +36,7 @@ public abstract class Content extends Composite {
 	 */
 	public VerticalPanel getPanel() {
 
+		panel.setStyleName("contentPanel");
 		return panel;
 	}
 

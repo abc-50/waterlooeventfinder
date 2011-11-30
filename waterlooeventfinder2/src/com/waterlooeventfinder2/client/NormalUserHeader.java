@@ -28,7 +28,7 @@ public class NormalUserHeader extends Header{
 	}
 	
 	private void CreateLoginButton() {
-		Button login = new Button("Login", new ClickHandler() {
+		Button login = new Button("Sign in", new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {

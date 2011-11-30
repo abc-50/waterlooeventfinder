@@ -3,14 +3,20 @@ package com.waterlooeventfinder2.client;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 
 public class AdminHeader extends Header {
+	DockPanel dp = new DockPanel();
+	
 	public AdminHeader() {
 		CreateMainButton();
 		DeleteUser();
 		AddUser();
 		CreateLogoutButton();
+		
+		dp.setStyleName("headerNav");
+		panel.add(dp);
 	}
 
 	private void DeleteUser() {
@@ -24,9 +30,7 @@ public class AdminHeader extends Header {
 			}
 		});
 
-		panel.add(deleteUser);
-		panel.setCellHorizontalAlignment(deleteUser, HasHorizontalAlignment.ALIGN_CENTER);
-
+		dp.add(deleteUser, DockPanel.WEST);
 	}
 
 	private void AddUser() {
@@ -39,8 +43,7 @@ public class AdminHeader extends Header {
 			}
 		});
 
-		panel.add(addUser);
-		panel.setCellHorizontalAlignment(addUser, HasHorizontalAlignment.ALIGN_CENTER);
+		dp.add(addUser, DockPanel.WEST);
 	}
 
 	private void CreateMainButton() {
@@ -54,7 +57,7 @@ public class AdminHeader extends Header {
 			}
 		});
 
-		panel.add(main);
+		dp.add(main, DockPanel.WEST);
 
 	}
 
@@ -64,8 +67,8 @@ public class AdminHeader extends Header {
 				logout();
 			}
 		});
-		panel.add(logOutButton);
-		panel.setCellHorizontalAlignment(logOutButton, HasHorizontalAlignment.ALIGN_RIGHT);
+		dp.add(logOutButton, DockPanel.CENTER);
+		dp.setCellHorizontalAlignment(logOutButton, HasHorizontalAlignment.ALIGN_RIGHT);
 
 	}
 

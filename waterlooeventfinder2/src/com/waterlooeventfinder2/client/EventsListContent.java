@@ -13,7 +13,9 @@ import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.SelectionChangeEvent;
@@ -37,9 +39,14 @@ public class EventsListContent extends Content {
 		final ListBox timeBox = new ListBox();
 		CellTable<Event> table = new CellTable<Event>();
 		final ListDataProvider<Event> ldp = new ListDataProvider<Event>();
-		HorizontalPanel hp = new HorizontalPanel();
+		DockPanel hp = new DockPanel();
 		SimplePager pager = new SimplePager();
-
+		Label filter = new Label("Filters");
+		Label catLabel =  new Label("Category:");
+		Label timeLabel = new Label("Start Time");
+		
+		filter.setStyleName("subHeading");
+		
 		// Setup category filter
 		GetAllCategories(categoryBox);
 		categoryBox.addChangeHandler(new ChangeHandler() {
@@ -51,8 +58,9 @@ public class EventsListContent extends Content {
 						timeBox.getSelectedIndex());
 			}
 		});
-
-		hp.add(categoryBox);
+		hp.add(filter, DockPanel.NORTH);
+		hp.add(catLabel, DockPanel.WEST);
+		hp.add(categoryBox, DockPanel.WEST);
 
 		// Setup time filter
 		GetAllTimes(timeBox);
@@ -65,12 +73,17 @@ public class EventsListContent extends Content {
 			}
 		});
 
-		hp.add(timeBox);
+		hp.add(timeLabel, DockPanel.WEST);
+		hp.add(timeBox, DockPanel.CENTER);
 
 		// Setup events table
 		SetupCellTable(ldp, table);
 		GetAllEvents(ldp);
 
+		table.setStyleName("contentPanel");
+		hp.setStyleName("contentPanel");
+		
+		pager.setStyleName("pager");
 		pager.setDisplay(table);
 		pager.firstPage();
 		panel.add(hp);

@@ -19,7 +19,7 @@ public class Header extends Composite {
 	}
 
 	public HorizontalPanel getPanel() {
-
+		panel.setStyleName("headerNav");
 		return panel;
 	}
 	

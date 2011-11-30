@@ -11,7 +11,11 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.DockPanel;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.InlineHTML;
+import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -36,14 +40,33 @@ public class LoginContent extends Content {
 		final TextBox loginBox = new TextBox();
 
 		// Add them to the root panel.
-		VerticalPanel vpanel = new VerticalPanel();
-		vpanel.setStyleName("LoginStyle");
-		vpanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+		DockPanel vpanel = new DockPanel();
+//		vpanel.setStyleName("LoginStyle");
+		InlineLabel signIn = new InlineLabel("Sign in");
+		signIn.setStyleName("subHeading");
 		
-		vpanel.add(loginBox);
-		vpanel.add(passwordBox);
+		
+		// user name box
+        FlowPanel nameAndLabel = new FlowPanel(); 
+        InlineLabel label = new InlineLabel("User name"); 
 
-		Button loginButton = new Button("Login", new ClickHandler() {
+        nameAndLabel.add(label); 
+        nameAndLabel.add( new InlineHTML("<br/>") ); 
+        nameAndLabel.add(loginBox); 
+        
+        // password box
+        FlowPanel passwordAndLabel = new FlowPanel(); 
+        InlineLabel label2 = new InlineLabel("Password"); 
+
+        passwordAndLabel.add(label2); 
+        passwordAndLabel.add( new InlineHTML("<br/>") ); 
+        passwordAndLabel.add(passwordBox); 
+        
+        vpanel.add(signIn, DockPanel.NORTH);
+		vpanel.add(nameAndLabel, DockPanel.NORTH);
+		vpanel.add(passwordAndLabel, DockPanel.NORTH);
+
+		Button loginButton = new Button("Sign in", new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				String login = loginBox.getText();
 				String password = passwordBox.getText();
@@ -53,7 +76,8 @@ public class LoginContent extends Content {
 			}
 		});
 
-		vpanel.add(loginButton);
+		vpanel.setStyleName("loginPanel");
+		vpanel.add(loginButton, DockPanel.CENTER);
 		panel.add(vpanel);
 	}
 

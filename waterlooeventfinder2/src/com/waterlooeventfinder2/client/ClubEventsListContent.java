@@ -11,22 +11,23 @@ import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.waterlooeventfinder2.shared.Event;
 
-public class ClubEventsListContent extends Content{
+public class ClubEventsListContent extends Content {
 
-	public ClubEventsListContent(int userId) {		
+	public ClubEventsListContent(int userId) {
 		super();
 		if (retrievalService == null) {
 			retrievalService = GWT.create(EventRetrievalService.class);
 		}
-		
+
 		GetEventByUserId(userId);
-		
+
 	}
 
 	/**
@@ -45,7 +46,7 @@ public class ClubEventsListContent extends Content{
 			}
 
 			public void onSuccess(ArrayList<Event> results) {
-				CreateCellTable(userId, results);				
+				CreateCellTable(userId, results);
 			}
 		};
 
@@ -54,16 +55,19 @@ public class ClubEventsListContent extends Content{
 
 	/**
 	 * Using a list of events to create a cell table
-	 * @param results arraylist of events
+	 * 
+	 * @param results
+	 *            arraylist of events
 	 */
 	private void CreateCellTable(final int userId, ArrayList<Event> results) {
-        
+		DockPanel hp = new DockPanel();
+		Label myEvents = new Label("My Events");
 
 		CellTable<Event> table = new CellTable<Event>();
 		// To set the size of the table
 		table.setPageSize(10);
 		SimplePager pager = new SimplePager();
-		
+
 		if (results != null) {
 			// short description column
 			TextColumn<Event> nameColumn = new TextColumn<Event>() {
@@ -85,40 +89,46 @@ public class ClubEventsListContent extends Content{
 
 			table.addColumn(nameColumn, "Description");
 			table.addColumn(startDateColumn, "Start Time");
-				
+
 			ListDataProvider<Event> dataProvider = new ListDataProvider<Event>();
 			dataProvider.addDataDisplay(table);
 			pager.setDisplay(table);
-			
-			List<Event> list =  dataProvider.getList();
-			for (Iterator<Event> i = results.iterator(); i.hasNext(); ) {
+
+			List<Event> list = dataProvider.getList();
+			for (Iterator<Event> i = results.iterator(); i.hasNext();) {
 				list.add(i.next());
 			}
-			
+
 			final SingleSelectionModel<Event> selectionModel = new SingleSelectionModel<Event>();
 			table.setSelectionModel(selectionModel);
-			selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
-				public void onSelectionChange(SelectionChangeEvent event) {
-					Event selected = selectionModel.getSelectedObject();
-					if (selected != null) {
-						ContentContainer.getInstance();
-						ContentContainer.setContent(new ClubEventDetailContent(userId, selected.getEventId(), "modifyEvent"));
-					}
-				}
-			});
-			
+			selectionModel
+					.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+						public void onSelectionChange(SelectionChangeEvent event) {
+							Event selected = selectionModel.getSelectedObject();
+							if (selected != null) {
+								ContentContainer.getInstance();
+								ContentContainer
+										.setContent(new ClubEventDetailContent(
+												userId, selected.getEventId(),
+												"modifyEvent"));
+							}
+						}
+					});
+
 			pager.firstPage();
-			panel.add(table);
-			panel.add(pager);
 			
+			myEvents.setStyleName("subHeading");
+			hp.setStyleName("contentPanel");
+			table.setStyleName("contentPanel");
+			
+			hp.add(myEvents, DockPanel.NORTH);
+			hp.add(table, DockPanel.NORTH);
+			hp.add(pager, DockPanel.CENTER);
+			panel.add(hp);
+
 		} else {
 			panel.add(new Label("No events available. Please check back later."));
 		}
 	}
-	
-	
-	
-
 
 }
-
