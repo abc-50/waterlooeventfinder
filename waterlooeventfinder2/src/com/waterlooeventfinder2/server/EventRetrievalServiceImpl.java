@@ -32,7 +32,7 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 	private static final String URL = "jdbc:mysql://127.0.0.1:3306/";
 	private static final String DB = "eventsfinder";
 	private static final String USER = "root";
-	private static final String PW = "1secret";
+	private static final String PW = "a3z4e5r6";
 	private Calendar c;
 	private SimpleDateFormat dateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd HH:mm:ss");
@@ -45,9 +45,9 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 
 		ArrayList<Event> rtn = new ArrayList<Event>();
 		c = Calendar.getInstance();
-		String query = String.format(
-				"select * from Event where startTime > '%s' order by startTime",
-				dateFormat.format(c.getTime()));
+		String query = String
+				.format("select * from Event where startTime > '%s' order by startTime",
+						dateFormat.format(c.getTime()));
 
 		try {
 			dbConn = DriverManager.getConnection(URL + DB, USER, PW);
@@ -85,11 +85,17 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 		c = Calendar.getInstance();
 		c.add(Calendar.DATE, GetTimeInDays(timeFilter));
 
+		String query = "";
 		// query string
-		String query = String.format(
-				"select * from Event where category = %d and startTime > '%s' order by startTime",
-				categoryFilter + 1, dateFormat.format(c.getTime()));
-
+		if (categoryFilter == 0) {
+			query = String
+					.format("select * from Event where startTime > '%s' order by startTime",
+							dateFormat.format(c.getTime()));
+		} else {
+			query = String
+					.format("select * from Event where category = %d and startTime > '%s' order by startTime",
+							categoryFilter + 1, dateFormat.format(c.getTime()));
+		}
 		try {
 			dbConn = DriverManager.getConnection(URL + DB, USER, PW);
 
@@ -162,7 +168,8 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 		ArrayList<Event> rtn = new ArrayList<Event>();
 
 		// query
-		String query = String.format("select * from Event where userID = %d",
+		String query = String.format(
+				"select * from Event where userID = %d order by startTime",
 				userId);
 
 		try {
@@ -427,7 +434,7 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 			ResultSet rs = stmt.executeQuery(selectQuery);
 
 			if (rs.next()) {
-				
+
 				rtn.add(rs.getInt("userId"));
 				userId = rs.getInt("userId");
 			}
@@ -436,7 +443,7 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 
 			e.printStackTrace();
 		}
-		
+
 		dbConn = null;
 		String selectUserType = String.format(
 				"SELECT * FROM user where userId = '%d'", userId);
@@ -511,8 +518,6 @@ public class EventRetrievalServiceImpl extends RemoteServiceServlet implements
 			String eventName, String eventWebsite, String eventVideo,
 			String eventPhoneNumber, String eventEmail) {
 		Connection dbConn = null;
-
-		eventPhoneNumber = "510342349";
 
 		String query = String
 				.format("INSERT INTO Event (userID, category, startTime, endTime, location, eventDescription, eventName,"

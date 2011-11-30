@@ -75,14 +75,12 @@ public class Waterlooeventfinder2 extends Composite implements EntryPoint {
 			}
 
 			public void onSuccess(ArrayList<Integer> result) {
-				Window.alert(Integer.toString(result.size()));
 				if (result.size() != 0) {
 					if (result.get(0) != 0) {
 						// set user id to cookie too
 						utils.setCookie("userId", result.get(0).toString());
 						utils.setCookie("userType", result.get(1).toString());
-						Window.alert("Waterlooeventfinder.java -->"
-								+ result.get(1).toString());
+						
 					}
 				} else {
 					// invalid or expired credentials

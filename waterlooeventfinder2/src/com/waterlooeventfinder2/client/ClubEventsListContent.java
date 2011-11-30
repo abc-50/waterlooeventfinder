@@ -116,6 +116,7 @@ public class ClubEventsListContent extends Content {
 					});
 
 			pager.firstPage();
+			pager.setStyleName("pager");
 			
 			myEvents.setStyleName("subHeading");
 			hp.setStyleName("contentPanel");

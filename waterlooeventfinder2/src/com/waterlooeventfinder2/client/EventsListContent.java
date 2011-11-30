@@ -53,7 +53,6 @@ public class EventsListContent extends Content {
 
 			@Override
 			public void onChange(ChangeEvent event) {
-
 				GetEventsByFilter(ldp, categoryBox.getSelectedIndex(),
 						timeBox.getSelectedIndex());
 			}
@@ -139,8 +138,9 @@ public class EventsListContent extends Content {
 
 			public void onSuccess(ArrayList<Category> results) {
 				for (Iterator<Category> i = results.iterator(); i.hasNext();) {
-					categoryBox.addItem(i.next().getCategoryName());
+					categoryBox.addItem(i.next().getCategoryName());				
 				}
+				
 			}
 		};
 

@@ -328,9 +328,10 @@ public class ClubEventDetailContent extends Content {
 
 			public void onSuccess(ArrayList<Category> results) {
 				for (Category categoryResults : results) {
-
+					if (categoryResults.getCategoryId() !=1){
 					category.addItem(categoryResults.getCategoryName(),
 							Integer.toString(categoryResults.getCategoryId()));
+					}
 				}
 				if (event != null) {
 					for (int i = 0; i < category.getItemCount(); i++) {
@@ -445,6 +446,8 @@ public class ClubEventDetailContent extends Content {
 									@Override
 									public void onSuccess(String result) {
 										Window.alert("Event added");
+										ContentContainer.getInstance();
+										ContentContainer.setContent(new ClubEventsListContent(userId));
 
 									}
 								};
@@ -509,7 +512,7 @@ public class ClubEventDetailContent extends Content {
 			String start, String end, String location, String description,
 			String website, String video, String phoneNumber, String email) {
 
-		if (name.length() < 5 || name.length() > 30) {
+		if (name.length() < 5 || name.length() > 60) {
 			Window.alert("Please use between 5 and 30 characters for the name");
 			return false;
 		} else if (location.length() < 5 || name.length() > 150) {
@@ -521,6 +524,12 @@ public class ClubEventDetailContent extends Content {
 		} else if (description.length() < 10 || name.length() > 1000) {
 			Window.alert("Please use between 10 and 1000 characters for the description");
 			return false;
+		} else if (start.length()==0){
+			Window.alert("Please enter the START DATE !");
+			return false;
+		}else if (end.length()==0){
+			Window.alert("Please enter the END DATE!");
+			return false;
 		}
 		// else if (!checkWebsiteUrl(website)) {
 		// Window.alert(website);
@@ -528,14 +537,14 @@ public class ClubEventDetailContent extends Content {
 		// Window.alert("The url for your website is invalid : Please use httpwww.YOUR-WEBSITE.com format");
 		// return false;
 		//
-		// } else if (!verifyYoutubeVideoLink(video)) {
-		// Window.alert("Please insert a correct Youtube Video link ");
-		// videoBox.setText("");
-		// return false;
-		// } else if (!verifyEmail(email)) {
-		// Window.alert("Please insert a correct email");
-		// return false;
-		// }
+		 else if (!verifyYoutubeVideoLink(video)) {
+			 Window.alert("Please insert a correct Youtube Video link ");
+			 videoBox.setText("");
+		 return false;
+		 } else if (email.length()!=0 && !verifyEmail(email)) {
+			 Window.alert("Please insert a correct email");
+		 return false;
+		 }
 		else if (phoneNumber.length() != 0) {
 			//Window.alert(phoneNumber);
 			try {
@@ -653,6 +662,7 @@ public class ClubEventDetailContent extends Content {
 	private void CreateEventDetails() {
 
 		FlexTable ft = new FlexTable();
+		
 		ft.setStyleName("FlexTableStyle");
 		int curRow = 0;
 

@@ -134,12 +134,10 @@ public class LoginContent extends Content {
 			}
 
 			public void onSuccess(ArrayList<Integer> result) {
-				Window.alert(Integer.toString(result.size()));
 				if (result.get(0) != 0) {
 					// set user id to cookie too
 					utils.setCookie("userId", result.get(0).toString());
 					utils.setCookie("userType", result.get(1).toString());
-					Window.alert("LoginContent2.java -->" + result.get(1).toString());
 					int userId = utils.getIntCookie("userId");
 					int userType = utils.getIntCookie("userType");
 					

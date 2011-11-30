@@ -78,7 +78,7 @@ public class EventDetailContent extends Content {
 	private FlexTable CreateEventDetails(final Event ev) {
 		final FlexTable ft = new FlexTable();
 
-		ft.setStyleName("NormalUserEntireTableDescription", true);
+		
 
 		//int curRow = 0;
 
@@ -127,13 +127,14 @@ public class EventDetailContent extends Content {
 
 			if (ev.getStarHour() != null) {
 				ft.setText(curRow, 0, "Start Time: ");
-				ft.setText(curRow, 1, ev.getStarHour().toString());
+				ft.setText(curRow, 1, (ev.getStarHour().toString()).substring(0, 19));
 				curRow++;
 			}
 
 			if (ev.getEndHour() != null) {
 				ft.setText(curRow, 0, "End time: ");
-				ft.setText(curRow, 1, ev.getEndHour().toString());
+				ft.setText(curRow, 1, (ev.getEndHour().toString()).substring(0, 19));
+				
 				curRow++;
 			}
 
@@ -175,13 +176,22 @@ public class EventDetailContent extends Content {
 				ft.setText(curRow, 1, ev.Email());
 				curRow++;
 			}
-
+			
+			ft.setStyleName("ContentFlexTableUser");
+			
 			for (int i = 0; i < ft.getRowCount(); i++) {
 				ft.getFlexCellFormatter().setStyleName(i, 0,
-						"FlexTableNormalUserStyle");
+						"FlexTableNormalUserStyleNameDescription");
+			}
+			
+			for (int i = 0; i < ft.getRowCount(); i++) {
+				ft.getFlexCellFormatter().setStyleName(i, 1,
+						"FlexTableNormalUserStyleColumnDescription");
 			}
 
+			
 		}
+		
 		return ft;
 	}
 }
